@@ -24,9 +24,9 @@ const theme = createMuiTheme();
 
 function CenteredGrid() {
     const classes = useStyles(useTheme());
+    const theme = useTheme();
 
     return (
-
         <div className={classes.root}>
             <Grid container style={{margin:0,width:"100%"}}>
                 <Grid item alignItems="stretch" xs={7} style={{padding:"0",paddingRight:theme.spacing(1), paddingBottom:theme.spacing(2)}}>

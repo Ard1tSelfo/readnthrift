@@ -14,19 +14,6 @@ import Container from "@material-ui/core/Container";
 import { Paper } from "@material-ui/core";
 import BackgroundImage from '../../assets/images/background.jpg';
 
-function Copyright() {
-    return (
-        <Typography variant="body2" color="textSecondary" align="center">
-            {"Copyright © "}
-            <Link color="inherit" >
-                Read 'n' Thrift
-            </Link>{" "}
-            {new Date().getFullYear()}
-            {"."}
-        </Typography>
-    );
-}
-
 const useStyles = (theme) => ({
     paper: {
         marginTop: theme.spacing(8),
@@ -173,6 +160,19 @@ class Login extends Component {
             </div>
         );
     }
+}
+
+function Copyright() {
+    return (
+        <Typography variant="body2" color="textSecondary" align="center">
+            {"Copyright © "}
+            <Link color="inherit" >
+                Read 'n' Thrift
+            </Link>{" "}
+            {new Date().getFullYear()}
+            {"."}
+        </Typography>
+    );
 }
 
 export default withStyles(useStyles)(Login);

@@ -7,7 +7,6 @@ import Register from "./components/loginsystem/Register";
 import TableView from "./components/booklist/TableView";
 import "./styling/App.css";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
-import { Tab } from "@material-ui/core";
 
 const theme = createMuiTheme({
     palette: {
@@ -18,9 +17,9 @@ const theme = createMuiTheme({
             contrastText: "#fff",
         },
         secondary: {
-            light: "#4c8c4a",
-            main: "#1b5e20",
-            dark: "#003300",
+            light: "#ee6d33",
+            main: "#b53d00",
+            dark: "#7f0100",
             contrastText: "#000",
         },
     },
@@ -35,21 +34,19 @@ class App extends Component {
         };
     }
 
-    
-
     render() {
         return (
             <Router>
                 <ThemeProvider theme={theme}>
                     <Route path="/login" component={Login} />
                     <Route path="/register" component={Register} />
-                    <Route path="/dashboard"/>
+                    <Route path="/dashboard" component={Dashboard}/>
 
-                    <div className="App" style={appStyle}>
+                    <div className="App" style={appStyle.background}>
                         <Header/>
                         <div className="Content" style={contentStyle}>
                             {/*<Dashboard/>*/}
-                            <TableView/>
+                            <TableView theme={theme}/>
                         </div>
                     </div>
 
@@ -60,7 +57,16 @@ class App extends Component {
 }
 
 const appStyle = {
-    background: "#f5f5f5",
+    background: {
+        position: "absolute",
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: "100%",
+        background: "#f5f5f5",
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+    },
 };
 const contentStyle = {
     marginLeft: theme.spacing(16),

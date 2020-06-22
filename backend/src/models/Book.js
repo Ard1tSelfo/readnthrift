@@ -21,14 +21,15 @@ const bookSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
-    isbn: {
+    isbn: {  
         type: String,
         required: true,
     },
     pages: {
         type: Number
-    }
+    },
+    
 })
 
 
-module.exports = mongoose.model('Book', bookSchema);
+module.exports = mongoose.model('Book', bookSchema); 

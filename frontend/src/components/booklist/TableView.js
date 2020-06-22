@@ -1,14 +1,19 @@
 import React, { Component } from "react";
 import BookService from "../../services/BookService";
 import { withStyles } from "@material-ui/core/styles";
+import Filters from "./Filters";
+import { Paper } from "@material-ui/core";
+import BooksTable from "./booksTable";
 
 const useStyles = (theme) => ({
     tableView: {
-        marginLeft: "auto",
-        marginRight: "auto",
+        textAlign: "center"
     },
     error: {
         color: "red"
+    },
+    paper: {
+        marginTop: theme.spacing(2)
     }
 });
 
@@ -57,14 +62,18 @@ class TableView extends Component {
         const { classes } = this.props;
         return (
             <div className={classes.tableView}>
-                <h1>Books table</h1>
+                <Filters/>
                 {!!this.state.error && <div className={classes.error}> {this.state.error} </div>}
+
                 {this.state.data.map((book) => (
-                    <h2 key={book._id}>{book.title}</h2>
+                    <h3 key={book._id}>{book.title}</h3>
                 ))}
+
+                {/*<BooksTable/>*/}
+
             </div>
         );
-    }
+    } 
 }
 
 export default withStyles(useStyles)(TableView);

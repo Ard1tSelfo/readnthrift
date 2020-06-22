@@ -25,6 +25,7 @@ const useStyles = makeStyles((theme) => ({
     menuButton: {
         marginRight: theme.spacing(1),
         marginLeft: theme.spacing(1),
+        
     },
     title: {
         display: "none",
@@ -158,16 +159,16 @@ export default function PrimarySearchAppBar() {
                     {/* TODO add header buttons here */}
                     {/* change typography */}
 
-                    <Button className={classes.menuButton} style = {{marginLeft:theme.spacing(0)}} color="secondary">
+                    <Button className={classes.menuButton} style = {{marginLeft:theme.spacing(0)}}>
                         Dashboard
                     </Button>
-                    <Button className={classes.menuButton} color="secondary">
+                    <Button className={classes.menuButton}>
                         My bookshelves
                     </Button>
-                    <Button className={classes.menuButton} color="secondary">
+                    <Button className={classes.menuButton}>
                         Search books
                     </Button>
-                    <Button className={classes.menuButton} color="secondary">
+                    <Button className={classes.menuButton}>
                         Marketplace
                     </Button>
                     <div className={classes.search}>
@@ -185,7 +186,7 @@ export default function PrimarySearchAppBar() {
                     </div>
                     <div className={classes.grow} />
                     <div className={classes.sectionDesktop}>
-                        <IconButton aria-label="show 2 new notifications" color="inherit">
+                        <IconButton aria-label="show new notifications" color="inherit">
                             <Badge badgeContent={2} color="secondary">
                                 <NotificationsIcon />
                             </Badge>
