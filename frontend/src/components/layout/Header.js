@@ -158,7 +158,7 @@ export default function PrimarySearchAppBar() {
                     {/* TODO add header buttons here */}
                     {/* change typography */}
 
-                    <Button className={classes.menuButton} color="secondary">
+                    <Button className={classes.menuButton} style = {{marginLeft:theme.spacing(0)}} color="secondary">
                         Dashboard
                     </Button>
                     <Button className={classes.menuButton} color="secondary">

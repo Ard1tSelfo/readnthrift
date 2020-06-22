@@ -25,6 +25,16 @@ const userSchema = mongoose.Schema({
             }
         }
     },
+    /*role: {
+        type: String,
+        enum: ['Reader', 'Local bookstore'],
+        //required: true
+    },
+    userProfile :{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Todo',
+        //required: true
+    },*/
     password: {
         type: String,
         required: true,
