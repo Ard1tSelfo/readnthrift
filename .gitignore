@@ -6,6 +6,10 @@
 /backend/node_modules
 /.pnp
 .pnp.js
+/backend/package-lock.json
+/backend/package.json
+/frontend/package-lock.json
+/frontend/package.json
 
 # testing
 /coverage
