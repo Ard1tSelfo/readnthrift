@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const { Int32 } = require('mongodb');
 
 const bookSchema = new mongoose.Schema({
     title: {
@@ -14,22 +13,20 @@ const bookSchema = new mongoose.Schema({
     },
     genre: {
         type: String,
-        required: true,
     },
     publisher: {
         type: String,
-        required: true,
         trim: true
     },
     isbn: {  
         type: String,
-        required: true,
     },
     pages: {
         type: Number
     },
-    
+    publication: {
+        type: Number
+    }
 })
-
 
 module.exports = mongoose.model('Book', bookSchema); 
