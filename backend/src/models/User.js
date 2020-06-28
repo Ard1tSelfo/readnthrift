@@ -49,7 +49,6 @@ const userSchema = mongoose.Schema({
         ref: 'Review',
         required: true
     },*/
-    }
     tokens: [{
         token: {
             type: String,

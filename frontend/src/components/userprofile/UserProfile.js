@@ -25,7 +25,7 @@ function CenteredGrid() {
 
   return (
     <div className={classes.root}>
-      <Grid container spacing={3} style={{margin:2,spacing:3, width:"100%"}}>
+      <Grid container spacing={3} style={{margin:2, width:"100%"}}>
         <Grid item xs={12}>
           <Paper className={classes.paper}>
             <h>User name</h>
