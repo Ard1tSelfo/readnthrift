@@ -55,4 +55,108 @@ router.post('/users/me/logoutall', auth, async(req, res) => {
     }
 })
 
+// Maybe this has to be put in a seperate file
+// https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/routes
+
+router.get('/users/me', function (req, res) {
+    try {
+        
+    } catch (error) {
+        res.status(500).send(error)
+    }
+})
+
+router.post('/users/me', function (req, res) {
+    try {
+        
+    } catch (error) {
+        res.status(500).send(error)
+    }
+})
+
+router.get('/users/:userID', function (req, res) {
+    try {
+        // Access userId via: req.params.userID
+    } catch (error) {
+        res.status(500).send(error)
+    }
+})
+
+router.post('/users/:userID', function (req, res) {
+    try {
+        // Access userId via: req.params.userID
+    } catch (error) {
+        res.status(500).send(error)
+    }
+})
+
+router.get('/user/:userID/booklists', function (req, res) {
+    try {
+        // Access userId via: req.params.userID
+    } catch (error) {
+        res.status(500).send(error)
+    }
+})
+
+router.post('/user/:userID/booklists', function (req, res) {
+    try {
+        // Access userId via: req.params.userID
+    } catch (error) {
+        res.status(500).send(error)
+    }
+})
+
+router.get('/user/:userID/booklists/:booklistID', function (req, res) {
+    try {
+        // Access userId via: req.params.userID
+        // Access booklistID via: req.params.booklistID
+    } catch (error) {
+        res.status(500).send(error)
+    }
+})
+
+router.post('/user/:userID/booklists/:booklistID', function (req, res) {
+    try {
+        // Access userId via: req.params.userID
+        // Access booklistID via: req.params.booklistID
+    } catch (error) {
+        res.status(500).send(error)
+    }
+})
+
+/*router.get('/user/:userID/reviews', function (req, res) {
+try {
+        // Access userId via: req.params.userID
+    } catch (error) {
+        res.status(500).send(error)
+    }
+})
+
+router.post('/user/:userID/reviews', function (req, res) {
+try {
+        // Access userId via: req.params.userID
+    } catch (error) {
+        res.status(500).send(error)
+    }
+})
+
+router.get('/user/:userID/reviews/:reviewID', function (req, res) {
+try {
+        // Access userId via: req.params.userID
+        // Access reviewId via: req.params.reviewID
+    } catch (error) {
+        res.status(500).send(error)
+    }
+})
+
+router.post('/user/:userID/reviews/:reviewID', function (req, res) {
+try {
+        // Access userId via: req.params.userID
+        // Access reviewId via: req.params.reviewID
+    } catch (error) {
+        res.status(500).send(error)
+    }
+
+})*/
+
 module.exports = router
