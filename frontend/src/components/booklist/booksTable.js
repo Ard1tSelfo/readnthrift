@@ -23,18 +23,16 @@ const useRowStyles = makeStyles({
     },
 });
 
-function createData(name, calories, fat, carbs, protein, price) {
+function createData(isbn, title, author, categories, nr_of_pages, buy_link, description, show_offers) {
     return {
-        name,
-        calories,
-        fat,
-        carbs,
-        protein,
-        price,
-        history: [
-            { date: "2020-01-05", customerId: "11091700", amount: 3 },
-            { date: "2020-01-02", customerId: "Anonymous", amount: 1 },
-        ],
+        isbn,
+        title,
+        author,
+        categories,
+        nr_of_pages,
+        buy_link,
+        description,
+        show_offers
     };
 }
 
@@ -54,7 +52,7 @@ function Row(props) {
                 <TableCell component="th" scope="row">
                     {row.name}
                 </TableCell>
-                <TableCell align="right">{row.calories}</TableCell>
+                <TableCell align="right">{row.title}</TableCell>
                 <TableCell align="right">{row.fat}</TableCell>
                 <TableCell align="right">{row.carbs}</TableCell>
                 <TableCell align="right">{row.protein}</TableCell>

@@ -4,17 +4,18 @@ import { withStyles } from "@material-ui/core/styles";
 import Filters from "./Filters";
 import { Paper } from "@material-ui/core";
 import BooksTable from "./booksTable";
+import BrowseBooksTable from "./browseBooksTable";
 
 const useStyles = (theme) => ({
     tableView: {
-        textAlign: "center"
+        textAlign: "center",
     },
     error: {
-        color: "red"
+        color: "red",
     },
     paper: {
-        marginTop: theme.spacing(2)
-    }
+        marginTop: theme.spacing(2),
+    },
 });
 
 class TableView extends Component {
@@ -62,18 +63,12 @@ class TableView extends Component {
         const { classes } = this.props;
         return (
             <div className={classes.tableView}>
-                <Filters/>
+                <Filters />
                 {!!this.state.error && <div className={classes.error}> {this.state.error} </div>}
-
-                {this.state.data.map((book) => (
-                    <h3 key={book._id}>{book.title}</h3>
-                ))}
-
-                {/*<BooksTable/>*/}
-
+                <BrowseBooksTable data={this.state.data}/>
             </div>
         );
-    } 
+    }
 }
 
 export default withStyles(useStyles)(TableView);
