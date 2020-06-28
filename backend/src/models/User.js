@@ -35,6 +35,21 @@ const userSchema = mongoose.Schema({
         required: true,
         minLength: 7
     },
+    profileDescription: {
+        type: String,
+        required: true
+    },
+    booklists: {
+        type: [mongoose.Schema.Types.ObjectId],
+        ref: 'BookList',
+        required: true
+    },
+    /*reviews: {
+        type: [mongoose.Schema.Types.ObjectId],
+        ref: 'Review',
+        required: true
+    },*/
+    }
     tokens: [{
         token: {
             type: String,
