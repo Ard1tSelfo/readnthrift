@@ -1,9 +1,9 @@
-const BookShelfModel = require("../models/BookList");
+const BookShelfModel = require("../models/BookShelf");
 
 const bookshelflist = async (req, res) => {
     try {
-        let bookLShelfs = await BookShelfModel.find({}).exec();
-        return res.status(200).json(bookLShelfs);
+        let bookShelfs = await BookShelfModel.find({}).exec();
+        return res.status(200).json(bookShelfs);
     } catch (err) {
         return res.status(500).json({
             error: "Internal server error",
