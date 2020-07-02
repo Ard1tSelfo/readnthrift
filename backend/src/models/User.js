@@ -39,9 +39,9 @@ const userSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    booklists: {
+    bookshelfs: {
         type: [mongoose.Schema.Types.ObjectId],
-        ref: 'BookList',
+        ref: 'BookShelf',
         required: true
     },
     /*reviews: {
