@@ -1,10 +1,9 @@
-// Review model required
-/*const ReviewModel = require("../models/Review");
+const BookShelfModel = require("../models/BookShelf");
 
-const reviewlist = async (req, res) => {
+const bookshelflist = async (req, res) => {
     try {
-        let reviews = await ReviewModel.find({}).exec();
-        return res.status(200).json(reviews);
+        let bookShelfs = await BookShelfModel.find({}).exec();
+        return res.status(200).json(bookShelfs);
     } catch (err) {
         return res.status(500).json({
             error: "Internal server error",
@@ -13,14 +12,14 @@ const reviewlist = async (req, res) => {
     }
 };
 
-const createreview = async (req, res) => {
+const createbookshelf = async (req, res) => {
     if (Object.keys(req.body).length === 0) return res.status(400).json({
         error: 'Bad Request',
         message: 'The request body is empty'
     });
     try {
-      let review = await ReviewModel.create(req.body);
-      return res.status(201).json(review)
+      let bookShelf = await BookShelfModel.create(req.body);
+      return res.status(201).json(bookShelf)
     } catch(err) {
       return res.status(500).json({
         error: 'Internal server error',
@@ -30,6 +29,6 @@ const createreview = async (req, res) => {
 };
 
 module.exports = {
-    reviewlist,
-    createreview
-}*/
+    bookshelflist,
+    createbookshelf
+}

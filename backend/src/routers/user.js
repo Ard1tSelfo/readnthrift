@@ -90,7 +90,7 @@ router.post('/users/:userID', function (req, res) {
     }
 })
 
-router.get('/user/:userID/booklists', function (req, res) {
+router.get('/user/:userID/bookshelfs', function (req, res) {
     try {
         // Access userId via: req.params.userID
     } catch (error) {
@@ -98,7 +98,7 @@ router.get('/user/:userID/booklists', function (req, res) {
     }
 })
 
-router.post('/user/:userID/booklists', function (req, res) {
+router.post('/user/:userID/bookshelfs', function (req, res) {
     try {
         // Access userId via: req.params.userID
     } catch (error) {
@@ -106,19 +106,19 @@ router.post('/user/:userID/booklists', function (req, res) {
     }
 })
 
-router.get('/user/:userID/booklists/:booklistID', function (req, res) {
+router.get('/user/:userID/bookshelfs/:bookshelfID', function (req, res) {
     try {
         // Access userId via: req.params.userID
-        // Access booklistID via: req.params.booklistID
+        // Access booklshelfID via: req.params.bookshelfID
     } catch (error) {
         res.status(500).send(error)
     }
 })
 
-router.post('/user/:userID/booklists/:booklistID', function (req, res) {
+router.post('/user/:userID/bookshelfs/:bookshelfID', function (req, res) {
     try {
         // Access userId via: req.params.userID
-        // Access booklistID via: req.params.booklistID
+        // Access bookshelfID via: req.params.bookshelfID
     } catch (error) {
         res.status(500).send(error)
     }
