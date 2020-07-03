@@ -2,6 +2,7 @@ const express = require('express')
 
 const userRouter = require('./routers/user')
 const bookRouter = require('./routers/book')
+const reviewRouter = require('./routers/review')
 
 const cors = require('cors')
 const port = process.env.PORT
@@ -15,6 +16,7 @@ app.use(express.json())
 app.use(cookieParser())
 app.use(userRouter)
 app.use(bookRouter)
+app.use(reviewRouter)
 
 
 app.listen(port, () => {
