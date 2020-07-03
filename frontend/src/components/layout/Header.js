@@ -4,6 +4,7 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
+import { Link } from 'react-router-dom'
 import InputBase from "@material-ui/core/InputBase";
 import Badge from "@material-ui/core/Badge";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -159,13 +160,14 @@ export default function PrimarySearchAppBar() {
                     {/* TODO add header buttons here */}
                     {/* change typography */}
 
-                    <Button className={classes.menuButton} style = {{marginLeft:theme.spacing(0)}}>
+                    <Button component={Link} to="/dashboard" className={classes.menuButton} 
+                            style = {{marginLeft:theme.spacing(0)}}>
                         Dashboard
                     </Button>
                     <Button className={classes.menuButton}>
                         My bookshelves
                     </Button>
-                    <Button className={classes.menuButton}>
+                    <Button className={classes.menuButton} component={Link} to="/browsebooks">
                         Search books
                     </Button>
                     <Button className={classes.menuButton}>
