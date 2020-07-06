@@ -20,4 +20,14 @@ export default class BookService {
             console.log(error);
         }
     }
+
+    static getBook(title) {
+        try {
+            axios.get(title).then(
+                function (response) {console.log(response);
+  })
+        } catch (error) {
+            console.log(error);
+        }
+    }
 }
