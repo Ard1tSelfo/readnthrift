@@ -1,6 +1,5 @@
 import axios from "axios";
 
-// TODO: make axios global to set this for each request - even in other services
 axios.interceptors.request.use(config => {
     const token = localStorage.getItem("token");
     if (token) {
@@ -9,15 +8,20 @@ axios.interceptors.request.use(config => {
     return config;
 });
 
-export default class BookService {
+export default class UserService {
     
-    static async getAllBooks() {
+    static async getCurrentUser() {
         try {
-            const res = await axios.get("http://localhost:5000/books");
+            const res = await axios.get("http://localhost:5000/users/me");
             console.log(res)
             return res.data
         } catch (error) {
             console.log(error);
-        }
+        } 
     }
+
+    static isAuthenticated() {
+        return !!window.localStorage['token'];
+    }
+
 }

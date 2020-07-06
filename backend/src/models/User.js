@@ -25,11 +25,11 @@ const userSchema = mongoose.Schema({
             }
         }
     },
-    /*role: {
+    role: {
         type: String,
         enum: ['Reader', 'Local bookstore'],
-        //required: true
-    },*/
+        required: true
+    },
     password: {
         type: String,
         required: true,
@@ -37,12 +37,11 @@ const userSchema = mongoose.Schema({
     },
     profileDescription: {
         type: String,
-        required: true
+        required: false
     },
     bookshelfs: {
         type: [mongoose.Schema.Types.ObjectId],
         ref: 'BookShelf',
-        required: true
     },
     /*reviews: {
         type: [mongoose.Schema.Types.ObjectId],

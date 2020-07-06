@@ -86,7 +86,7 @@ class Register extends Component {
         });
     };
 
-    onSubmit = (event) => {
+    onSubmit = async (event) => {
         event.preventDefault();
 
         const userInput = {
@@ -97,7 +97,13 @@ class Register extends Component {
             role: this.state.role
         };
 
-        axios.post("http://localhost:5000/users", userInput).then((res) => console.log(res.data));
+        try {
+            const response = await axios.post("http://localhost:5000/users", userInput);
+            localStorage.setItem("token", response.data.token); // TODO: DESTORY TOKEN AT LOGOUT localStorage.destroyItem("token")
+            console.log(response);
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     componentDidMount() {}

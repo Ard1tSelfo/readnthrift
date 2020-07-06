@@ -12,7 +12,7 @@ import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { Paper } from "@material-ui/core";
-import BackgroundImage from '../../assets/images/background.jpg';
+import BackgroundImage from "../../assets/images/background.jpg";
 
 const useStyles = (theme) => ({
     paper: {
@@ -26,19 +26,18 @@ const useStyles = (theme) => ({
         marginLeft: "auto",
         marginRight: "auto",
         opacity: "95%",
-        borderRadius: "25px"
-        
+        borderRadius: "25px",
     },
     avatar: {
         margin: theme.spacing(1),
-        backgroundColor: theme.palette.secondary.main
+        backgroundColor: theme.palette.secondary.main,
     },
     form: {
         width: "100%", // Fix IE 11 issue.
         marginTop: theme.spacing(1),
     },
     submit: {
-        margin: theme.spacing(3, 0, 2)
+        margin: theme.spacing(3, 0, 2),
     },
     background: {
         position: "absolute",
@@ -49,7 +48,7 @@ const useStyles = (theme) => ({
         backgroundImage: `url(${BackgroundImage})`,
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
-    }
+    },
 });
 
 class Login extends Component {
@@ -61,14 +60,14 @@ class Login extends Component {
 
         this.state = {
             email: "",
-            password: ""
+            password: "",
         };
     }
 
     handleInputChange = (event) => {
         const { value, name } = event.target;
         this.setState({
-            [name]: value
+            [name]: value,
         });
     };
 
@@ -77,12 +76,18 @@ class Login extends Component {
 
         const userInput = {
             email: this.state.email,
-            password: this.state.password
+            password: this.state.password,
         };
 
         try {
             const res = await axios.post("http://localhost:5000/users/login", userInput);
-            console.log(res);
+            localStorage.setItem("token", res.data.token);
+            if (res.status === 200) {
+                this.props.history.push("/dashboard");
+            } else {
+                const error = new Error(res.error);
+                throw error;
+            }
         } catch (error) {
             console.log(error);
         }
@@ -93,7 +98,7 @@ class Login extends Component {
     render() {
         const { classes } = this.props;
         return (
-            <div className={classes.background} style={{minHeight: "100%", paddingTop: "5%"}}>
+            <div className={classes.background} style={{ minHeight: "100%", paddingTop: "5%" }}>
                 <CssBaseline />
                 <Paper elevation={2} className={classes.paper}>
                     <Avatar className={classes.avatar}>
@@ -166,10 +171,7 @@ function Copyright() {
     return (
         <Typography variant="body2" color="textSecondary" align="center">
             {"Copyright © "}
-            <Link color="inherit" >
-                Read 'n' Thrift
-            </Link>{" "}
-            {new Date().getFullYear()}
+            <Link color="inherit">Read 'n' Thrift</Link> {new Date().getFullYear()}
             {"."}
         </Typography>
     );

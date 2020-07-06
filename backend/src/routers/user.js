@@ -1,6 +1,7 @@
 const express = require('express')
 const User = require('../models/User')
 const auth = require('../middleware/auth')
+const UserController = require('../controllers/user');
 
 const router = express.Router()
 
@@ -55,10 +56,12 @@ router.post('/users/me/logoutall', auth, async(req, res) => {
     }
 })
 
+router.get('/users/me', UserController.getUserByToken); 
+
 // Maybe this has to be put in a seperate file
 // https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/routes
 
-router.get('/users/me', function (req, res) {
+/*router.get('/users/me', function (req, res) {
     try {
         
     } catch (error) {
@@ -122,7 +125,7 @@ router.post('/user/:userID/bookshelfs/:bookshelfID', function (req, res) {
     } catch (error) {
         res.status(500).send(error)
     }
-})
+})*/
 
 /*router.get('/user/:userID/reviews', function (req, res) {
 try {
