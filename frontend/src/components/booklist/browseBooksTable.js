@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import MaterialTable from "material-table";
 import { withStyles, useTheme } from "@material-ui/core/styles";
 import { forwardRef } from "react";
-
+import { withRouter } from 'react-router-dom';
 import AddBox from "@material-ui/icons/AddBox";
 import ArrowDownward from "@material-ui/icons/ArrowDownward";
 import Check from "@material-ui/icons/Check";
@@ -42,12 +42,24 @@ const tableIcons = {
 const useStyles = (theme) => ({
     table: {
         marginTop: theme.spacing(2),
+        marginBottom: theme.spacing(2)
     },
 });
 
 class BrowseBooksTable extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            loading: false,
+        };
+    }
+
+    handleRowClick = (event, rowData) => {
+        this.props.history.push(`/books/${rowData._id}`);
+    }
+
     render() {
-        const { classes } = this.props;
+        const { router, params, location, routes, classes } = this.props
         return (
             <div className={classes.table}>
                 <MaterialTable
@@ -72,10 +84,13 @@ class BrowseBooksTable extends Component {
                         { title: "Publication year", field: "publication", type: "numeric" },
                     ]}
                     data={this.props.data}
+                    onRowClick={this.handleRowClick}
                     title="All books"
+                    isLoading={this.props.loading}
                     options={{}}
                     actions={[
                         {
+                            title: "",
                             icon: tableIcons.Add,
                             tooltip: "Add to bookshelf",
                             onClick: (event, rowData) =>
@@ -88,4 +103,4 @@ class BrowseBooksTable extends Component {
     }
 }
 
-export default withStyles(useStyles)(BrowseBooksTable);
+export default withRouter(withStyles(useStyles)(BrowseBooksTable));

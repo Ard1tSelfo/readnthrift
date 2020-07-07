@@ -2,9 +2,8 @@ import React, { Component } from "react";
 import BookService from "../../services/BookService";
 import { withStyles } from "@material-ui/core/styles";
 import Filters from "./Filters";
-import { Paper } from "@material-ui/core";
-import BooksTable from "./booksTable";
 import BrowseBooksTable from "./browseBooksTable";
+import UserService from "../../services/UserService";
 
 const useStyles = (theme) => ({
     tableView: {
@@ -14,7 +13,8 @@ const useStyles = (theme) => ({
         color: "red",
     },
     paper: {
-        marginTop: theme.spacing(2),
+        //marginTop: theme.spacing(2),
+        marginBottom: theme.spacing(2),
     },
 });
 
@@ -25,6 +25,7 @@ class TableView extends Component {
             loading: false,
             data: [],
             error: null,
+            user: null,
         };
     }
 
@@ -35,7 +36,9 @@ class TableView extends Component {
 
         try {
             const books = await BookService.getAllBooks();
+            const user = await UserService.getCurrentUser();
             this.setState({
+                user: user,
                 data: [...books],
                 loading: false,
             });
@@ -45,27 +48,16 @@ class TableView extends Component {
                 error: error,
             });
         }
-
-        /* BookService.getAllBooks()
-            .then((data) => {
-                this.setState({
-                    data: [...data],
-                    loading: false,
-                    //error: "fuck"
-                });
-            })
-            .catch((e) => {
-                console.error(e);
-            });*/
     }
 
     render() {
         const { classes } = this.props;
+        const { router, params, location, routes } = this.props
         return (
             <div className={classes.tableView}>
                 <Filters />
                 {!!this.state.error && <div className={classes.error}> {this.state.error} </div>}
-                <BrowseBooksTable data={this.state.data}/>
+                <BrowseBooksTable data={this.state.data} loading={this.state.loading} />
             </div>
         );
     }
