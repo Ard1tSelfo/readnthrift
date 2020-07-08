@@ -40,10 +40,10 @@ const updatebookshelf = async (req, res) => {
             message: "The request body is empty",
         });
     try {
-        let bookshelf = await BookshelfModel.create(req.body);
-        let user = await UserModel.findById(req.body.user)
-        user.bookshelves = [...user.bookshelves, bookshelf]
-        user.save()
+        let bookshelf = await BookshelfModel.findByIdAndUpdate(req.params.id, req.body, {
+            new: true,
+            runValidators: true
+          }).exec();
         return res.status(201).json(bookshelf);
     } catch (err) {
         return res.status(500).json({
