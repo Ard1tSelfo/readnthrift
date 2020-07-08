@@ -3,6 +3,7 @@ const router   = express.Router();
 const BookshelfController = require('../controllers/bookshelf');
 const auth = require('../middleware/auth');
 
-router.post('/users/me/bookshelves', BookshelfController.createbookshelf); // Create a new bookshelf
+router.post('/users/me/bookshelves', BookshelfController.createbookshelf); 
+router.put('/users/me/bookshelves/:id', BookshelfController.updatebookshelf); 
 
 module.exports = router;
