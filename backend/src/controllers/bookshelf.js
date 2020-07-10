@@ -3,7 +3,7 @@ const UserModel = require("../models/User");
 
 const bookshelflist = async (req, res) => {
     try {
-        let bookshelves = await BookshelfModel.find({"user" : req.body.user}).exec();
+        let bookshelves = await BookshelfModel.find({"user" : req.params.userid}).exec();
         return res.status(200).json(bookshelves);
     } catch (err) {
         return res.status(500).json({
