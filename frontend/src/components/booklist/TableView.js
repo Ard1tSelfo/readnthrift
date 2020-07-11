@@ -57,7 +57,7 @@ class TableView extends Component {
             <div className={classes.tableView}>
                 <Filters />
                 {!!this.state.error && <div className={classes.error}> {this.state.error} </div>}
-                <BrowseBooksTable data={this.state.data} loading={this.state.loading} />
+                <BrowseBooksTable data={this.state.data} loading={this.state.loading}/>
             </div>
         );
     }

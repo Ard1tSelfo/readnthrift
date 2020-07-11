@@ -71,11 +71,19 @@ const useStyles = (theme) => ({
 class BrowseBooksTable extends Component {
     constructor(props) {
         super(props);
+
+        this.handleAddBookSubmit = this.handleAddBookSubmit.bind(this);
+        this.handleInputChange = this.handleInputChange.bind(this);
+
         this.state = {
             loading: false,
             modalOpen: false,
             book: null,
-            bookshelves: null
+            bookshelves: null,
+            selectedBookshelf: {
+                id: null,
+                name: null
+            }
         };
     }
  
@@ -116,6 +124,32 @@ class BrowseBooksTable extends Component {
             modalOpen: false,
         });
     };
+
+    handleInputChange = (event) => {
+        this.setState({
+            selectedBookshelf: {
+                id: event.target.value,
+                name: event.target.name
+            }
+        });
+    };
+
+    handleAddBookSubmit = async (event) => {
+        event.preventDefault();
+
+        const requestBody = {
+            books: this.state.book
+        };
+        try {
+            await BookshelfService.addBookToBookshelf(this.state.selectedBookshelf.id, requestBody);
+            this.handleCloseModal();
+            alert(`"${this.state.book.title}" has been added to your selected bookshelf !`  )
+        } catch (error) {
+            this.setState({
+                error: error,
+            });
+        }
+    }
  
     render() {
         const { router, params, location, routes, classes } = this.props
@@ -168,7 +202,7 @@ class BrowseBooksTable extends Component {
                             <Select
                                 labelId="selectBookshelf"
                                 id="select-bookshelf"
-                                value={this.state.role}
+                                value={!this.state.selectedBookshelf.id ? "default" : this.state.selectedBookshelf.id}
                                 onChange={this.handleInputChange}
                                 label="Select bookshelf"
                                 required
@@ -176,7 +210,7 @@ class BrowseBooksTable extends Component {
                                 style={{ width: "100%" }}
                             >
                                 {!!this.state.bookshelves && this.state.bookshelves.map((booksh, i) =>
-                                <MenuItem key={i} value={booksh._id}>{booksh.name}</MenuItem>)}
+                                <MenuItem key={i} value={booksh._id} name={booksh.name}>{booksh.name}</MenuItem>)}
  
                             </Select>
                             <Button
@@ -184,6 +218,7 @@ class BrowseBooksTable extends Component {
                                 variant="contained"
                                 color="primary"
                                 disableElevation
+                                onClick={this.handleAddBookSubmit}
                             >
                                 Add book
                             </Button>

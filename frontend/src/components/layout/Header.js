@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
     menuButton: {
         marginRight: theme.spacing(1),
         marginLeft: theme.spacing(1),
-        
+        color: "white"
     },
     title: {
         display: "none",
@@ -157,8 +157,6 @@ export default function PrimarySearchAppBar() {
             <AppBar position="sticky" >
                 <Toolbar className={classes.toolbar} variant="dense">
                     {/* TODO add logo */}
-                    {/* TODO add header buttons here */}
-                    {/* change typography */}
 
                     <Button component={Link} to="/dashboard" className={classes.menuButton} 
                             style = {{marginLeft:theme.spacing(0)}}>
