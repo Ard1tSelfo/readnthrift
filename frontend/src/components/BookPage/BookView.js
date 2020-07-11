@@ -50,13 +50,21 @@ const useStyles = (theme) => ({
 class BookView extends Component {
     constructor(props) {
         super(props);
+
+        this.handleAddBookSubmit = this.handleAddBookSubmit.bind(this);
+        this.handleInputChange = this.handleInputChange.bind(this);
+
         this.state = {
             loading: false,
             book: null,
             error: null,
             user: null,
             modalOpen: false,
-            bookshelves: null
+            bookshelves: null,
+            selectedBookshelf: {
+                id: null,
+                name: null
+            }
         };
     }
 
@@ -69,7 +77,6 @@ class BookView extends Component {
             const book = await BookService.getBookById(this.props.match.params.bookid);
             const user = await UserService.getCurrentUser();
             const bookshelves = await BookshelfService.getBookshelvesByUser(user._id);
-            console.log(bookshelves)
             this.setState({
                 user: user,
                 book: book,
@@ -77,7 +84,6 @@ class BookView extends Component {
                 bookshelves: bookshelves
             });
         } catch (error) {
-            //error.message
             this.setState({
                 error: error,
             });
@@ -95,6 +101,32 @@ class BookView extends Component {
             modalOpen: false,
         });
     };
+
+    handleInputChange = (event) => {
+        this.setState({
+            selectedBookshelf: {
+                id: event.target.value,
+                name: event.target.name
+            }
+        });
+    };
+
+    handleAddBookSubmit = async (event) => {
+        event.preventDefault();
+
+        const requestBody = {
+            books: this.state.book._id
+        };
+        try {
+            await BookshelfService.addBookToBookshelf(this.state.selectedBookshelf.id, requestBody);
+            this.handleCloseModal();
+            alert(`"${this.state.book.title}" has been added to your selected bookshelf !`  )
+        } catch (error) {
+            this.setState({
+                error: error,
+            });
+        }
+    }
 
     render() {
         const { classes } = this.props;
@@ -171,25 +203,24 @@ class BookView extends Component {
                                 Which bookshelf would you like to add the book to?
                             </Typography>
                             <Select
-                                labelId="selectBookshelf"
                                 id="select-bookshelf"
-                                value={this.state.role}
+                                value={!this.state.selectedBookshelf.id ? "default" : this.state.selectedBookshelf.id}
                                 onChange={this.handleInputChange}
                                 label="Select bookshelf"
-                                name="role"
+                                name={this.state.selectedBookshelf.name}
                                 required
                                 variant="outlined"
                                 style={{ width: "100%" }}
                             >
                                 {!!this.state.bookshelves && this.state.bookshelves.map((booksh, i) => 
-                                <MenuItem key={i} value={booksh._id}>{booksh.name}</MenuItem>)}
-
+                                <MenuItem key={i} value={booksh._id} name={booksh.name}>{booksh.name}</MenuItem>)}
                             </Select>
                             <Button
                                 className={classes.button}
                                 variant="contained"
                                 color="primary"
                                 disableElevation
+                                onClick={this.handleAddBookSubmit}
                             >
                                 Add book
                             </Button>

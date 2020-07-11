@@ -18,4 +18,13 @@ export default class BookshelfService {
             console.log(error);
         }
     }
+
+    static async addBookToBookshelf(bookshelfId, book) {
+        try {
+            const res = await axios.put(`http://localhost:5000/users/me/bookshelves/${bookshelfId}`, book);
+            return res.data;
+        } catch (error) {
+            console.log(error);
+        }
+    }
 }

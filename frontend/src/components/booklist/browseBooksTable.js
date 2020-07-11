@@ -18,7 +18,14 @@ import Remove from "@material-ui/icons/Remove";
 import SaveAlt from "@material-ui/icons/SaveAlt";
 import Search from "@material-ui/icons/Search";
 import ViewColumn from "@material-ui/icons/ViewColumn";
-
+import Modal from "@material-ui/core/Modal";
+import UserService from "../../services/UserService";
+import BookService from "../../services/BookService";
+import BookshelfService from "../../services/BookshelfService";
+import { Paper, Select, MenuItem } from "@material-ui/core";
+import Button from "@material-ui/core/Button";
+import Typography from "@material-ui/core/Typography";
+ 
 const tableIcons = {
     Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
     Check: forwardRef((props, ref) => <Check {...props} ref={ref} />),
@@ -38,26 +45,78 @@ const tableIcons = {
     ThirdStateCheck: forwardRef((props, ref) => <Remove {...props} ref={ref} />),
     ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />),
 };
-
+ 
 const useStyles = (theme) => ({
     table: {
         marginTop: theme.spacing(2),
         marginBottom: theme.spacing(2)
     },
+    modalPaper: {
+        padding: theme.spacing(2),
+        width: "100%"
+    },
+    modal: {
+        marginTop: theme.spacing(16),
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        marginBottom: "auto",
+        width: "35%",
+        marginLeft: "auto",
+        marginRight: "auto",
+        borderRadius: "25px",
+    },
 });
-
+ 
 class BrowseBooksTable extends Component {
     constructor(props) {
         super(props);
         this.state = {
             loading: false,
+            modalOpen: false,
+            book: null,
+            bookshelves: null
         };
     }
-
+ 
     handleRowClick = (event, rowData) => {
         this.props.history.push(`/books/${rowData._id}`);
     }
-
+ 
+    async componentDidMount() {
+        this.setState({
+            loading: true,
+        });
+ 
+        try {
+            const user = await UserService.getCurrentUser();
+            const bookshelves = await BookshelfService.getBookshelvesByUser(user._id);
+            this.setState({
+                user: user,
+                loading: false,
+                bookshelves: bookshelves
+            });
+        } catch (error) {
+            //error.message
+            this.setState({
+                error: error,
+            });
+        }
+    }
+ 
+    handleOpenModal = (bookid) => {
+        this.setState({
+            modalOpen: true,
+            book: bookid
+        });
+    };
+ 
+    handleCloseModal = () => {
+        this.setState({
+            modalOpen: false,
+        });
+    };
+ 
     render() {
         const { router, params, location, routes, classes } = this.props
         return (
@@ -93,14 +152,47 @@ class BrowseBooksTable extends Component {
                             title: "",
                             icon: tableIcons.Add,
                             tooltip: "Add to bookshelf",
+                            //onClick: (event, rowData) =>
+                                //alert("TODO: Add book to bookshelf " + rowData.title),
                             onClick: (event, rowData) =>
-                                alert("TODO: Add book to bookshelf " + rowData.title),
+                                this.handleOpenModal(rowData._id)
                         },
                     ]}
                 />
-            </div> 
+                <Modal open={this.state.modalOpen} onClose={this.handleCloseModal}>
+                    <div className={classes.modal}>
+                        <Paper className={classes.modalPaper}>
+                            <Typography id="selectBookshelf">
+                                Which bookshelf would you like to add the book to?
+                            </Typography>
+                            <Select
+                                labelId="selectBookshelf"
+                                id="select-bookshelf"
+                                value={this.state.role}
+                                onChange={this.handleInputChange}
+                                label="Select bookshelf"
+                                required
+                                variant="outlined"
+                                style={{ width: "100%" }}
+                            >
+                                {!!this.state.bookshelves && this.state.bookshelves.map((booksh, i) =>
+                                <MenuItem key={i} value={booksh._id}>{booksh.name}</MenuItem>)}
+ 
+                            </Select>
+                            <Button
+                                className={classes.button}
+                                variant="contained"
+                                color="primary"
+                                disableElevation
+                            >
+                                Add book
+                            </Button>
+                        </Paper>
+                    </div>
+                </Modal>
+            </div>
         );
     }
 }
-
+ 
 export default withRouter(withStyles(useStyles)(BrowseBooksTable));

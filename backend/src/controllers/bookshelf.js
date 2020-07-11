@@ -41,7 +41,8 @@ const updatebookshelf = async (req, res) => {
             message: "The request body is empty",
         });
     try {
-        // check if book is there, provide feedback
+        // TODO check if book is there, provide feedback
+        
         const bookshelf = await BookshelfModel.findByIdAndUpdate(
             req.params.id,
             { $push: req.body },
@@ -50,6 +51,7 @@ const updatebookshelf = async (req, res) => {
                 new: true,
             }
         ).exec();
+        console.log(req.body)
         return res.status(201).json(bookshelf);
     } catch (err) {
         return res.status(500).json({
