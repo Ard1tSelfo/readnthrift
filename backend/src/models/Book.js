@@ -34,7 +34,11 @@ const bookSchema = new mongoose.Schema({
     description: {
         type: String,
         trim: true
-    }
+    },
+    reviews: {
+        type: [mongoose.Schema.Types.ObjectId],
+        ref: 'Review',
+    },
 })
 
 module.exports = mongoose.model('Book', bookSchema); 

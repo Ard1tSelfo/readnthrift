@@ -43,11 +43,10 @@ const userSchema = mongoose.Schema({
         type: [mongoose.Schema.Types.ObjectId],
         ref: 'Bookshelf',
     },
-    /*reviews: {
+    reviews: {
         type: [mongoose.Schema.Types.ObjectId],
         ref: 'Review',
-        required: true
-    },*/
+    },
     tokens: [{
         token: {
             type: String,
