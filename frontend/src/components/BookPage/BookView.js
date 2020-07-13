@@ -5,11 +5,16 @@ import Typography from "@material-ui/core/Typography";
 import BookService from "../../services/BookService";
 import UserService from "../../services/UserService";
 import BookshelfService from "../../services/BookshelfService";
+import ReviewService from "../../services/ReviewService";
 import { withStyles } from "@material-ui/core/styles";
 import { Paper } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import Modal from "@material-ui/core/Modal";
 import Divider from '@material-ui/core/Divider';
+import Rating from '@material-ui/lab/Rating';
+import Box from '@material-ui/core/Box';
+import SendIcon from '@material-ui/icons/Send';
+import TextField from '@material-ui/core/TextField';
 import { InputLabel, Select, MenuItem, FormControl } from "@material-ui/core";
 
 const useStyles = (theme) => ({
@@ -21,7 +26,7 @@ const useStyles = (theme) => ({
     button: {
         marginTop: theme.spacing(2)
     },
-    modalPaper: {
+    bookshelfModalPaper: {
         padding: theme.spacing(2),
         width: "100%",
     },
@@ -35,7 +40,7 @@ const useStyles = (theme) => ({
         maxWidth: "100%",
         maxHeight: "100%",
     },
-    modal: {
+    bookshelfModal: {
         marginTop: theme.spacing(16),
         display: "flex",
         flexDirection: "column",
@@ -46,9 +51,28 @@ const useStyles = (theme) => ({
         marginRight: "auto",
         borderRadius: "25px",
     },
+    reviewModal: {
+        marginTop: theme.spacing(16),
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        marginBottom: "auto",
+        width: "50%",
+        marginLeft: "auto",
+        marginRight: "auto",
+        borderRadius: "25px",
+    },
+    reviewModalPaper: {
+        padding: theme.spacing(2),
+        width: "100%",
+    },
     divider: {
         marginTop: theme.spacing(2),
         marginBottom: theme.spacing(2)
+    },
+    pageButton: {
+        marginTop: theme.spacing(2),
+        width: "100%",
     }
 });
 
@@ -64,12 +88,15 @@ class BookView extends Component {
             book: null,
             error: null,
             user: null,
-            modalOpen: false,
+            bookshelfModalOpen: false,
             bookshelves: null,
+            rating: null,
+            notice: null,
             selectedBookshelf: {
                 id: null,
                 name: null
-            }
+            },
+            reviewModalOpen: false
         };
     }
 
@@ -95,15 +122,27 @@ class BookView extends Component {
         }
     }
 
-    handleOpenModal = () => {
+    handleOpenBookshelfModal = () => {
         this.setState({
-            modalOpen: true,
+            bookshelfModalOpen: true,
         });
     };
 
-    handleCloseModal = () => {
+    handleCloseBookshelfModal = () => {
         this.setState({
-            modalOpen: false,
+            bookshelfModalOpen: false,
+        });
+    };
+
+    handleOpenReviewModal = () => {
+        this.setState({
+            reviewModalOpen: true,
+        });
+    };
+
+    handleCloseReviewModal = () => {
+        this.setState({
+            reviewModalOpen: false,
         });
     };
 
@@ -124,8 +163,28 @@ class BookView extends Component {
         };
         try {
             await BookshelfService.addBookToBookshelf(this.state.selectedBookshelf.id, requestBody);
-            this.handleCloseModal();
+            this.handleCloseBookshelfModal();
             alert(`"${this.state.book.title}" has been added to your selected bookshelf !`  )
+        } catch (error) {
+            this.setState({
+                error: error,
+            });
+        }
+    }
+
+    handleAddReviewSubmit = async (event) => {
+        event.preventDefault();
+
+        const reviewBody = {
+            user: this.state.user,
+            book: this.state.book._id,
+            rating: this.state.rating,
+            notice: this.state.notice
+        };
+        try {
+            await ReviewService.addReview(this.state.selectedBookshelf.id, reviewBody);
+            this.handleCloseReviewModal();
+            alert(`Your review has been added!`  )
         } catch (error) {
             this.setState({
                 error: error,
@@ -153,7 +212,7 @@ class BookView extends Component {
                             <Grid item xs container direction="column" spacing={2}>
                                 <Grid item xs>
                                     <Typography gutterBottom variant="body1">
-                                        Title:{" "}
+                                        {" "}
                                         {!!this.state.book && <text>{this.state.book.title}</text>}
                                     </Typography>
                                     <Typography variant="body2" gutterBottom>
@@ -170,7 +229,7 @@ class BookView extends Component {
                                             <text>{this.state.book.publisher}</text>
                                         )}
                                     </Typography>
-                                    <Typography variant="body2" color="textSecondary">
+                                    <Typography variant="body2" gutterBottom>
                                         ISBN:{" "}
                                         {!!this.state.book && <text>{this.state.book.isbn}</text>}
                                     </Typography>
@@ -187,23 +246,34 @@ class BookView extends Component {
                             {!!this.state.book && <text>{this.state.book.description}</text>}
                         </Typography>
                     </Grid>
-                    <Divider style={{marginTop: "15px", marginBottom: "15px"}} variant="middle" />
                 </Paper>
                 
 
                 <Button
-                    className={classes.button}
+                    className={classes.pageButton}
                     variant="contained"
                     color="primary"
+                    textAlign="left"
                     disableElevation
-                    onClick={this.handleOpenModal}
+                    onClick={this.handleOpenBookshelfModal}
                 >
                     Add this book to one of your bookshelfs
                 </Button>
+                <br />
+                <Button
+                    className={classes.pageButton}
+                    variant="contained"
+                    color="primary"
+                    textAlign="left"
+                    disableElevation
+                    onClick={this.handleOpenReviewModal}
+                >
+                    Write a review for this book
+                </Button>
 
-                <Modal open={this.state.modalOpen} onClose={this.handleCloseModal}>
-                    <div className={classes.modal}>
-                        <Paper className={classes.modalPaper}>
+                <Modal open={this.state.bookshelfModalOpen} onClose={this.handleCloseBookshelfModal}>
+                    <div className={classes.bookshelfModal}>
+                        <Paper className={classes.bookshelfModalPaper}>
                             <Typography id="selectBookshelf">
                                 Which bookshelf would you like to add the book to?
                             </Typography>
@@ -229,6 +299,39 @@ class BookView extends Component {
                             >
                                 Add book
                             </Button>
+                        </Paper>
+                    </div>
+                </Modal>
+                <Modal open={this.state.reviewModalOpen} onClose={this.handleCloseReviewModal}>
+                    <div className={classes.reviewModal}>
+                        <Paper className={classes.reviewModalPaper}>
+                        <Box component="fieldset" mb={3} borderColor="transparent">
+                        <Typography component="legend">Write a review and give a rating for <i>{!!this.state.book && <text>{this.state.book.title}</text>}</i> by {!!this.state.book && <text>{this.state.book.author}</text>}</Typography>
+                        <Rating name="customized-10"
+                                defaultValue={0}
+                                max={10} 
+                                value={this.state.rating} onChange={e => this.setState({ rating: Number(e.target.value)})}
+                        />
+                        </Box>
+                        <TextField
+                    id="outlined-multiline-static"
+                    label="Write your review here."
+                    multiline
+                    rows={20}
+                    fullWidth
+                    defaultValue=""
+                    variant="outlined"
+                    value={this.state.notice} onChange={e => this.setState({ notice: e.target.value})}
+                    />
+                    <br />
+                <Button
+                    variant="contained"
+                    color="primary"
+                    endIcon={<SendIcon>send</SendIcon>}
+                    onClick={this.handleAddReviewSubmit}
+                >
+                    Submit
+                </Button>
                         </Paper>
                     </div>
                 </Modal>

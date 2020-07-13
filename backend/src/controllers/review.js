@@ -1,6 +1,8 @@
 "use strict";
 
 const ReviewModel = require('../models/Review');
+const BookModel = require('../models/Book');
+const UserModel = require('../models/User');
 
 
 const create = async (req, res) => {
@@ -11,6 +13,13 @@ const create = async (req, res) => {
 
     try {
       let review = await ReviewModel.create(req.body);
+
+      const book = await BookModel.findById(req.body.book);
+      book.reviews = [...book.reviews, review];
+      book.save();
+      const user = await UserModel.findById(req.body.user);
+      user.reviews = [...user.reviews, review];
+      user.save();
 
       return res.status(201).json(review)
     } catch(err) {
@@ -88,11 +97,39 @@ const list  = async (req, res) => {
   }
 };
 
+const listByUser  = async (req, res) => {
+  try {
+    let reviews = await ReviewModel.find({user: req.params.user}).exec();
+
+    return res.status(200).json(reviews);
+  } catch(err) {
+    return res.status(500).json({
+      error: 'Internal server error',
+      message: err.message
+    });
+  }
+};
+
+const listByBook  = async (req, res) => {
+  try {
+    let reviews = await ReviewModel.find({book: req.params.book}).exec();
+
+    return res.status(200).json(reviews);
+  } catch(err) {
+    return res.status(500).json({
+      error: 'Internal server error',
+      message: err.message
+    });
+  }
+};
+
 
 module.exports = {
     create,
     read,
     update,
     remove,
-    list
+    list,
+    listByUser,
+    listByBook
 };
