@@ -1,5 +1,6 @@
 const BookshelfModel = require("../models/BookShelf");
 const UserModel = require("../models/User");
+const BookModel = require("../models/Book");
 
 const bookshelflist = async (req, res) => {
     try {
@@ -10,6 +11,18 @@ const bookshelflist = async (req, res) => {
             error: "Internal server error",
             message: err.message,
         });
+    }
+};
+
+const getbookshelf = async (req, res) => {
+    try {
+        let bookshelf = await BookshelfModel.findOne({"_id" : req.params.bookshelfid}).exec();
+        return res.status(200).json(bookshelf);
+    } catch (err) {
+        return res.status(500).json({
+            error: "Internal server error",
+            message: err.message,
+        }); 
     }
 };
 
@@ -61,8 +74,25 @@ const updatebookshelf = async (req, res) => {
     }
 };
 
+const getBooksByBookshelfId = async (req, res) => {
+    let bookshelfId = req.params.bookshelfid
+    
+    try {
+        let booksIdList = await BookshelfModel.findOne({"_id": bookshelfId}).exec()
+        let books = await BookModel.find({"_id": {$in: booksIdList.books}}).exec();
+        return res.status(200).json(books);
+    } catch (err) {
+        return res.status(500).json({
+            error: "Internal server error",
+            message: err.message,
+        });
+    }
+};
+
 module.exports = {
     bookshelflist,
     createbookshelf,
     updatebookshelf,
+    getbookshelf,
+    getBooksByBookshelfId
 };

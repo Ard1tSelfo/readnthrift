@@ -9,16 +9,17 @@ import { withStyles } from "@material-ui/core/styles";
 import { Paper } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import Modal from "@material-ui/core/Modal";
+import Divider from '@material-ui/core/Divider';
 import { InputLabel, Select, MenuItem, FormControl } from "@material-ui/core";
 
 const useStyles = (theme) => ({
     paper: {
-        padding: theme.spacing(1),
+        padding: theme.spacing(2),
         color: theme.palette.text.primary,
         marginTop: theme.spacing(2),
     },
     button: {
-        marginTop: theme.spacing(1)
+        marginTop: theme.spacing(2)
     },
     modalPaper: {
         padding: theme.spacing(2),
@@ -45,6 +46,10 @@ const useStyles = (theme) => ({
         marginRight: "auto",
         borderRadius: "25px",
     },
+    divider: {
+        marginTop: theme.spacing(2),
+        marginBottom: theme.spacing(2)
+    }
 });
 
 class BookView extends Component {
@@ -147,7 +152,7 @@ class BookView extends Component {
                         <Grid item xs={12} sm container>
                             <Grid item xs container direction="column" spacing={2}>
                                 <Grid item xs>
-                                    <Typography gutterBottom variant="subtitle1">
+                                    <Typography gutterBottom variant="body1">
                                         Title:{" "}
                                         {!!this.state.book && <text>{this.state.book.title}</text>}
                                     </Typography>
@@ -176,15 +181,15 @@ class BookView extends Component {
                             </Grid>
                         </Grid>
                     </Grid>
-                </Paper>
-                <Paper>
+                    <Divider style={{marginTop: "15px", marginBottom: "15px"}} variant="middle" />
                     <Grid>
                         <Typography variant="body2" gutterBottom>
-                            About this book:{" "}
                             {!!this.state.book && <text>{this.state.book.description}</text>}
                         </Typography>
                     </Grid>
+                    <Divider style={{marginTop: "15px", marginBottom: "15px"}} variant="middle" />
                 </Paper>
+                
 
                 <Button
                     className={classes.button}

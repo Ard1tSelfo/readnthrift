@@ -66,6 +66,9 @@ const useStyles = (theme) => ({
         marginRight: "auto",
         borderRadius: "25px",
     },
+    button: {
+        marginTop: theme.spacing(2)
+    }
 });
  
 class BrowseBooksTable extends Component {

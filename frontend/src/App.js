@@ -1,12 +1,29 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, Redirect, withRouter } from "react-router-dom";
 import Header from "./components/layout/Header";
 import Dashboard from "./components/dashboard/Dashboard";
 import Login from "./components/loginsystem/Login";
 import Register from "./components/loginsystem/Register";
 import TableView from "./components/booklist/TableView";
+import UserProfile from "./components/userprofile/UserProfile";
 import "./styling/App.css";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+import BookView from "./components/bookpage/BookView";
+import Review from "./components/reviewsystem/ReviewPage";
+import CreateBookshelf from "./components/bookshelf/CreateBookshelfFormView";
+
+const ProtectedRoute = ({ component: Component, ...rest }) => (
+    <Route
+        {...rest}
+        render={(props) =>
+            !!localStorage.getItem("token") ? (
+                <Component {...props} />
+            ) : (
+                <Redirect to={{ pathname: "/login" }} />
+            )
+        }
+    />
+);
 
 const theme = createMuiTheme({
     palette: {
@@ -17,9 +34,9 @@ const theme = createMuiTheme({
             contrastText: "#fff",
         },
         secondary: {
-            light: "#ee6d33",
-            main: "#b53d00",
-            dark: "#7f0100",
+            light: "#ffad42",
+            main: "#f57c00",
+            dark: "#bb4d00",
             contrastText: "#000",
         },
     },
@@ -29,8 +46,8 @@ class App extends Component {
     constructor() {
         super();
         this.state = {
-            isLoggedIn: true,
-            authenticatedUser: {},
+            isLoggedIn: false,
+            authenticatedUser: null,
         };
     }
 
@@ -38,18 +55,31 @@ class App extends Component {
         return (
             <Router>
                 <ThemeProvider theme={theme}>
-                    <Route path="/login" component={Login} />
-                    <Route path="/register" component={Register} />
-                    <Route path="/dashboard" component={Dashboard}/>
-
                     <div className="App" style={appStyle.background}>
-                        <Header/>
+                        <Switch>
+                            <Route path="/login" component={Login} />
+                            <Route path="/register" component={Register} />
+                            <Header />
+                        </Switch>
                         <div className="Content" style={contentStyle}>
-                            {/*<Dashboard/>*/}
-                            <TableView theme={theme}/>
+                            <Switch>
+                                <ProtectedRoute path="/dashboard" component={Dashboard} />
+                                <ProtectedRoute
+                                    theme={theme}
+                                    path="/browsebooks"
+                                    component={TableView}
+                                />
+                                <ProtectedRoute
+                                    theme={theme}
+                                    path="/userprofile"
+                                    component={UserProfile}
+                                />
+                                <Route path="/review" component={Review} />
+                                <ProtectedRoute path="/bookshelves/newbookshelf" component={CreateBookshelf} />
+                                <ProtectedRoute path="/books/:bookid" component={BookView} />
+                            </Switch>
                         </div>
                     </div>
-
                 </ThemeProvider>
             </Router>
         );
@@ -62,7 +92,8 @@ const appStyle = {
         top: 0,
         left: 0,
         width: "100%",
-        height: "100%",
+        minHeight: "100%",
+        height: "auto",
         background: "#f5f5f5",
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
