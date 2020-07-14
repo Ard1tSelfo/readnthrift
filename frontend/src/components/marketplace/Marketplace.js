@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
 
 const theme = createMuiTheme();
 
-function CenteredGrid( {e, f} ) {
+function CenteredGrid( {e, f, g} ) {
     const classes = useStyles(useTheme());
     const theme = useTheme();
 
@@ -48,7 +48,7 @@ function CenteredGrid( {e, f} ) {
                         <Button
                             variant="contained"
                             color="primary"
-                            //TODO: onClick={}
+                            onClick={event => window.location.href="/createoffer"}
                         >
                             Create an offer
                         </Button>
@@ -104,7 +104,7 @@ class Marketplace extends Component {
     render() {
         return (
             <div>
-                <CenteredGrid e={this.state.offers} f={this.state.myoffers} ></CenteredGrid>
+                <CenteredGrid e={this.state.offers} f={this.state.myoffers} g={this.props}></CenteredGrid>
             </div>
         );
     }
