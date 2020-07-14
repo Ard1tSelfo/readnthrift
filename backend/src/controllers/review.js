@@ -99,7 +99,7 @@ const list  = async (req, res) => {
 
 const listByUser  = async (req, res) => {
   try {
-    let reviews = await ReviewModel.find({user: req.params.user}).exec();
+    let reviews = await ReviewModel.find({user: req.params.id}).exec();
 
     return res.status(200).json(reviews);
   } catch(err) {
@@ -112,7 +112,7 @@ const listByUser  = async (req, res) => {
 
 const listByBook  = async (req, res) => {
   try {
-    let reviews = await ReviewModel.find({book: req.params.book}).exec();
+    let reviews = await ReviewModel.find({book: req.params.id}).exec();
 
     return res.status(200).json(reviews);
   } catch(err) {

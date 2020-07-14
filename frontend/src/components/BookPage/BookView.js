@@ -96,7 +96,8 @@ class BookView extends Component {
                 id: null,
                 name: null
             },
-            reviewModalOpen: false
+            reviewModalOpen: false,
+            currentrating: false,
         };
     }
 
@@ -109,11 +110,22 @@ class BookView extends Component {
             const book = await BookService.getBookById(this.props.match.params.bookid);
             const user = await UserService.getCurrentUser();
             const bookshelves = await BookshelfService.getBookshelvesByUser(user._id);
+
+            const currentbookratings = await ReviewService.getReviewsByBook(this.props.match.params.bookid);
+            const ratings = currentbookratings.map(function(o) { return o.rating });
+            var avgrating = 0;
+            if(ratings.length>0) {
+                var ratingssum = 0;
+                for ( var i = 0; i < ratings.length; i++ ) { ratingssum += parseInt( ratings[i], 10 ); }
+                avgrating = ratingssum/ratings.length;
+            }
+
             this.setState({
                 user: user,
                 book: book,
                 loading: false,
-                bookshelves: bookshelves
+                bookshelves: bookshelves,
+                currentrating: avgrating
             });
         } catch (error) {
             this.setState({
@@ -182,7 +194,7 @@ class BookView extends Component {
             notice: this.state.notice
         };
         try {
-            await ReviewService.addReview(this.state.selectedBookshelf.id, reviewBody);
+            await ReviewService.addReview(reviewBody);
             this.handleCloseReviewModal();
             alert(`Your review has been added!`  )
         } catch (error) {
@@ -236,7 +248,10 @@ class BookView extends Component {
                                 </Grid>
                             </Grid>
                             <Grid item>
-                                <Typography variant="subtitle1">Rating</Typography>
+                                <Box component="fieldset" mb={3} borderColor="transparent">
+                                    <Typography component="legend">Average User Rating</Typography>
+                                    <Rating name="disabled" value={this.state.currentrating} max={10} readOnly />
+                                </Box>
                             </Grid>
                         </Grid>
                     </Grid>
