@@ -236,10 +236,18 @@ class BookView extends Component {
                                         {!!this.state.book && <text>{this.state.book.genre}</text>}
                                     </Typography>
                                     <Typography variant="body2" gutterBottom>
+                                        Publication:{" "}
+                                        {!!this.state.book && <text>{this.state.book.publication}</text>}
+                                    </Typography>
+                                    <Typography variant="body2" gutterBottom>
                                         Publisher:{" "}
                                         {!!this.state.book && (
                                             <text>{this.state.book.publisher}</text>
                                         )}
+                                    </Typography>
+                                    <Typography variant="body2" gutterBottom>
+                                        Pages:{" "}
+                                        {!!this.state.book && <text>{this.state.book.pages}</text>}
                                     </Typography>
                                     <Typography variant="body2" gutterBottom>
                                         ISBN:{" "}
