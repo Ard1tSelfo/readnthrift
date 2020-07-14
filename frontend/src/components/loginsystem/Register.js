@@ -100,6 +100,12 @@ class Register extends Component {
         try {
             const response = await axios.post("http://localhost:5000/users", userInput);
             localStorage.setItem("token", response.data.token); // TODO: DESTORY TOKEN AT LOGOUT localStorage.destroyItem("token")
+            if (response.status === 200) {
+                this.props.history.push("/login");
+            } else {
+                const error = new Error(response.error);
+                throw error;
+            }
         } catch (error) {
             console.log(error);
         }
