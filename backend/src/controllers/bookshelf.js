@@ -75,11 +75,11 @@ const updatebookshelf = async (req, res) => {
 };
 
 const getBooksByBookshelfId = async (req, res) => {
-    let bookshelfId = req.params.bookshelfid
-    
+    const bookshelfId = req.params.bookshelfid
     try {
-        let booksIdList = await BookshelfModel.findOne({"_id": bookshelfId}).exec()
-        let books = await BookModel.find({"_id": {$in: booksIdList.books}}).exec();
+        let bookshelf = await BookshelfModel.findOne({"_id" : bookshelfId}).exec();
+        let books = await BookModel.find({"_id": {$in: bookshelf.books}}).exec();
+        console.log("Freaking books: " + books)
         return res.status(200).json(books);
     } catch (err) {
         return res.status(500).json({
