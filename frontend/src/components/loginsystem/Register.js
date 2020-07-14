@@ -205,7 +205,6 @@ class Register extends Component {
                         <Button
                             type="submit"
                             fullWidth
-                            href="../login"
                             variant="contained"
                             color="primary"
                             className={classes.submit}
