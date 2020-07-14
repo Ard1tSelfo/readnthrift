@@ -48,7 +48,7 @@ function CenteredGrid( {e, f, g} ) {
                         <Button
                             variant="contained"
                             color="primary"
-                            onClick={event => window.location.href="/createoffer"}
+                            onClick={event => window.location.href="/choosebook"}
                         >
                             Create an offer
                         </Button>

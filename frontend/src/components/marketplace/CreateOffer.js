@@ -1,220 +1,244 @@
-import React, {Component} from 'react';
-import axios from "axios";
-import PropTypes from 'prop-types';
-//import { withStyles } from '@material-ui/core/styles';
-import Rating from '@material-ui/lab/Rating';
-//import StarBorderIcon from '@material-ui/icons/StarBorder';
-//import CssBaseline from "@material-ui/core/CssBaseline";
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import SearchIcon from '@material-ui/icons/Search';
-import InputBase from '@material-ui/core/InputBase';
-import { fade, makeStyles } from '@material-ui/core/styles';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormControl from '@material-ui/core/FormControl';
-import NativeSelect from '@material-ui/core/NativeSelect';
-import Paper from "@material-ui/core/Paper";
+import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
+import ButtonBase from "@material-ui/core/ButtonBase";
+import Typography from "@material-ui/core/Typography";
+import BookService from "../../services/BookService";
+import UserService from "../../services/UserService";
+import BookshelfService from "../../services/BookshelfService";
+import ReviewService from "../../services/ReviewService";
+import { withStyles } from "@material-ui/core/styles";
+import { Paper } from "@material-ui/core";
+import Button from "@material-ui/core/Button";
+import Modal from "@material-ui/core/Modal";
+import Divider from '@material-ui/core/Divider';
+import Rating from '@material-ui/lab/Rating';
+import Box from '@material-ui/core/Box';
+import SendIcon from '@material-ui/icons/Send';
+import TextField from '@material-ui/core/TextField';
+import { InputLabel, Select, MenuItem, FormControl } from "@material-ui/core";
+import NativeSelect from '@material-ui/core/NativeSelect';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
+import InputAdornment from '@material-ui/core/InputAdornment';
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-      flexGrow: 1,
+const useStyles = (theme) => ({
+    paper: {
+        padding: theme.spacing(2),
+        color: theme.palette.text.primary,
+        marginTop: theme.spacing(2),
     },
-    menuButton: {
-      marginRight: theme.spacing(2),
+    button: {
+        marginTop: theme.spacing(2)
     },
-    title: {
-      flexGrow: 1,
-      display: 'none',
-      [theme.breakpoints.up('sm')]: {
-        display: 'block',
-      },
+    bookshelfModalPaper: {
+        padding: theme.spacing(2),
+        width: "100%",
     },
-    search: {
-      position: 'relative',
-      borderRadius: theme.shape.borderRadius,
-      backgroundColor: fade(theme.palette.common.white, 0.15),
-      '&:hover': {
-        backgroundColor: fade(theme.palette.common.white, 0.25),
-      },
-      marginLeft: 0,
-      width: '100%',
-      [theme.breakpoints.up('sm')]: {
-        marginLeft: theme.spacing(1),
-        width: 'auto',
-      },
+    image: {
+        width: 128,
+        height: 128,
     },
-    searchIcon: {
-      padding: theme.spacing(0, 2),
-      height: '100%',
-      position: 'absolute',
-      pointerEvents: 'none',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
+    img: {
+        margin: "auto",
+        display: "block",
+        maxWidth: "100%",
+        maxHeight: "100%",
     },
-    inputRoot: {
-      color: 'inherit',
+    bookshelfModal: {
+        marginTop: theme.spacing(16),
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        marginBottom: "auto",
+        width: "35%",
+        marginLeft: "auto",
+        marginRight: "auto",
+        borderRadius: "25px",
     },
-    inputInput: {
-      padding: theme.spacing(1, 1, 1, 0),
-      // vertical padding + font size from searchIcon
-      paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-      transition: theme.transitions.create('width'),
-      width: '100%',
-      [theme.breakpoints.up('sm')]: {
-        width: '12ch',
-        '&:focus': {
-          width: '20ch',
-        },
-      },
+    reviewModal: {
+        marginTop: theme.spacing(16),
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        marginBottom: "auto",
+        width: "50%",
+        marginLeft: "auto",
+        marginRight: "auto",
+        borderRadius: "25px",
     },
-  }));
+    reviewModalPaper: {
+        padding: theme.spacing(2),
+        width: "100%",
+    },
+    divider: {
+        marginTop: theme.spacing(2),
+        marginBottom: theme.spacing(2)
+    },
+    pageButton: {
+        marginTop: theme.spacing(2),
+        width: "100%",
+    }
+});
 
-class CrearteOffer extends Component {
+class CreateOffer extends Component {
     constructor(props) {
         super(props);
 
-        this.onSubmit = this.onSubmit.bind(this);
+        this.handleInputChange = this.handleInputChange.bind(this);
 
         this.state = {
-            user: null,
+            loading: false,
             book: null,
-            rating: 0
+            error: null,
+            user: null,
+            price: 0,
+            //TODO: Hard/Softcover & condition
         };
     }
 
-    onSubmit = (e) => {};
+    async componentDidMount() {
+        this.setState({
+            loading: true,
+        });
 
-    componentDidMount() {}
+        try {
+            const book = await BookService.getBookById(this.props.match.params.bookid);
+            const user = await UserService.getCurrentUser();
+            this.setState({
+                user: user,
+                book: book,
+                loading: false,
+            });
+        } catch (error) {
+            this.setState({
+                error: error,
+            });
+        }
+    }
+
+    handleInputChange = (event) => {
+        this.setState({
+            selectedBookshelf: {
+                id: event.target.value,
+                name: event.target.name
+            }
+        });
+    };
 
     render() {
         const { classes } = this.props;
+        const { router, params, location, routes } = this.props;
         return (
-            <div style = {{height:"100vh"}}>
-                <br />
-                <Grid container style={{margin:0,width:"100%"}}>
-                <Grid item alignItems="stretch" xs={6} >
-                    <Paper elevation={2} style={{height:"100%"}}>
-                        <h4>Fragen</h4>
-                    </Paper>
-                </Grid>
-                <Grid item xs={6} direction="row" >
-                    <Paper elevation={2} style={{height:"100%"}}>
-                        <h4>Antworten</h4>
-
-
-
+            <div>
+               <h1>Please give us some information about your book:</h1>
+                <Paper className={classes.paper}>
+                    <Grid container spacing={2}>
+                        <Grid item>
+                            <ButtonBase className={classes.image}>
+                                <img
+                                    className={classes.img}
+                                    alt="Title"
+                                    src={this.state.book ? this.state.book.thumbnail : ""}
+                                />
+                            </ButtonBase>
+                        </Grid>
+                        <Grid item xs={12} sm container>
+                            <Grid item xs container direction="column" spacing={2}>
+                                <Grid item xs>
+                                    <Typography gutterBottom variant="body1">
+                                        {" "}
+                                        {!!this.state.book && <text>{this.state.book.title}</text>}
+                                    </Typography>
+                                    <Typography variant="body2" gutterBottom>
+                                        Author:{" "}
+                                        {!!this.state.book && <text>{this.state.book.author}</text>}
+                                    </Typography>
+                                    <Typography variant="body2" gutterBottom>
+                                        ISBN:{" "}
+                                        {!!this.state.book && <text>{this.state.book.isbn}</text>}
+                                    </Typography>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                    <Divider style={{marginTop: "15px", marginBottom: "15px"}} variant="middle" />
+                    <Grid>
                         <form>
-                   <Box component="fieldset" mb={3} borderColor="transparent">
-                   <div className='row'>
-                       <SearchIcon/>
-                        <TextField
-                        label="Name of the book or its author"
-                        fullWidth
-                        />
-                    </div>
-                    </Box>
-                    <br />
+                        <NativeSelect
+                            id="demo-customized-select-native"
+                            //value={age}
+                            //onChange={handleChange}
+                            //input={<BootstrapInput />}
+                            fullWidth
+                            >
+                            <option aria-label="None" value="" />
+                            <option value={0} disabled selected>What type of cover does your book have?</option>
+                            <option value={1}>Hardcover</option>
+                            <option value={2}>Softcover</option>
+                            </NativeSelect>
+                            <br/><br/>
 
-                    <FormControl>
-                    <Box>
-                    
-                    <NativeSelect
-                    id="demo-customized-select-native"
-                    //value={age}
-                    //onChange={handleChange}
-                    //input={<BootstrapInput />}
-                    fullWidth
-                    >
-                    <option aria-label="None" value="" />
-                    <option value={1}>Hardcover</option>
-                    <option value={2}>Softcover</option>
-                    </NativeSelect>
-                    </Box>
-                    <br/><br/>
+                            
+                            <NativeSelect
+                            id="demo-customized-select-native"
+                            //value={age}
+                            //onChange={handleChange}
+                            //input={<BootstrapInput />}
+                            fullWidth
+                            >
+                            <option aria-label="None" value="" />
+                            <option value={0} disabled selected>What is the condition of your book?</option>
+                            <option value={1}>New</option>
+                            <option value={2}>Used, no traces of use</option>
+                            <option value={3}>Used, medium traces of use</option>
+                            <option value={3}>Used, sever traces of use</option>
+                            </NativeSelect>
 
-                    <Box>
-                    
-                    <NativeSelect
-                    id="demo-customized-select-native"
-                    //value={age}
-                    //onChange={handleChange}
-                    //input={<BootstrapInput />}
-                    fullWidth
-                    >
-                    <option aria-label="None" value="" />
-                    <option value={1}>New</option>
-                    <option value={2}>Used, no traces of use</option>
-                    <option value={3}>Used, medium traces of use</option>
-                    <option value={3}>Used, sever traces of use</option>
-                    </NativeSelect>
-                    </Box>
-                </FormControl>
-                    <br />
+                            <br/><br/>
+
+                              <FormControl fullWidth className={classes.margin} variant="outlined">
+                                <InputLabel htmlFor="outlined-adornment-amount">Price</InputLabel>
+                                <OutlinedInput
+                                  id="outlined-adornment-amount"
+                                  type="number"
+                                  //value={values.amount}
+                                  //onChange={handleChange('amount')}
+                                  startAdornment={<InputAdornment position="start">$</InputAdornment>}
+                                  labelWidth={60}
+                                />
+                              </FormControl>
+
+                            <br/><br/>
+
+                            <TextField
+                              id="outlined-multiline-static"
+                              label="Give a short description:"
+                              multiline
+                              rows={5}
+                              fullWidth
+                              defaultValue=""
+                              variant="outlined"
+                              value={this.state.notice} onChange={e => this.setState({ notice: e.target.value})}
+                              />
+                             
+
+                        </form>
+                    </Grid>
+                </Paper>
+                
+
                 <Button
+                    className={classes.pageButton}
                     variant="contained"
                     color="primary"
-                    onClick={e => this.onSubmit(e)}
+                    textAlign="left"
+                    disableElevation
+                    //onClick={this.handleOpenBookshelfModal}
                 >
-                    Submit
+                    Place my offer
                 </Button>
-                </form>
-
-
-
-              s
-                    </Paper>
-                </Grid>
-            </Grid> 
             </div>
-    );
+        );
     }
-
-
 }
 
-export default CrearteOffer;
-
-
-
-
-/*                 <form>
-                   <Box component="fieldset" mb={3} borderColor="transparent">
-                   <div className='row'>
-                       <SearchIcon/>
-                        <TextField
-                        label="Name of the book or its author"
-                        fullWidth
-                        />
-                    </div>
-                    </Box>
-                    <br />
-
-                    <FormControl>
-                    <InputLabel htmlFor="demo-customized-select-native">Cover</InputLabel>
-                    <NativeSelect
-                    id="demo-customized-select-native"
-                    //value={age}
-                    //onChange={handleChange}
-                    //input={<BootstrapInput />}
-                    fullWidth
-                    >
-                    <option aria-label="None" value="" />
-                    <option value={1}>Hardcover</option>
-                    <option value={2}>Softcover</option>
-                    </NativeSelect>
-                </FormControl>
-                    <br />
-                <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={e => this.onSubmit(e)}
-                >
-                    Submit
-                </Button>
-                </form>
-
-                */
+export default withStyles(useStyles)(CreateOffer);
