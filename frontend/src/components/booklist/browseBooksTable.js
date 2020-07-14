@@ -155,7 +155,7 @@ class BrowseBooksTable extends Component {
     }
  
     render() {
-        const { router, params, location, routes, classes } = this.props
+        const { classes } = this.props
         return (
             <div className={classes.table}>
                 <MaterialTable
@@ -181,7 +181,7 @@ class BrowseBooksTable extends Component {
                     ]}
                     data={this.props.data}
                     onRowClick={this.handleRowClick}
-                    title="All books"
+                    title={!!this.props.tablename ? this.props.tablename : "All books"}
                     isLoading={this.props.loading}
                     options={{}}
                     actions={[

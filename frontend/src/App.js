@@ -8,7 +8,8 @@ import TableView from "./components/booklist/TableView";
 import UserProfile from "./components/userprofile/UserProfile";
 import "./styling/App.css";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
-import BookView from "./components/BookPage/BookView";
+import BookView from "./components/bookpage/BookView";
+import BookshelfView from "./components/bookshelf/BookshelfView";
 import Review from "./components/reviewsystem/ReviewPage";
 import CreateBookshelf from "./components/bookshelf/CreateBookshelfFormView";
 
@@ -64,6 +65,7 @@ class App extends Component {
                         <div className="Content" style={contentStyle}>
                             <Switch>
                                 <ProtectedRoute path="/dashboard" component={Dashboard} />
+                            
                                 <ProtectedRoute
                                     theme={theme}
                                     path="/browsebooks"
@@ -77,6 +79,7 @@ class App extends Component {
                                 <Route path="/review" component={Review} />
                                 <ProtectedRoute path="/bookshelves/newbookshelf" component={CreateBookshelf} />
                                 <ProtectedRoute path="/books/:bookid" component={BookView} />
+                                <ProtectedRoute path="/me/bookshelves/:bookshelfid" component={BookshelfView}/>
                             </Switch>
                         </div>
                     </div>
