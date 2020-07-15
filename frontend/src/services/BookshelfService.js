@@ -45,5 +45,14 @@ export default class BookshelfService {
             console.log(error);
         }
     }
+
+    static async getRecommendationsForBookshelf(bookshelfId) {
+        try {
+            const res = await axios.get(`http://localhost:5000/recommendations/${bookshelfId}`);
+            return res.data
+        } catch (error) {
+            console.log(error);
+        }
+    }
  
 }

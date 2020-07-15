@@ -12,6 +12,7 @@ class BookshelfView extends Component {
             bookshelf: null,
             loading: false,
             books: [],
+            recommendedBooks: []
         };
     }
 
@@ -26,11 +27,15 @@ class BookshelfView extends Component {
                 this.props.match.params.bookshelfid
             );
             const books = await BookshelfService.getBooksByBookshelfId(bookshelf._id);
+            console.log(books)
+            const recommendedBooks = await BookshelfService.getRecommendationsForBookshelf(bookshelf._id);
+            console.log(recommendedBooks)
             this.setState({
                 user: user,
                 loading: false,
                 bookshelf: bookshelf,
                 books: [...books],
+                recommendedBooks: recommendedBooks
             });
         } catch (error) {
             console.log(error);
@@ -48,7 +53,7 @@ class BookshelfView extends Component {
                     data={this.state.books}
                     loading={this.state.loading}
                 />
-                <RecommendationList books={this.state.books}/>
+                <RecommendationList books={!!this.state.recommendedBooks && this.state.recommendedBooks}/>
             </>
         );
     }

@@ -79,8 +79,7 @@ const getBooksByBookshelfId = async (req, res) => {
     try {
         let bookshelf = await BookshelfModel.findOne({"_id" : bookshelfId}).exec();
         let books = await BookModel.find({"_id": {$in: bookshelf.books}}).exec();
-        console.log("Freaking books: " + books)
-        return res.status(200).json(books);
+        return res.status(200).json(books); 
     } catch (err) {
         return res.status(500).json({
             error: "Internal server error",

@@ -13,7 +13,6 @@ const booklist = async (req, res) => {
 };
 
 const getBookById = async (req, res) => {
-
     let id = req.params.id
     try {
         let book = await BookModel.findOne({ _id: id}).exec();
@@ -24,7 +23,7 @@ const getBookById = async (req, res) => {
             message: err.message,
         });
     }
-}
+};
 
 module.exports = {
     booklist,

@@ -5,6 +5,7 @@ import Button from "@material-ui/core/Button";
 import ArrowBackIos from "@material-ui/icons/ArrowBackIos";
 import ArrowForwardIos from "@material-ui/icons/ArrowForwardIos";
 import { Link } from 'react-router-dom'
+import { Typography } from "@material-ui/core";
  
 const useStyles = makeStyles((theme) => ({
   wrapper: {
@@ -87,7 +88,7 @@ export default function RecommendationList(props) {
  
   return (
     <div>
-      <h2> Our recommendations: </h2>
+      <Typography variant="h5"> Our recommendations based on this collection:</Typography>
  
       <div className={classes.wrapper}>
         <IconButton onClick={() => scrollLeft()} className={[classes.leftButton, classes.navButtons].join(" ")}>
