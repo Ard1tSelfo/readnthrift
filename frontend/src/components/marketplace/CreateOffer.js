@@ -135,29 +135,35 @@ class CreateOffer extends Component {
                     <Divider style={{marginTop: "15px", marginBottom: "15px"}} variant="middle" />
                     <Grid>
                         <form>
-                            <FormControl className={classes.formControl} variant="outlined" fullWidth>
-                                <InputLabel id="coverselect">What type of cover does your book have?</InputLabel>
-                                <Select labelId="coverselect" id="coverselect"
-                                //value={cover} onChange={handleChange}
-                                >
-                                    <MenuItem value={'Hardcover'}>Hardcover</MenuItem>
-                                    <MenuItem value={'Softcover'}>Softcover</MenuItem>
-                                </Select>
-                            </FormControl>
+                            <NativeSelect
+                             id="demo-customized-select-native"
+                             //value={age}
+                             //onChange={handleChange}
+                             //input={<BootstrapInput />}
+                             fullWidth
+                             >
+                             <option aria-label="None" value="" />
+                             <option value={0} disabled selected>What type of cover does your book have?</option>
+                             <option value={1}>Hardcover</option>
+                             <option value={2}>Softcover</option>
+                             </NativeSelect>
 
                             <br/><br/>
 
-                            <FormControl className={classes.formControl} variant="outlined" fullWidth>
-                                <InputLabel id="conditionselect">What is the condition of your book?</InputLabel>
-                                <Select labelId="conditionselect" id="conditionselect"
-                                //value={condition} onChange={handleChange}
-                                >
-                                    <MenuItem value={'New'}>New</MenuItem>
-                                    <MenuItem value={'Used, no traces of use'}>Used, no traces of use</MenuItem>
-                                    <MenuItem value={'Used, medium traces of use'}>Used, medium traces of use</MenuItem>
-                                    <MenuItem value={'Used, sever traces of use'}>Used, sever traces of use</MenuItem>
-                                </Select>
-                            </FormControl>
+                            <NativeSelect
+                             id="demo-customized-select-native"
+                             //value={age}
+                             //onChange={handleChange}
+                             //input={<BootstrapInput />}
+                             fullWidth
+                             >
+                             <option aria-label="None" value="" />
+                             <option value={0} disabled selected>What is the condition of your book?</option>
+                             <option value={1}>New</option>
+                             <option value={2}>Used, no traces of use</option>
+                             <option value={3}>Used, medium traces of use</option>
+                             <option value={3}>Used, sever traces of use</option>
+                             </NativeSelect>
 
                             <br/><br/>
 
