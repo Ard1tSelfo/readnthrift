@@ -13,10 +13,11 @@ const offerSchema = mongoose.Schema ({
         ref: 'Book',
         required: true
     },
-    /*user: String,
-    book: String,*/
     price: {
-        type: Number,
-        required: true
+        type: Number
+    },
+    comment: {
+        type: String,
+        trim: true
     }
 })

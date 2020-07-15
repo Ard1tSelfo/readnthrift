@@ -11,6 +11,7 @@ import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import BookView from "./components/bookpage/BookView";
 import BookshelfView from "./components/bookshelf/BookshelfView";
 import Review from "./components/reviewsystem/ReviewPage";
+import Marketplace from "./components/marketplace/Marketplace";
 import CreateBookshelf from "./components/bookshelf/CreateBookshelfFormView";
 
 const ProtectedRoute = ({ component: Component, ...rest }) => (
@@ -80,6 +81,7 @@ class App extends Component {
                                 <ProtectedRoute path="/bookshelves/newbookshelf" component={CreateBookshelf} />
                                 <ProtectedRoute path="/books/:bookid" component={BookView} />
                                 <ProtectedRoute path="/me/bookshelves/:bookshelfid" component={BookshelfView}/>
+                                <ProtectedRoute path="/marketplace" component={Marketplace}/>
                             </Switch>
                         </div>
                     </div>
