@@ -27,7 +27,7 @@ const getOfferById = async (req, res) => {
         return res.status(200).json(offer);
     } catch (err) {
         return res.status(500).json({
-            error: "Internal server error",
+            error: 'Internal server error',
             message: err.message,
         });
     }
@@ -54,7 +54,7 @@ const offersList = async (req, res) => {
         return res.status(200).json(offers);
     } catch (err) {
         return res.status(500).json({
-            error: "Internal server error",
+            error: 'Internal server error',
             message: err.message,
         });
     }
@@ -66,7 +66,7 @@ const read = async (req, res) => {
 
     if (!offer) return res.status(404).json({
       error: 'Not Found',
-      message: `Offer not found`
+      message: 'Offer not found'
     });
 
     return res.status(200).json(offer)
@@ -105,7 +105,7 @@ const remove = async (req, res) => {
   try {
     await OfferModel.findByIdAndRemove(req.params.id).exec();
 
-    return res.status(200).json({message: `Offer with id${req.params.id} was deleted`});
+    return res.status(200).json({message: 'Offer with id${req.params.id} was deleted'});
   } catch(err) {
     return res.status(500).json({
       error: 'Internal server error',

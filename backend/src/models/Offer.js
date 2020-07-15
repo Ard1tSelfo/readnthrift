@@ -13,10 +13,25 @@ const offerSchema = mongoose.Schema ({
         ref: 'Book',
         required: true
     },
-    /*user: String,
-    book: String,*/
+    cover: {
+        type: String,
+        enum: ["Hardcover", "Softcover"],
+        required: true
+    },
+    condition: {
+        type: String,
+        enum: ["New", "Used, no traces of use", "Used, medium traces of use", "Used, sever traces of use"],
+        required: true
+    },
     price: {
         type: Number,
         required: true
-    }
+    },
+    description: {
+        type: String
+    },
 })
+
+const Offer = mongoose.model('Offer', offerSchema)
+
+module.exports = Offer
