@@ -36,7 +36,9 @@ class BookshelvesList extends Component {
         this.props.history.push(`me/bookshelves/${bookshelfId}`);
     };
 
-    handleAddNewBookshelf = (event) => {};
+    handleAddNewBookshelf = (event) => {
+        this.props.history.push('me/bookshelves/newbookshelf')
+    };
 
     async componentDidMount() {
         try {
