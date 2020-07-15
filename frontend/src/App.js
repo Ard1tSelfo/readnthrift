@@ -13,6 +13,8 @@ import BookshelfView from "./components/bookshelf/BookshelfView";
 import Review from "./components/reviewsystem/ReviewPage";
 import Marketplace from "./components/marketplace/Marketplace";
 import CreateBookshelf from "./components/bookshelf/CreateBookshelfFormView";
+import ChooseBook from "./components/marketplace/ChooseBook";
+import CreateOffer from "./components/marketplace/CreateOffer";
 
 const ProtectedRoute = ({ component: Component, ...rest }) => (
     <Route
@@ -82,6 +84,8 @@ class App extends Component {
                                 <ProtectedRoute path="/books/:bookid" component={BookView} />
                                 <ProtectedRoute path="/me/bookshelves/:bookshelfid" component={BookshelfView}/>
                                 <ProtectedRoute path="/marketplace" component={Marketplace}/>
+                                <ProtectedRoute path="/choosebook" component={ChooseBook}/>
+                                <ProtectedRoute path="/createoffer/:bookid" component={CreateOffer}/>
                             </Switch>
                         </div>
                     </div>

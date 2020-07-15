@@ -16,7 +16,15 @@ const offerSchema = mongoose.Schema ({
     price: {
         type: Number
     },
-    comment: {
+    cover: {
+        type: String,
+        enum: ['Hardcover', 'Softcover']
+    },
+    condition: {
+        type: String,
+        enum: ['New', 'Used, no traces of use', 'Used, medium traces of use', 'Used, sever traces of use']
+    },
+    description: {
         type: String,
         trim: true
     }

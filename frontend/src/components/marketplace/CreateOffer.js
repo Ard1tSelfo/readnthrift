@@ -29,10 +29,6 @@ const useStyles = (theme) => ({
     button: {
         marginTop: theme.spacing(2)
     },
-    bookshelfModalPaper: {
-        padding: theme.spacing(2),
-        width: "100%",
-    },
     image: {
         width: 128,
         height: 128,
@@ -42,32 +38,6 @@ const useStyles = (theme) => ({
         display: "block",
         maxWidth: "100%",
         maxHeight: "100%",
-    },
-    bookshelfModal: {
-        marginTop: theme.spacing(16),
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        marginBottom: "auto",
-        width: "35%",
-        marginLeft: "auto",
-        marginRight: "auto",
-        borderRadius: "25px",
-    },
-    reviewModal: {
-        marginTop: theme.spacing(16),
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        marginBottom: "auto",
-        width: "50%",
-        marginLeft: "auto",
-        marginRight: "auto",
-        borderRadius: "25px",
-    },
-    reviewModalPaper: {
-        padding: theme.spacing(2),
-        width: "100%",
     },
     divider: {
         marginTop: theme.spacing(2),
@@ -91,7 +61,9 @@ class CreateOffer extends Component {
             error: null,
             user: null,
             price: 0,
-            //TODO: Hard/Softcover & condition
+            cover: null,
+            condition: null,
+            description: null
         };
     }
 
@@ -163,39 +135,33 @@ class CreateOffer extends Component {
                     <Divider style={{marginTop: "15px", marginBottom: "15px"}} variant="middle" />
                     <Grid>
                         <form>
-                        <NativeSelect
-                            id="demo-customized-select-native"
-                            //value={age}
-                            //onChange={handleChange}
-                            //input={<BootstrapInput />}
-                            fullWidth
-                            >
-                            <option aria-label="None" value="" />
-                            <option value={0} disabled selected>What type of cover does your book have?</option>
-                            <option value={1}>Hardcover</option>
-                            <option value={2}>Softcover</option>
-                            </NativeSelect>
-                            <br/><br/>
-
-                            
-                            <NativeSelect
-                            id="demo-customized-select-native"
-                            //value={age}
-                            //onChange={handleChange}
-                            //input={<BootstrapInput />}
-                            fullWidth
-                            >
-                            <option aria-label="None" value="" />
-                            <option value={0} disabled selected>What is the condition of your book?</option>
-                            <option value={1}>New</option>
-                            <option value={2}>Used, no traces of use</option>
-                            <option value={3}>Used, medium traces of use</option>
-                            <option value={3}>Used, sever traces of use</option>
-                            </NativeSelect>
+                            <FormControl className={classes.formControl} variant="outlined" fullWidth>
+                                <InputLabel id="coverselect">What type of cover does your book have?</InputLabel>
+                                <Select labelId="coverselect" id="coverselect"
+                                //value={cover} onChange={handleChange}
+                                >
+                                    <MenuItem value={'Hardcover'}>Hardcover</MenuItem>
+                                    <MenuItem value={'Softcover'}>Softcover</MenuItem>
+                                </Select>
+                            </FormControl>
 
                             <br/><br/>
 
-                              <FormControl fullWidth className={classes.margin} variant="outlined">
+                            <FormControl className={classes.formControl} variant="outlined" fullWidth>
+                                <InputLabel id="conditionselect">What is the condition of your book?</InputLabel>
+                                <Select labelId="conditionselect" id="conditionselect"
+                                //value={condition} onChange={handleChange}
+                                >
+                                    <MenuItem value={'New'}>New</MenuItem>
+                                    <MenuItem value={'Used, no traces of use'}>Used, no traces of use</MenuItem>
+                                    <MenuItem value={'Used, medium traces of use'}>Used, medium traces of use</MenuItem>
+                                    <MenuItem value={'Used, sever traces of use'}>Used, sever traces of use</MenuItem>
+                                </Select>
+                            </FormControl>
+
+                            <br/><br/>
+
+                            <FormControl fullWidth className={classes.margin} variant="outlined">
                                 <InputLabel htmlFor="outlined-adornment-amount">Price</InputLabel>
                                 <OutlinedInput
                                   id="outlined-adornment-amount"
@@ -205,7 +171,7 @@ class CreateOffer extends Component {
                                   startAdornment={<InputAdornment position="start">$</InputAdornment>}
                                   labelWidth={60}
                                 />
-                              </FormControl>
+                            </FormControl>
 
                             <br/><br/>
 
