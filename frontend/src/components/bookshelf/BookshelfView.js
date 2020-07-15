@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import BookshelfService from "../../services/BookshelfService";
 import BrowseBooksTable from "../../components/booklist/browseBooksTable";
 import UserService from "../../services/UserService";
+import RecommendationList from "../../components/recommendation/RecommendationList";
 
 class BookshelfView extends Component {
     constructor(props) {
@@ -41,13 +42,14 @@ class BookshelfView extends Component {
 
     render() {
         return (
-            <div>
+            <>
                 <BrowseBooksTable
                     tablename={!!this.state.bookshelf && this.state.bookshelf.name}
                     data={this.state.books}
                     loading={this.state.loading}
                 />
-            </div>
+                <RecommendationList books={this.state.books}/>
+            </>
         );
     }
 }
