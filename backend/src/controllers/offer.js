@@ -50,7 +50,7 @@ const getOfferById = async (req, res) => {
 
 const offersList = async (req, res) => {
     try {
-        let offers = await OfferModel.find({"user" : req.body.user}).exec();
+        let offers = await OfferModel.find({"user" : req.body.userid}).exec();
         return res.status(200).json(offers);
     } catch (err) {
         return res.status(500).json({

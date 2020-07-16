@@ -18,6 +18,10 @@ import Remove from "@material-ui/icons/Remove";
 import SaveAlt from "@material-ui/icons/SaveAlt";
 import Search from "@material-ui/icons/Search";
 import ViewColumn from "@material-ui/icons/ViewColumn";
+import BookshelfService from "../../services/BookshelfService";
+import BookService from "../../services/BookService";
+import UserService from "../../services/UserService";
+import OfferService from "../../services/OfferService";
 
 const tableIcons = {
     Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -50,12 +54,38 @@ class BrowseOffersTable extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            user: null,
             loading: false,
+            offer: null,
+            //book: null
         };
     }
 
     handleRowClick = (event, rowData) => {
-        this.props.history.push(`/books/${rowData._id}`);
+        this.props.history.push(`/offers/${rowData._id}`);
+    }
+
+    async componentDidMount() {
+        this.setState({
+            loading: true,
+        });
+ 
+        try {
+            const user = await UserService.getCurrentUser();
+          //  const offer = await OfferService.getOfferById(rowData._id);
+            //const book = await BookService.getBookById(offer.book);
+            this.setState({
+                user: user,
+                //book: book,
+                //offer: offer,
+                loading: false,
+            });
+        } catch (error) {
+            //error.message
+            this.setState({
+                error: error,
+            });
+        }
     }
 
     render() {
@@ -66,7 +96,7 @@ class BrowseOffersTable extends Component {
                     icons={tableIcons}
                     columns={[
                         {
-                            title: 'Cover',
+                            title: ' ',
                             field: 'thumbnail',
                             render: rowData => (
                               <img
@@ -77,6 +107,7 @@ class BrowseOffersTable extends Component {
                           },
                         { title: "Title", field: "title" },
                         { title: "Author", field: "author" },
+                        { title: "Price, in $", field: "price"}
                     ]}
                     data={this.props.data}
                     onRowClick={this.handleRowClick}

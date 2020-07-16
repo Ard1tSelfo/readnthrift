@@ -82,15 +82,14 @@ class Marketplace extends Component {
         });
 
         try {
-            //const offers = await OfferService.getAllOffers();
-            //const myoffers = await OfferService.getAllOffers();
-            const books = await BookService.getAllBooks();
-            const offers = await BookService.getAllBooks();
+            const offers = await OfferService.getAllOffers();
             const user = await UserService.getCurrentUser();
+            const myoffers = await OfferService.getOffersByUser(user._id);
+            //const myoffers = await OfferService.;
             this.setState({
                 user: user,
                 offers: [...offers],
-                myoffers: [...books],
+                myoffers: [...myoffers],
                 loading: false,
             });
         } catch (error) {

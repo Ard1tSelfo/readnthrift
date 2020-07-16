@@ -30,6 +30,20 @@ const offerSchema = mongoose.Schema ({
     description: {
         type: String
     },
+    thumbnail: {
+        type: String,
+        trim: true
+    },
+    title: {
+        type: String,
+        required: true,
+        trim: true
+    },
+    author: {
+        type: String,
+        required: true,
+        trim: true
+    }
 })
 
 const Offer = mongoose.model('Offer', offerSchema)

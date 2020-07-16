@@ -59,7 +59,10 @@ class CreateOffer extends Component {
             cover: null,
             condition: null,
             price: null,
-            description: null
+            description: null,
+            thumbnail: null,
+            title: null,
+            author: null,
         };
     }
 
@@ -87,7 +90,10 @@ class CreateOffer extends Component {
                 cover: this.state.cover,
                 condition: this.state.condition,
                 price: this.state.price,
-                description: this.state.description
+                description: this.state.description,
+                thumbnail: this.state.book.thumbnail,
+                title: this.state.book.title,
+                author: this.state.book.author
             };
 
             axios.post("http://localhost:5000/marketplace", offer)
