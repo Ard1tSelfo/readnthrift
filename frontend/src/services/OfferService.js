@@ -32,7 +32,7 @@ export default class OfferService {
 
     static async getOffersByUser(userid) {
         try {
-            const res =  await axios.get(`http://localhost:5000/marketplace/myoffers/:userid/${userid}`);
+            const res =  await axios.get(`http://localhost:5000/marketplace/myoffers/${userid}`);
             console.log(res);
             return res.data;
         } catch (error) {
