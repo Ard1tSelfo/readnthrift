@@ -185,23 +185,31 @@ class BookView extends Component {
     }
 
     handleAddReviewSubmit = async (event) => {
-        event.preventDefault();
-
         const reviewBody = {
             user: this.state.user,
             book: this.state.book._id,
             rating: this.state.rating,
             notice: this.state.notice
         };
-        try {
-            await ReviewService.addReview(reviewBody);
-            this.handleCloseReviewModal();
-            alert(`Your review has been added!`  )
-        } catch (error) {
-            this.setState({
-                error: error,
-            });
+        let messages = [];
+        if (this.state.rating === 0 || this.state.rating === null) {
+            messages.push("Please, rate the book!")
         }
+
+        if (messages.length > 0) {
+            event.preventDefault();
+            alert(messages.join(', '));
+            } else {
+                try {
+                    await ReviewService.addReview(reviewBody);
+                    this.handleCloseReviewModal();
+                    alert(`Your review has been added!`  )
+                } catch (error) {
+                    this.setState({
+                        error: error,
+                    });
+                }
+            }
     }
 
     render() {
