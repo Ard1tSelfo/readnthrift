@@ -91,6 +91,7 @@ class CreateOffer extends Component {
                 condition: this.state.condition,
                 price: this.state.price,
                 description: this.state.description,
+                open: true,
                 thumbnail: this.state.book.thumbnail,
                 title: this.state.book.title,
                 author: this.state.book.author
@@ -100,16 +101,8 @@ class CreateOffer extends Component {
                 .then((res) =>{
                     console.log(res.data);
                     alert("Your offer has been created");
-                });
-
-            this.setState({
-                user: this.state.user,
-                book: this.state.book,
-                cover: null,
-                condition: null,
-                price: null,
-                description: ""
-            })
+                    this.props.history.push('/marketplace');
+                });            
         }
     };
 
@@ -181,33 +174,46 @@ class CreateOffer extends Component {
                     <Divider style={{marginTop: "15px", marginBottom: "15px"}} variant="middle" />
                     <Grid>
                         <form>
-                            <NativeSelect
-                             id="demo-customized-select-native"
-                             value={this.state.cover}
-                             onChange={e => this.setState({ cover: e.target.value})}
-                             fullWidth
-                             >
-                             <option aria-label="None" value="" />
-                             <option value={null} disabled selected>What type of cover does your book have?</option>
-                             <option value={"Hardcover"}>Hardcover</option>
-                             <option value={"Softcover"}>Softcover</option>
-                             </NativeSelect>
+
+                        <Grid item xs={12}>
+                                <FormControl variant="outlined" style={{width:"100%"}} required>
+                                    <InputLabel required>
+                                    Cover
+                                    </InputLabel>
+                                    <Select
+                                        value={this.state.cover}
+                                        onChange={e => this.setState({ cover: e.target.value})}
+                                        label="Cover"
+                                        required
+                                        variant="outlined"
+                                    >
+                                        <MenuItem value={"Hardcover"}>Hardcover</MenuItem>
+                                        <MenuItem value={"Softcover"}>Softcover</MenuItem>
+                                    </Select>
+                                </FormControl>
+                            </Grid>
 
                             <br/><br/>
 
-                            <NativeSelect
-                             id="demo-customized-select-native"
-                             value={this.state.condition}
-                             onChange={e => this.setState({ condition: e.target.value})}
-                             fullWidth
-                             >
-                             <option aria-label="None" value="" />
-                             <option value={null} disabled selected>What is the condition of your book?</option>
-                             <option value={"New"}>New</option>
-                             <option value={"Used, no traces of use"}>Used, no traces of use</option>
-                             <option value={"Used, medium traces of use"}>Used, medium traces of use</option>
-                             <option value={"Used, sever traces of use"}>Used, sever traces of use</option>
-                             </NativeSelect>
+                            <Grid item xs={12}>
+                                <FormControl variant="outlined" style={{width:"100%"}} required>
+                                    <InputLabel required>
+                                    Condition
+                                    </InputLabel>
+                                    <Select
+                                        value={this.state.condition}
+                                        onChange={e => this.setState({ condition: e.target.value})}
+                                        label="Condition"
+                                        required
+                                        variant="outlined"
+                                    >
+                                        <MenuItem value={"New"}>New</MenuItem>
+                                        <MenuItem value={"Used, no traces of use"}>Used, no traces of use</MenuItem>
+                                        <MenuItem value={"Used, medium traces of use"}>Used, medium traces of use</MenuItem>
+                                        <MenuItem value={"Used, sever traces of use"}>Used, sever traces of use</MenuItem>
+                                    </Select>
+                                </FormControl>
+                            </Grid>
 
                             <br/><br/>
 
@@ -217,6 +223,7 @@ class CreateOffer extends Component {
                                   id="outlined-adornment-amount"
                                   type="number"
                                   value={this.state.price}
+                                  required
                                   onChange={e => this.setState({price:e.target.value})}
                                   startAdornment={<InputAdornment position="start">$</InputAdornment>}
                                   labelWidth={60}

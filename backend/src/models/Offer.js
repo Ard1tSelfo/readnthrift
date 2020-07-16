@@ -30,6 +30,7 @@ const offerSchema = mongoose.Schema ({
     description: {
         type: String
     },
+    open: Boolean,
     thumbnail: {
         type: String,
         trim: true
