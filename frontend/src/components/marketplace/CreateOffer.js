@@ -19,6 +19,7 @@ import { InputLabel, Select, MenuItem, FormControl } from "@material-ui/core";
 import NativeSelect from '@material-ui/core/NativeSelect';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import InputAdornment from '@material-ui/core/InputAdornment';
+import axios from 'axios';
 
 const useStyles = (theme) => ({
     paper: {
@@ -54,18 +55,49 @@ class CreateOffer extends Component {
         super(props);
 
         this.handleInputChange = this.handleInputChange.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
 
         this.state = {
             loading: false,
-            book: null,
             error: null,
             user: null,
-            price: 0,
+            book: null,
             cover: null,
             condition: null,
+            price: null,
             description: null
         };
     }
+
+    onSubmit = (e) => {
+        e.preventDefault();
+
+        const offer = {
+            user: this.state.user,
+            book: this.state.book,
+            cover: this.state.cover,
+            condition: this.state.condition,
+            price: this.state.price,
+            description: this.state.description
+        };
+
+        axios.post("http://localhost:5000/marketplace", offer)
+            .then((res) =>{
+                console.log(res.data);
+                alert("Your offer has been created");
+            });
+
+
+
+        this.setState({
+            user: this.state.user,
+            book: this.state.book,
+            cover: null,
+            condition: null,
+            price: null,
+            description: ""
+        })
+    };
 
     async componentDidMount() {
         this.setState({
@@ -140,12 +172,13 @@ class CreateOffer extends Component {
                              //value={age}
                              //onChange={handleChange}
                              //input={<BootstrapInput />}
+                             onChange={e => this.setState({ cover: e.target.value})}
                              fullWidth
                              >
                              <option aria-label="None" value="" />
-                             <option value={0} disabled selected>What type of cover does your book have?</option>
-                             <option value={1}>Hardcover</option>
-                             <option value={2}>Softcover</option>
+                             <option value={""} disabled selected>What type of cover does your book have?</option>
+                             <option value={"Hardcover"}>Hardcover</option>
+                             <option value={"Softcover"}>Softcover</option>
                              </NativeSelect>
 
                             <br/><br/>
@@ -155,14 +188,15 @@ class CreateOffer extends Component {
                              //value={age}
                              //onChange={handleChange}
                              //input={<BootstrapInput />}
+                             onChange={e => this.setState({ condition: e.target.value})}
                              fullWidth
                              >
                              <option aria-label="None" value="" />
-                             <option value={0} disabled selected>What is the condition of your book?</option>
-                             <option value={1}>New</option>
-                             <option value={2}>Used, no traces of use</option>
-                             <option value={3}>Used, medium traces of use</option>
-                             <option value={3}>Used, sever traces of use</option>
+                             <option value={""} disabled selected>What is the condition of your book?</option>
+                             <option value={"New"}>New</option>
+                             <option value={"Used, no traces of use"}>Used, no traces of use</option>
+                             <option value={"Used, medium traces of use"}>Used, medium traces of use</option>
+                             <option value={"Used, sever traces of use"}>Used, sever traces of use</option>
                              </NativeSelect>
 
                             <br/><br/>
@@ -174,6 +208,8 @@ class CreateOffer extends Component {
                                   type="number"
                                   //value={values.amount}
                                   //onChange={handleChange('amount')}
+                                  value={this.state.price}
+                                  onChange={e => this.setState({price:e.target.value})}
                                   startAdornment={<InputAdornment position="start">$</InputAdornment>}
                                   labelWidth={60}
                                 />
@@ -189,7 +225,7 @@ class CreateOffer extends Component {
                               fullWidth
                               defaultValue=""
                               variant="outlined"
-                              value={this.state.notice} onChange={e => this.setState({ notice: e.target.value})}
+                              value={this.state.description} onChange={e => this.setState({ description: e.target.value})}
                               />
                              
 
@@ -205,6 +241,7 @@ class CreateOffer extends Component {
                     textAlign="left"
                     disableElevation
                     //onClick={this.handleOpenBookshelfModal}
+                    onClick={e => this.onSubmit(e)}
                 >
                     Place my offer
                 </Button>
