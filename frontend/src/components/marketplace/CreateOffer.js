@@ -101,16 +101,8 @@ class CreateOffer extends Component {
                 .then((res) =>{
                     console.log(res.data);
                     alert("Your offer has been created");
-                });
-
-            this.setState({
-                user: this.state.user,
-                book: this.state.book,
-                cover: null,
-                condition: null,
-                price: null,
-                description: ""
-            })
+                    this.props.history.push('/marketplace');
+                });            
         }
     };
 
