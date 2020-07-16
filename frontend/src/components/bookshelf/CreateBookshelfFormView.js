@@ -70,7 +70,7 @@ class CreateBookshelfFormView extends Component {
             const res = await axios.post("http://localhost:5000/users/me/bookshelves/new", userInput);
             if (res.status === 201) {
                 alert(`${this.state.name} was added to your bookshelves!`)
-                this.props.history.push("/dashboard");
+                this.props.history.push("/userprofile");
             } else {
                 const error = new Error(res.error);
                 throw error;
