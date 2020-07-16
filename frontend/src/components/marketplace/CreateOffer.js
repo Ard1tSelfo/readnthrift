@@ -4,16 +4,10 @@ import ButtonBase from "@material-ui/core/ButtonBase";
 import Typography from "@material-ui/core/Typography";
 import BookService from "../../services/BookService";
 import UserService from "../../services/UserService";
-import BookshelfService from "../../services/BookshelfService";
-import ReviewService from "../../services/ReviewService";
 import { withStyles } from "@material-ui/core/styles";
 import { Paper } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
-import Modal from "@material-ui/core/Modal";
 import Divider from '@material-ui/core/Divider';
-import Rating from '@material-ui/lab/Rating';
-import Box from '@material-ui/core/Box';
-import SendIcon from '@material-ui/icons/Send';
 import TextField from '@material-ui/core/TextField';
 import { InputLabel, Select, MenuItem, FormControl } from "@material-ui/core";
 import NativeSelect from '@material-ui/core/NativeSelect';
@@ -71,10 +65,10 @@ class CreateOffer extends Component {
 
     onSubmit = (e) => {
         let messages = [];
-        if (this.state.cover === null ) {
+        if (this.state.cover === null || this.state.cover === "" ) {
             messages.push("cover type")
         }
-        if (this.state.condition === null) {
+        if (this.state.condition === null || this.state.condition === "") {
             messages.push("book's condition")
         }
         if (this.state.price === null) {
@@ -87,32 +81,30 @@ class CreateOffer extends Component {
         }
 
         else {
-        const offer = {
-            user: this.state.user,
-            book: this.state.book,
-            cover: this.state.cover,
-            condition: this.state.condition,
-            price: this.state.price,
-            description: this.state.description
-        };
+            const offer = {
+                user: this.state.user,
+                book: this.state.book,
+                cover: this.state.cover,
+                condition: this.state.condition,
+                price: this.state.price,
+                description: this.state.description
+            };
 
-        axios.post("http://localhost:5000/marketplace", offer)
-            .then((res) =>{
-                console.log(res.data);
-                alert("Your offer has been created");
-            });
+            axios.post("http://localhost:5000/marketplace", offer)
+                .then((res) =>{
+                    console.log(res.data);
+                    alert("Your offer has been created");
+                });
 
-
-
-        this.setState({
-            user: this.state.user,
-            book: this.state.book,
-            cover: null,
-            condition: null,
-            price: null,
-            description: ""
-        })
-    }
+            this.setState({
+                user: this.state.user,
+                book: this.state.book,
+                cover: null,
+                condition: null,
+                price: null,
+                description: ""
+            })
+        }
     };
 
     async componentDidMount() {
@@ -185,14 +177,12 @@ class CreateOffer extends Component {
                         <form>
                             <NativeSelect
                              id="demo-customized-select-native"
-                             //value={age}
-                             //onChange={handleChange}
-                             //input={<BootstrapInput />}
+                             value={this.state.cover}
                              onChange={e => this.setState({ cover: e.target.value})}
                              fullWidth
                              >
                              <option aria-label="None" value="" />
-                             <option value={""} disabled selected>What type of cover does your book have?</option>
+                             <option value={null} disabled selected>What type of cover does your book have?</option>
                              <option value={"Hardcover"}>Hardcover</option>
                              <option value={"Softcover"}>Softcover</option>
                              </NativeSelect>
@@ -201,14 +191,12 @@ class CreateOffer extends Component {
 
                             <NativeSelect
                              id="demo-customized-select-native"
-                             //value={age}
-                             //onChange={handleChange}
-                             //input={<BootstrapInput />}
+                             value={this.state.condition}
                              onChange={e => this.setState({ condition: e.target.value})}
                              fullWidth
                              >
                              <option aria-label="None" value="" />
-                             <option value={""} disabled selected>What is the condition of your book?</option>
+                             <option value={null} disabled selected>What is the condition of your book?</option>
                              <option value={"New"}>New</option>
                              <option value={"Used, no traces of use"}>Used, no traces of use</option>
                              <option value={"Used, medium traces of use"}>Used, medium traces of use</option>
@@ -222,8 +210,6 @@ class CreateOffer extends Component {
                                 <OutlinedInput
                                   id="outlined-adornment-amount"
                                   type="number"
-                                  //value={values.amount}
-                                  //onChange={handleChange('amount')}
                                   value={this.state.price}
                                   onChange={e => this.setState({price:e.target.value})}
                                   startAdornment={<InputAdornment position="start">$</InputAdornment>}
@@ -256,7 +242,6 @@ class CreateOffer extends Component {
                     color="primary"
                     textAlign="left"
                     disableElevation
-                    //onClick={this.handleOpenBookshelfModal}
                     onClick={e => this.onSubmit(e)}
                 >
                     Place my offer
