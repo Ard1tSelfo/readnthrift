@@ -5,6 +5,7 @@ const bookRouter = require('./routers/book')
 const reviewRouter = require('./routers/review')
 const bookshelfRouter = require('./routers/bookshelf')
 const offerRouter = require('./routers/offer')
+const reccomendationsRouter = require('./routers/recommenderAlgorithms');
 
 const cors = require('cors')
 const port = process.env.PORT
@@ -21,7 +22,7 @@ app.use(bookRouter)
 app.use(reviewRouter)
 app.use(bookshelfRouter)
 app.use(offerRouter)
-
+app.use(reccomendationsRouter)
 
 app.listen(port, () => {
     console.log(`Server running on port ${port}`) 
