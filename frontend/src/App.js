@@ -80,7 +80,7 @@ class App extends Component {
                                     component={UserProfile}
                                 />
                                 <Route path="/review" component={Review} />
-                                <ProtectedRoute path="/bookshelves/newbookshelf" component={CreateBookshelf} />
+                                <ProtectedRoute path="/createbookshelf/" component={CreateBookshelf} />
                                 <ProtectedRoute path="/books/:bookid" component={BookView} />
                                 <ProtectedRoute path="/me/bookshelves/:bookshelfid" component={BookshelfView}/>
                                 <ProtectedRoute path="/marketplace" component={Marketplace}/>
