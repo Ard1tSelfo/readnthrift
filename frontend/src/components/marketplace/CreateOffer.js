@@ -70,8 +70,23 @@ class CreateOffer extends Component {
     }
 
     onSubmit = (e) => {
-        e.preventDefault();
+        let messages = [];
+        if (this.state.cover === null ) {
+            messages.push("cover type")
+        }
+        if (this.state.condition === null) {
+            messages.push("book's condition")
+        }
+        if (this.state.price === null) {
+            messages.push("price for your offer")
+        }
 
+        if (messages.length > 0) {
+        e.preventDefault();
+        alert("Please fill out the required fields: " + messages.join(', '));
+        }
+
+        else {
         const offer = {
             user: this.state.user,
             book: this.state.book,
@@ -97,6 +112,7 @@ class CreateOffer extends Component {
             price: null,
             description: ""
         })
+    }
     };
 
     async componentDidMount() {
