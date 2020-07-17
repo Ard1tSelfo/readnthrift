@@ -20,29 +20,30 @@ const generateRecommendationsForBookshelf = async (req, res) => {
         let frequentTags = [];
         for (const [key, value] of Object.entries(tagFrequency)) {
             if (value > books.length / 2) {
-                //threshold
                 frequentTags = [...frequentTags, key];
             }
         }
 
         //weak recommendations
-        /*let finalBooks = await BookModel.find({
+        let finalBooks = await BookModel.find({
             tags: {
                 $elemMatch: {
                     $in: frequentTags,
                 },
             },
-        });*/
+            _id: {
+                $nin: bookshelf.books
+            }
+        });
 
         //strong recommendations
-        let finalBooks = await BookModel.find({
+        /*let finalBooks = await BookModel.find({
             "tags": {
                 $all: frequentTags,
             },
-        }).exec();
+        }).exec();*/
 
-        // TODO take out books already in booklist
-        return res.status(200).json(finalBooks);
+        return res.status(200).json({finalBooks,frequentTags});
     } catch (err) {
         return res.status(500).json({
             error: "Internal server error",
