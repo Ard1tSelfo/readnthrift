@@ -101,11 +101,26 @@ const removebookshelf = async (req, res) => {
     }
   };
 
+  const removebookfrombookshelf = async (req, res) => {
+    try {   
+      await BookshelfModel.update( {_id: req.params.bookshelfid}, { "$pull": { "books": { "_id": req.params.bookid } }} ), { safe: true };
+      return res.status(200).json({message: `The book was deleted from bookshelf ${req.params.bookshelfid}`});
+    } catch(err) {
+      return res.status(500).json({
+        error: 'Internal server error',
+        message: err.message
+      });
+    }
+  };
+
+  
+
 module.exports = {
     bookshelflist,
     createbookshelf,
     updatebookshelf,
     getbookshelf,
     getBooksByBookshelfId,
-    removebookshelf
+    removebookshelf,
+    removebookfrombookshelf
 };

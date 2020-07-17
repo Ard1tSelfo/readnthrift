@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import BookshelfService from "../../services/BookshelfService";
-import BrowseBooksTable from "../../components/booklist/browseBooksTable";
+import BrowseBooksTableBookshelf from "../../components/booklist/browseBooksTableBookshelf";
 import UserService from "../../services/UserService";
 import RecommendationList from "../../components/recommendation/RecommendationList";
 
@@ -49,11 +49,12 @@ class BookshelfView extends Component {
     render() {
         return (
             <>
-                <BrowseBooksTable
+                <BrowseBooksTableBookshelf
                     tablename={!!this.state.bookshelf && this.state.bookshelf.name}
                     description={!!this.state.bookshelf && this.state.bookshelf.description}
                     data={this.state.books}
                     loading={this.state.loading}
+                    bookshelf={!!this.state.bookshelf && this.state.bookshelf._id}
                 />
                 <RecommendationList books={!!this.state.recommendedBooks && this.state.recommendedBooks}
                     tags={!!this.state.frequentTags && this.state.frequentTags}/>

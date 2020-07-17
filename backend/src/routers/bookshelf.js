@@ -9,5 +9,6 @@ router.get('/users/me/bookshelves/:userid', BookshelfController.bookshelflist); 
 router.get('/users/me/bookshelf/books/:bookshelfid', BookshelfController.getBooksByBookshelfId); // Get the books in a bookshelf by bookshelfid
 router.get('/users/me/bookshelf/:bookshelfid', BookshelfController.getbookshelf); // Get a bookshelf by its id
 router.delete('/users/me/bookshelf/:bookshelfid', BookshelfController.removebookshelf); // Delete a bookshelf by its id
+router.delete('/users/me/bookshelf/:bookshelfid/:bookid', BookshelfController.removebookfrombookshelf); // Delete a book from a bookshelf by their ids
 
 module.exports = router;
