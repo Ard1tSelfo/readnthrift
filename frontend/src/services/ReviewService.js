@@ -12,7 +12,6 @@ axios.interceptors.request.use((config) => {
 
 export default class ReviewService {
     static async addReview(review) {
-        const user = UserService.getCurrentUser();
         try {
             const res = await axios.post(`http://localhost:5000/reviews`, review);
             return res.data
