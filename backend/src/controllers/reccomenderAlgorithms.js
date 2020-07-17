@@ -25,7 +25,7 @@ const generateRecommendationsForBookshelf = async (req, res) => {
         }
 
         //weak recommendations
-        let finalBooks = await BookModel.find({
+        /*let finalBooks = await BookModel.find({
             tags: {
                 $elemMatch: {
                     $in: frequentTags,
@@ -34,15 +34,18 @@ const generateRecommendationsForBookshelf = async (req, res) => {
             _id: {
                 $nin: bookshelf.books
             }
-        });
+        });*/
 
         //strong recommendations
-        /*let finalBooks = await BookModel.find({
+        let finalBooks = await BookModel.find({
             "tags": {
                 $all: frequentTags,
             },
-        }).exec();*/
-
+            _id: {
+                $nin: bookshelf.books
+            }
+        }).exec();
+        
         return res.status(200).json({finalBooks,frequentTags});
     } catch (err) {
         return res.status(500).json({

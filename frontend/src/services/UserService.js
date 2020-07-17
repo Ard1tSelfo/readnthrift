@@ -13,7 +13,15 @@ export default class UserService {
     static async getCurrentUser() {
         try {
             const res = await axios.get("http://localhost:5000/users/me");
-            console.log(res)
+            return res.data
+        } catch (error) {
+            console.log(error);
+        } 
+    }
+
+    static async getUserById(userid) {
+        try {
+            const res = await axios.get(`http://localhost:5000/users/${userid}`);
             return res.data
         } catch (error) {
             console.log(error);

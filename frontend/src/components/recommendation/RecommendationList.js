@@ -89,7 +89,7 @@ export default function RecommendationList(props) {
   return (
     <div>
       <Typography variant="h5"> Our recommendations based on this collection:</Typography>
-  <Typography variant="h7"> Most frequent tags ({">"}50%) in your collection:
+  <Typography variant="h7"> Most frequent tags in your collection include
   {props.tags.map((tag) => (<i> {tag}; </i>))} </Typography>
  
       <div className={classes.wrapper}>

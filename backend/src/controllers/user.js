@@ -1,5 +1,6 @@
 const UserModel = require("../models/User");
 const jwt = require("jsonwebtoken");
+const User = require("../models/User");
 
 const getUserByToken = async (req, res) => {
     try {
@@ -19,6 +20,19 @@ const getUserByToken = async (req, res) => {
     }
 };
 
+const getUserById = async (req, res) => {
+    try {
+        const user = await UserModel.findOne({ _id: req.params.id}).exec();
+        return res.status(200).json(user);
+    } catch (err) {
+        return res.status(500).json({
+            error: "Internal server error",
+            message: err.message,
+        });
+    }
+}
+
 module.exports = {
     getUserByToken,
+    getUserById
 };
