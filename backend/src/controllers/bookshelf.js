@@ -88,10 +88,24 @@ const getBooksByBookshelfId = async (req, res) => {
     }
 };
 
+const removebookshelf = async (req, res) => {
+    try {   
+      let user = await BookshelfModel.findById(req.params.bookshelfid).exec().user;
+      await BookshelfModel.findByIdAndRemove(req.params.bookshelfid).exec();
+      return res.status(200).json({message: `Bookshelf with id${req.params.bookshelfid} was deleted`});
+    } catch(err) {
+      return res.status(500).json({
+        error: 'Internal server error',
+        message: err.message
+      });
+    }
+  };
+
 module.exports = {
     bookshelflist,
     createbookshelf,
     updatebookshelf,
     getbookshelf,
-    getBooksByBookshelfId
+    getBooksByBookshelfId,
+    removebookshelf
 };

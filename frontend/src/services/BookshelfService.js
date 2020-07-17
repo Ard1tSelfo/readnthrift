@@ -54,5 +54,13 @@ export default class BookshelfService {
             console.log(error);
         }
     }
- 
+
+    static async deleteBookshelf(bookshelfId) {
+        try {
+            const res = await axios.delete(`http://localhost:5000/users/me/bookshelf/${bookshelfId}`);
+            return res.data
+        } catch (error) {
+            console.log(error);
+        }
+    }
 }

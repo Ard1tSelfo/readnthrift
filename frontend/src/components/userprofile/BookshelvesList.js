@@ -71,9 +71,12 @@ class BookshelvesList extends Component {
         });
     };
 
-    handleDeleteBookshelf = (event) => {
-        // await BookshelfService.deleteBookshelf(this.state.bookshelftodelete, this.state.user._id);
-        // this.props.history.push(`me/bookshelves/${bookshelfId}`);
+    handleDeleteBookshelf = async (event) => {
+        await BookshelfService.deleteBookshelf(this.state.bookshelftodelete);
+        this.setState({
+            deleteBookshelfModalOpen: false,
+        });
+        // this.props.history.push('/userprofile')
     };
 
     async componentDidMount() {
