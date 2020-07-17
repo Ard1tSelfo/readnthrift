@@ -113,6 +113,7 @@ class CreateBookshelfFormView extends Component {
                             variant="outlined"
                             margin="normal"
                             fullWidth
+                            required
                             id="name"
                             label="Give your new bookshelf a name"
                             name="name"

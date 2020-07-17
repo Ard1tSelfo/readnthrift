@@ -67,35 +67,19 @@ class CreateOffer extends Component {
     }
 
     onSubmit = (e) => {
-        let messages = [];
-        if (this.state.cover === null || this.state.cover === "" ) {
-            messages.push("cover type")
-        }
-        if (this.state.condition === null || this.state.condition === "") {
-            messages.push("book's condition")
-        }
-        if (this.state.price === null) {
-            messages.push("price for your offer")
-        }
-
-        if (messages.length > 0) {
         e.preventDefault();
-        alert("Please fill out the required fields: " + messages.join(', '));
-        }
-
-        else {
-            const offer = {
-                user: this.state.user,
-                book: this.state.book,
-                cover: this.state.cover,
-                condition: this.state.condition,
-                price: this.state.price,
-                description: this.state.description,
-                open: true,
-                thumbnail: this.state.book.thumbnail,
-                title: this.state.book.title,
-                author: this.state.book.author
-            };
+        const offer = {
+            user: this.state.user,
+            book: this.state.book,
+            cover: this.state.cover,
+            condition: this.state.condition,
+            price: this.state.price,
+            description: this.state.description,
+            open: true,
+            thumbnail: this.state.book.thumbnail,
+            title: this.state.book.title,
+            author: this.state.book.author
+        };
 
             axios.post("http://localhost:5000/marketplace", offer)
                 .then((res) =>{
@@ -103,7 +87,6 @@ class CreateOffer extends Component {
                     alert("Your offer has been created");
                     this.props.history.push('/marketplace');
                 });            
-        }
     };
 
     async componentDidMount() {
@@ -218,7 +201,7 @@ class CreateOffer extends Component {
                             <br/><br/>
 
                             <FormControl fullWidth className={classes.margin} variant="outlined">
-                                <InputLabel htmlFor="outlined-adornment-amount">Price</InputLabel>
+                                <InputLabel required htmlFor="outlined-adornment-amount">Price</InputLabel>
                                 <OutlinedInput
                                   id="outlined-adornment-amount"
                                   type="number"
@@ -242,23 +225,22 @@ class CreateOffer extends Component {
                               variant="outlined"
                               value={this.state.description} onChange={e => this.setState({ description: e.target.value})}
                               />
-                             
+
+                                <Button
+                                    className={classes.pageButton}
+                                    variant="contained"
+                                    color="primary"
+                                    textAlign="left"
+                                    disableElevation
+                                    type="Submit"
+                                    
+                                >
+                                    Place my offer
+                                </Button>
 
                         </form>
                     </Grid>
                 </Paper>
-                
-
-                <Button
-                    className={classes.pageButton}
-                    variant="contained"
-                    color="primary"
-                    textAlign="left"
-                    disableElevation
-                    onClick={e => this.onSubmit(e)}
-                >
-                    Place my offer
-                </Button>
             </div>
         );
     }
