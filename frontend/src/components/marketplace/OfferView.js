@@ -10,6 +10,7 @@ import { Paper } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import Divider from '@material-ui/core/Divider';
 import Box from '@material-ui/core/Box';
+import axios from 'axios';
 
 const useStyles = (theme) => ({
     paper: {
@@ -44,13 +45,56 @@ class OfferView extends Component {
     constructor(props) {
         super(props);
 
+        this.delete = this.delete.bind(this);
+        this.buyBook = this.buyBook.bind(this);
+
         this.state = {
             loading: false,
             error: null,
             user: null,
             offer: null,
             book: null,
+            isOwner: false,
         };
+    }
+
+    delete = async (e) => {
+        axios.delete(`http://localhost:5000/marketplace/${this.state.offer._id}`)
+        .then((res) => {
+            console.log(res.data);
+            alert("Your offer has been deleted");
+            this.props.history.push('/marketplace')
+        })
+    }
+
+    buyBook = async (e) => {
+        const offer = {
+            user: this.state.offer.user,
+            book: this.state.offer.book,
+            cover: this.state.offer.cover,
+            condition: this.state.offer.condition,
+            price: this.state.offer.price,
+            description: this.state.offer.description,
+            open: false,
+            thumbnail: this.state.offer.book.thumbnail,
+            title: this.state.offer.book.title,
+            author: this.state.offer.book.author
+        };
+
+
+        // Update offer: change `open` property to false
+        axios.put(`http://localhost:5000/marketplace/${this.state.offer._id}`, offer)
+        .then((res) => {
+            console.log(res.data);
+            alert("You will be redirected to PayPal");
+        })
+        
+        // Delete the offer from DB after the purchase
+        axios.delete(`http://localhost:5000/marketplace/${this.state.offer._id}`)
+        .then((res) => {
+            console.log(res.data);
+            this.props.history.push('/marketplace')
+        })
     }
 
     async componentDidMount() {
@@ -62,14 +106,15 @@ class OfferView extends Component {
             const user = await UserService.getCurrentUser();
             const offer = await OfferService.getOfferById(this.props.match.params.offerid)
             const book = await BookService.getBookById(offer.book);
+            const isOwner = (user._id === offer.user)
 
             this.setState({
                 offer: offer,
                 user: user,
                 book: book,
-                loading: false
+                loading: false,
+                isOwner: isOwner
             });
-            console.log(this.state.book.title)
         } catch (error) {
             this.setState({
                 error: error,
@@ -80,6 +125,30 @@ class OfferView extends Component {
 
     render() {
         const { classes } = this.props;
+        let button;
+        if (this.state.isOwner) {
+            button = <Button
+                        variant="contained"
+                        color="primary"
+                        textAlign="left"
+                        disableElevation
+                        fullWidth
+                        onClick={e => this.delete(e)}
+                    >
+                        Delete
+                    </Button>
+        } else {
+            button = <Button
+                        variant="contained"
+                        color="primary"
+                        textAlign="left"
+                        disableElevation
+                        fullWidth
+                        onClick={e => this.buyBook(e)}
+                    >
+                        Buy this book
+                    </Button>
+        }
         const { router, params, location, routes } = this.props;
         return (
             <div>
@@ -143,6 +212,8 @@ class OfferView extends Component {
                     </Grid>
                 </Paper>
                 <br />
+                {button}
+      
             </div>
         );
     }
