@@ -10,11 +10,27 @@ import ListItemText from "@material-ui/core/ListItemText";
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 import Divider from '@material-ui/core/Divider';
 import AddBoxOutlinedIcon from '@material-ui/icons/AddBoxOutlined';
+import DeleteIcon from '@material-ui/icons/Delete';
+import Modal from "@material-ui/core/Modal";
+import Paper from "@material-ui/core/Paper";
+import Button from "@material-ui/core/Button";
+import Typography from "@material-ui/core/Typography";
 
 const useStyles = (theme) => ({
     root: {
         width: "100%",
         backgroundColor: theme.palette.background.paper,
+    },
+    deleteBookshelfModal: {
+        marginTop: theme.spacing(16),
+        flexDirection: "column",
+        alignItems: "center",
+        marginBottom: "auto",
+        width: "35%",
+        marginLeft: "auto",
+        marginRight: "auto",
+        borderRadius: "25px",
+        spacing: 1
     },
 });
 
@@ -29,6 +45,8 @@ class BookshelvesList extends Component {
             user: null,
             bookshelves: [],
             error: null,
+            deleteBookshelfModalOpen: false,
+            bookshelftodelete: null
         };
     }
 
@@ -38,6 +56,24 @@ class BookshelvesList extends Component {
 
     handleAddNewBookshelf = (event) => {
         this.props.history.push('/createbookshelf')
+    };
+
+    handleOpenDeleteBookshelfModal = (event, bookshelfId) => {
+        this.setState({
+            deleteBookshelfModalOpen: true,
+            bookshelftodelete: bookshelfId
+        });
+    };
+
+    handleCloseDeleteBookshelfModal = () => {
+        this.setState({
+            deleteBookshelfModalOpen: false,
+        });
+    };
+
+    handleDeleteBookshelf = (event) => {
+        // await BookshelfService.deleteBookshelf(this.state.bookshelftodelete, this.state.user._id);
+        // this.props.history.push(`me/bookshelves/${bookshelfId}`);
     };
 
     async componentDidMount() {
@@ -63,12 +99,12 @@ class BookshelvesList extends Component {
             <List component="nav" aria-label="main mailbox folders">
                 {!!this.state.bookshelves &&
                     this.state.bookshelves.map((booksh, i) => (
-                        <ListItem button key={i}
-                        onClick={(event) => this.handleListItemClick(event, booksh._id)}>
-                            <ListItemIcon>
-                                <MenuBookIcon color="secondary"/>
+                        <ListItem button key={i}                       >
+                            <ListItemIcon onClick={(event) => this.handleListItemClick(event, booksh._id)}>
+                            <MenuBookIcon color="secondary" onClick={(event) => this.handleListItemClick(event, booksh._id)}/>
                             </ListItemIcon>
-                            <ListItemText primary={booksh.name}/>
+                            <ListItemText primary={booksh.name} onClick={(event) => this.handleListItemClick(event, booksh._id)}/>
+                            <DeleteIcon color="secondary" onClick={(event) => this.handleOpenDeleteBookshelfModal(event, booksh._id)}/>
                         </ListItem>
                     ))}
                 <Divider style={{marginTop: "10px", marginBottom: "10px"}} variant="middle" />
@@ -79,6 +115,35 @@ class BookshelvesList extends Component {
                     <ListItemText primary="Add new bookshelf" />
                 </ListItem>
             </List>
+            <Modal open={this.state.deleteBookshelfModalOpen} onClose={this.handleCloseDeleteBookshelfModal}>
+                    <div className={classes.deleteBookshelfModal}>
+                        <Paper className={classes.deleteBookshelfModalPaper}>
+                            <Typography id="confirmdeletebookshelftext">
+                                Do your really want to delete this bookshelf?
+                            </Typography>
+                            <Button
+                                className={classes.button}
+                                variant="contained"
+                                color="primary"
+                                disableElevation
+                                m={2}
+                                onClick={(event) => this.handleDeleteBookshelf(event)}
+                            >
+                                Yes, please delete this bookshelf
+                            </Button>
+                            <Button
+                                className={classes.button}
+                                variant="contained"
+                                color="primary"
+                                disableElevation
+                                m={2}
+                                onClick={this.handleCloseDeleteBookshelfModal}
+                            >
+                                No, I don't want to progress
+                            </Button>
+                        </Paper>
+                    </div>
+                </Modal>
         </div>
         );
     }
