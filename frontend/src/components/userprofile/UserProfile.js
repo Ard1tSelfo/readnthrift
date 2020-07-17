@@ -4,6 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import BookshelvesList from "../userprofile/BookshelvesList";
+import SwapOffersList from "../userprofile/SwapOffersList";
 import BasicInformation from "./BasicInformation";
 
 const useStyles = makeStyles((theme) => ({
@@ -74,6 +75,7 @@ function CenteredGrid() {
                 <Grid item xs={5} style={{ padding: "0", paddingRight: theme.spacing(1) }}>
                     <Paper className={classes.paper} elevation={2}>
                         <Typography variant="button">My swap offers</Typography>
+                        <SwapOffersList/>
                     </Paper>
                 </Grid>
                 <Grid item xs={7} style={{ padding: "0", paddingLeft: theme.spacing(1) }}>

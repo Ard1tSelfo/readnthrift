@@ -156,7 +156,7 @@ class CreateOffer extends Component {
                     </Grid>
                     <Divider style={{marginTop: "15px", marginBottom: "15px"}} variant="middle" />
                     <Grid>
-                        <form>
+                        <form onSubmit={this.onSubmit}>
 
                         <Grid item xs={12}>
                                 <FormControl variant="outlined" style={{width:"100%"}} required>
@@ -232,7 +232,7 @@ class CreateOffer extends Component {
                                     color="primary"
                                     textAlign="left"
                                     disableElevation
-                                    type="Submit"
+                                    type="submit"
                                     
                                 >
                                     Place my offer
