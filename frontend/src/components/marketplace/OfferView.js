@@ -16,13 +16,16 @@ const useStyles = (theme) => ({
         padding: theme.spacing(2),
         color: theme.palette.text.primary,
         marginTop: theme.spacing(2),
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        width: '60%'
     },
     button: {
-        marginTop: theme.spacing(2)
+        marginTop: theme.spacing(2),
     },
     image: {
-        width: 128,
-        height: 128,
+        width: 175,
+        height: 175,
     },
     img: {
         margin: "auto",
@@ -133,6 +136,7 @@ class OfferView extends Component {
                         disableElevation
                         fullWidth
                         onClick={e => this.delete(e)}
+                        style={{backgroundColor:"red"}}
                     >
                         Delete
                     </Button>
@@ -209,9 +213,10 @@ class OfferView extends Component {
                             {!!this.state.offer && <text>{this.state.offer.description}</text>}
                         </Typography>
                     </Grid>
+                    {button}
                 </Paper>
                 <br />
-                {button}
+                
       
             </div>
         );

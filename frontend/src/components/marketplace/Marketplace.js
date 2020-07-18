@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { createMuiTheme, useTheme } from "@material-ui/core";
+import { createMuiTheme, useTheme, Typography } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
@@ -12,54 +12,64 @@ import BrowseOffersTable from "../marketplace/BrowseOffersTable";
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        flexGrow: 1
+        flexGrow: 1,
     },
     paper: {
         padding: theme.spacing(1),
         textAlign: "center",
-        color: theme.palette.text.primary
+        color: theme.palette.text.primary,
         //margin: theme.spacing(1),
         //marginBottom: theme.spacing(1)
     },
     grid: {
         padding: theme.spacing(0),
-    }
+    },
 }));
 
-const theme = createMuiTheme();
-
-function CenteredGrid( {e, f, g} ) {
+function CenteredGrid({ e, f, g }) {
     const classes = useStyles(useTheme());
     const theme = useTheme();
 
     return (
         <div className={classes.root}>
-             <br />
-            <Grid container style={{margin:0,width:"100%"}}>
-                <Grid item alignItems="stretch" xs={7} style={{padding:"0",paddingRight:theme.spacing(1), paddingBottom:theme.spacing(2)}}>
-                    <Paper className={classes.paper} elevation={2} style={{height:"100%"}}>
-                        <h4>Lastest offers</h4>
-                        <BrowseOffersTable data={e}/>
-                    </Paper>
+            <br />
+            <Grid container style={{ margin: 0, width: "100%" }}>
+                <Grid
+                    item
+                    
+                    xs={7}
+                    style={{
+                        padding: "0",
+                        paddingRight: theme.spacing(1),
+                    }}
+                >
+                    <BrowseOffersTable data={e} tableTitle="Latest offers" />
                 </Grid>
-                <Grid item xs={5} direction="column" style={{padding:"0", paddingLeft:theme.spacing(1)}}>
-                    <Paper className={classes.paper} elevation={2} style={{marginBottom:theme.spacing(2)}}>
-                        <h4>Do you want to trade a book?</h4>
+                <Grid
+                    item
+                    xs={5}
+                    direction="column"
+                    style={{ padding: "0", paddingLeft: theme.spacing(1) }}
+                >
+                    <Paper
+                        className={classes.paper}
+                        elevation={2}
+                        style={{ marginBottom: theme.spacing(2) }}
+                    >
+                        <Typography variant="h6">Do you want to trade a book?</Typography>
                         <Button
                             variant="contained"
                             color="primary"
-                            onClick={event => window.location.href="/choosebook"}
+                            onClick={(event) => (window.location.href = "/choosebook")}
+                            style={{ marginTop: theme.spacing(1) }}
                         >
                             Create an offer
                         </Button>
                     </Paper>
-                    <Paper className={classes.paper} elevation={2} style={{marginTop:theme.spacing(1)}}>
-                        <h4>Your offers</h4>
-                        <BrowseOffersTable data={f}/>
-                    </Paper>
+
+                    <BrowseOffersTable data={f} tableTitle="Your offers" />
                 </Grid>
             </Grid>
-
         </div>
     );
 }
@@ -103,7 +113,11 @@ class Marketplace extends Component {
     render() {
         return (
             <div>
-                <CenteredGrid e={this.state.offers} f={this.state.myoffers} g={this.props}></CenteredGrid>
+                <CenteredGrid
+                    e={this.state.offers}
+                    f={this.state.myoffers}
+                    g={this.props}
+                ></CenteredGrid>
             </div>
         );
     }

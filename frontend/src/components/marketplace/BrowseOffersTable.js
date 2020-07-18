@@ -45,8 +45,7 @@ const tableIcons = {
 
 const useStyles = (theme) => ({
     table: {
-        marginTop: theme.spacing(2),
-        marginBottom: theme.spacing(2)
+        marginBottom: theme.spacing(2),
     },
 });
 
@@ -111,7 +110,7 @@ class BrowseOffersTable extends Component {
                     ]}
                     data={this.props.data}
                     onRowClick={this.handleRowClick}
-                    title=" "
+                    title={!!this.props.tableTitle && this.props.tableTitle}
                     isLoading={this.props.loading}
                     options={{}}
                 />

@@ -7,22 +7,25 @@ import UserService from "../../services/UserService";
 import { withStyles } from "@material-ui/core/styles";
 import { Paper } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
-import Divider from '@material-ui/core/Divider';
-import TextField from '@material-ui/core/TextField';
+import Divider from "@material-ui/core/Divider";
+import TextField from "@material-ui/core/TextField";
 import { InputLabel, Select, MenuItem, FormControl } from "@material-ui/core";
-import NativeSelect from '@material-ui/core/NativeSelect';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import axios from 'axios';
+import CssBaseline from "@material-ui/core/CssBaseline";
+import OutlinedInput from "@material-ui/core/OutlinedInput";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import axios from "axios";
 
 const useStyles = (theme) => ({
     paper: {
         padding: theme.spacing(2),
         color: theme.palette.text.primary,
         marginTop: theme.spacing(2),
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        width: "60%"
     },
     button: {
-        marginTop: theme.spacing(2)
+        marginTop: theme.spacing(2),
     },
     image: {
         width: 128,
@@ -36,12 +39,18 @@ const useStyles = (theme) => ({
     },
     divider: {
         marginTop: theme.spacing(2),
-        marginBottom: theme.spacing(2)
+        marginBottom: theme.spacing(2),
     },
     pageButton: {
         marginTop: theme.spacing(2),
         width: "100%",
-    }
+    },
+    typography: {
+        marginBottom: theme.spacing(2),
+    },
+    formElement: {
+        marginBottom: theme.spacing(2),
+    },
 });
 
 class CreateOffer extends Component {
@@ -78,15 +87,14 @@ class CreateOffer extends Component {
             open: true,
             thumbnail: this.state.book.thumbnail,
             title: this.state.book.title,
-            author: this.state.book.author
+            author: this.state.book.author,
         };
 
-            axios.post("http://localhost:5000/marketplace", offer)
-                .then((res) =>{
-                    console.log(res.data);
-                    alert("Your offer has been created");
-                    this.props.history.push('/marketplace');
-                });            
+        axios.post("http://localhost:5000/marketplace", offer).then((res) => {
+            console.log(res.data);
+            alert("Your offer has been created");
+            this.props.history.push("/marketplace");
+        });
     };
 
     async componentDidMount() {
@@ -113,18 +121,19 @@ class CreateOffer extends Component {
         this.setState({
             selectedBookshelf: {
                 id: event.target.value,
-                name: event.target.name
-            }
+                name: event.target.name,
+            },
         });
     };
 
     render() {
         const { classes } = this.props;
-        const { router, params, location, routes } = this.props;
         return (
             <div>
-               <h1>Please give us some information about your book:</h1>
                 <Paper className={classes.paper}>
+                    <Typography className={classes.typography} component="h1" variant="h5">
+                        Please provide some information about your book:
+                    </Typography>
                     <Grid container spacing={2}>
                         <Grid item>
                             <ButtonBase className={classes.image}>
@@ -154,18 +163,15 @@ class CreateOffer extends Component {
                             </Grid>
                         </Grid>
                     </Grid>
-                    <Divider style={{marginTop: "15px", marginBottom: "15px"}} variant="middle" />
+                    <Divider style={{ marginTop: "15px", marginBottom: "15px" }} variant="middle" />
                     <Grid>
                         <form onSubmit={this.onSubmit}>
-
-                        <Grid item xs={12}>
-                                <FormControl variant="outlined" style={{width:"100%"}} required>
-                                    <InputLabel required>
-                                    Cover
-                                    </InputLabel>
+                            <Grid className={classes.formElement} item xs={12}>
+                                <FormControl variant="outlined" style={{ width: "100%" }} required>
+                                    <InputLabel required>Cover</InputLabel>
                                     <Select
                                         value={this.state.cover}
-                                        onChange={e => this.setState({ cover: e.target.value})}
+                                        onChange={(e) => this.setState({ cover: e.target.value })}
                                         label="Cover"
                                         required
                                         variant="outlined"
@@ -176,68 +182,77 @@ class CreateOffer extends Component {
                                 </FormControl>
                             </Grid>
 
-                            <br/><br/>
-
-                            <Grid item xs={12}>
-                                <FormControl variant="outlined" style={{width:"100%"}} required>
-                                    <InputLabel required>
-                                    Condition
-                                    </InputLabel>
+                            <Grid className={classes.formElement} item xs={12}>
+                                <FormControl variant="outlined" style={{ width: "100%" }} required>
+                                    <InputLabel required>Condition</InputLabel>
                                     <Select
                                         value={this.state.condition}
-                                        onChange={e => this.setState({ condition: e.target.value})}
+                                        onChange={(e) =>
+                                            this.setState({ condition: e.target.value })
+                                        }
                                         label="Condition"
                                         required
                                         variant="outlined"
                                     >
                                         <MenuItem value={"New"}>New</MenuItem>
-                                        <MenuItem value={"Used, no traces of use"}>Used, no traces of use</MenuItem>
-                                        <MenuItem value={"Used, medium traces of use"}>Used, medium traces of use</MenuItem>
-                                        <MenuItem value={"Used, sever traces of use"}>Used, sever traces of use</MenuItem>
+                                        <MenuItem value={"Used, no traces of use"}>
+                                            Used, no traces of use
+                                        </MenuItem>
+                                        <MenuItem value={"Used, medium traces of use"}>
+                                            Used, medium traces of use
+                                        </MenuItem>
+                                        <MenuItem value={"Used, sever traces of use"}>
+                                            Used, sever traces of use
+                                        </MenuItem>
                                     </Select>
                                 </FormControl>
                             </Grid>
 
-                            <br/><br/>
-
-                            <FormControl fullWidth className={classes.margin} variant="outlined">
-                                <InputLabel required htmlFor="outlined-adornment-amount">Price</InputLabel>
+                            <FormControl
+                                fullWidth
+                                className={classes.margin}
+                                variant="outlined"
+                                className={classes.formElement}
+                            >
+                                <InputLabel required htmlFor="outlined-adornment-amount">
+                                    Price
+                                </InputLabel>
                                 <OutlinedInput
-                                  id="outlined-adornment-amount"
-                                  type="number"
-                                  value={this.state.price}
-                                  required
-                                  onChange={e => this.setState({price:e.target.value})}
-                                  startAdornment={<InputAdornment position="start">$</InputAdornment>}
-                                  labelWidth={60}
+                                    id="outlined-adornment-amount"
+                                    type="number"
+                                    value={this.state.price}
+                                    required
+                                    onChange={(e) => this.setState({ price: e.target.value })}
+                                    startAdornment={
+                                        <InputAdornment position="start">$</InputAdornment>
+                                    }
+                                    labelWidth={60}
                                 />
                             </FormControl>
 
-                            <br/><br/>
-
                             <TextField
-                              id="outlined-multiline-static"
-                              label="Give a short description:"
-                              multiline
-                              rows={5}
-                              fullWidth
-                              defaultValue=""
-                              variant="outlined"
-                              value={this.state.description} onChange={e => this.setState({ description: e.target.value})}
-                              />
+                                className={classes.formElement}
+                                id="outlined-multiline-static"
+                                label="Give a short description:"
+                                multiline
+                                rows={5}
+                                fullWidth
+                                defaultValue=""
+                                variant="outlined"
+                                value={this.state.description}
+                                onChange={(e) => this.setState({ description: e.target.value })}
+                            />
 
-                                <Button
-                                    className={classes.pageButton}
-                                    variant="contained"
-                                    color="primary"
-                                    textAlign="left"
-                                    disableElevation
-                                    type="submit"
-                                    
-                                >
-                                    Place my offer
-                                </Button>
-
+                            <Button
+                                className={classes.pageButton}
+                                variant="contained"
+                                color="primary"
+                                textAlign="left"
+                                disableElevation
+                                type="submit"
+                            >
+                                Place my offer
+                            </Button>
                         </form>
                     </Grid>
                 </Paper>
