@@ -35,3 +35,10 @@ body {
     background: #66bb6a;
     border-radius: 1rem;
   }
+
+  .MuiListItemText-primary	{
+    width: 95%;
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
