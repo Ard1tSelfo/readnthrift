@@ -108,7 +108,7 @@ class BookshelvesList extends Component {
                                 <ListItemIcon onClick={(event) => this.handleListItemClick(event, booksh._id)}>
                                     <MenuBookIcon color="secondary" onClick={(event) => this.handleListItemClick(event, booksh._id)} />
                                 </ListItemIcon>
-                                <ListItemText primary={booksh.name} onClick={(event) => this.handleListItemClick(event, booksh._id)} />
+                                <ListItemText primary={booksh.name} secondary={`Contains ${booksh.books.length} books`} onClick={(event) => this.handleListItemClick(event, booksh._id)} />
                                 <DeleteIcon color="secondary" onClick={(event) => this.handleOpenDeleteBookshelfModal(event, booksh._id)} />
                             </ListItem>
                         ))}
