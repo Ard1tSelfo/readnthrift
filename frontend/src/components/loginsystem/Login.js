@@ -10,7 +10,6 @@ import Box from "@material-ui/core/Box";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
-import Container from "@material-ui/core/Container";
 import { Paper } from "@material-ui/core";
 import BackgroundImage from "../../assets/images/background.jpg";
 
@@ -21,7 +20,6 @@ const useStyles = (theme) => ({
         flexDirection: "column",
         alignItems: "center",
         padding: theme.spacing(4),
-        marginTop: 0,
         width: "35%",
         marginLeft: "auto",
         marginRight: "auto",
@@ -140,7 +138,6 @@ class Login extends Component {
                             variant="contained"
                             color="primary"
                             className={classes.submit}
-                            type="submit"
                         >
                             Sign In
                         </Button>

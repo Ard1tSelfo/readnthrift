@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import MaterialTable from "material-table";
-import { withStyles, useTheme } from "@material-ui/core/styles";
+import { withStyles } from "@material-ui/core/styles";
 import { forwardRef } from "react";
 import { withRouter } from 'react-router-dom';
 import AddBox from "@material-ui/icons/AddBox";
@@ -18,13 +18,8 @@ import Remove from "@material-ui/icons/Remove";
 import SaveAlt from "@material-ui/icons/SaveAlt";
 import Search from "@material-ui/icons/Search";
 import ViewColumn from "@material-ui/icons/ViewColumn";
-import Modal from "@material-ui/core/Modal";
-import UserService from "../../services/UserService";
 import BookService from "../../services/BookService";
-import BookshelfService from "../../services/BookshelfService";
-import { Paper, Select, MenuItem } from "@material-ui/core";
-import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
+
  
 const tableIcons = {
     Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -95,6 +90,7 @@ class ChooseBook extends Component {
                             field: 'thumbnail',
                             render: rowData => (
                               <img
+                                alt=""
                                 style={{ height: 100 }}
                                 src={rowData.thumbnail}
                               />

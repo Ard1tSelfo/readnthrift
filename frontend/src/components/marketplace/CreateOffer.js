@@ -10,7 +10,6 @@ import Button from "@material-ui/core/Button";
 import Divider from "@material-ui/core/Divider";
 import TextField from "@material-ui/core/TextField";
 import { InputLabel, Select, MenuItem, FormControl } from "@material-ui/core";
-import CssBaseline from "@material-ui/core/CssBaseline";
 import OutlinedInput from "@material-ui/core/OutlinedInput";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import axios from "axios";
@@ -210,7 +209,6 @@ class CreateOffer extends Component {
 
                             <FormControl
                                 fullWidth
-                                className={classes.margin}
                                 variant="outlined"
                                 className={classes.formElement}
                             >

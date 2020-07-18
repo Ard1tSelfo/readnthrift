@@ -30,9 +30,9 @@ export default class UserService {
 
     static async logout() {
         try {
-            const res = await axios.post("http://localhost:5000/users/me/logout");
+            const res = await axios.post("http://localhost:5000/users/me/logoutall");
             localStorage.removeItem("token");
-            return res.data;
+            return res.data
         } catch (error) {
             console.log(error)
         }

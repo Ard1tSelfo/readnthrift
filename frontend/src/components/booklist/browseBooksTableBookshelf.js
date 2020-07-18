@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import MaterialTable from "material-table";
-import { withStyles, useTheme } from "@material-ui/core/styles";
+import { withStyles } from "@material-ui/core/styles";
 import { forwardRef } from "react";
 import { withRouter } from 'react-router-dom';
 import AddBox from "@material-ui/icons/AddBox";
@@ -21,7 +21,7 @@ import ViewColumn from "@material-ui/icons/ViewColumn";
 import Modal from "@material-ui/core/Modal";
 import UserService from "../../services/UserService";
 import BookshelfService from "../../services/BookshelfService";
-import { Paper, Select, MenuItem } from "@material-ui/core";
+import { Paper } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
  
@@ -150,6 +150,7 @@ class BrowseBooksTableBookshelf extends Component {
                             field: 'thumbnail',
                             render: rowData => (
                               <img
+                                alt=""
                                 style={{ height: 100 }}
                                 src={rowData.thumbnail}
                               />

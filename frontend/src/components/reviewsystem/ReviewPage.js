@@ -1,9 +1,6 @@
 import React, {Component} from 'react';
 import axios from "axios";
-//import { withStyles } from '@material-ui/core/styles';
 import Rating from '@material-ui/lab/Rating';
-//import StarBorderIcon from '@material-ui/icons/StarBorder';
-//import CssBaseline from "@material-ui/core/CssBaseline";
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import TextField from '@material-ui/core/TextField';
@@ -50,7 +47,6 @@ class ReviewPage extends Component {
     componentDidMount() {}
 
     render() {
-        const { classes } = this.props;
         return (
             <div style = {{height:"100vh"}}>
                 <br />

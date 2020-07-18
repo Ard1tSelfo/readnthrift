@@ -152,7 +152,6 @@ class OfferView extends Component {
                         Buy this book
                     </Button>
         }
-        const { router, params, location, routes } = this.props;
         return (
             <div>
                 <Paper className={classes.paper}>

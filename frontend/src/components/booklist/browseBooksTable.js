@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import MaterialTable from "material-table";
-import { withStyles, useTheme } from "@material-ui/core/styles";
+import { withStyles } from "@material-ui/core/styles";
 import { forwardRef } from "react";
 import { withRouter } from 'react-router-dom';
 import AddBox from "@material-ui/icons/AddBox";
@@ -165,6 +165,7 @@ class BrowseBooksTable extends Component {
                             field: 'thumbnail',
                             render: rowData => (
                               <img
+                                alt=""
                                 style={{ height: 100 }}
                                 src={rowData.thumbnail}
                               />

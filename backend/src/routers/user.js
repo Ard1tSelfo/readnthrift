@@ -32,9 +32,10 @@ router.post('/users/login', async(req, res) => {
     }
 })
 
-router.post('/users/me/logout', auth, async (req, res) => {
+router.post('/users/me/logout', async (req, res) => {
     // Log user out of the application
     try {
+        console.log(req.user)
         req.user.tokens = req.user.tokens.filter((token) => {
             return token.token != req.token
         })
