@@ -4,11 +4,9 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import { Link } from 'react-router-dom'
-import InputBase from "@material-ui/core/InputBase";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import Button from "@material-ui/core/Button";
-import SearchIcon from "@material-ui/icons/Search";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import UserService from "../../services/UserService";
@@ -164,28 +162,12 @@ export default function PrimarySearchAppBar() {
                             style = {{marginLeft:theme.spacing(0)}}>
                         Dashboard
                     </Button>
-                    <Button className={classes.menuButton}>
-                        My bookshelves
-                    </Button>
                     <Button className={classes.menuButton} component={Link} to="/browsebooks">
                         Search books
                     </Button>
-                    <Button className={classes.menuButton} onClick={handleLogout} component={Link} to="/marketplace">
+                    <Button className={classes.menuButton} component={Link} to="/marketplace">
                         Marketplace
                     </Button>
-                    <div className={classes.search}>
-                        <div className={classes.searchIcon}>
-                            <SearchIcon />
-                        </div>
-                        <InputBase
-                            placeholder="Search…"
-                            classes={{
-                                root: classes.inputRoot,
-                                input: classes.inputInput
-                            }}
-                            inputProps={{ "aria-label": "search" }}
-                        />
-                    </div>
                     <div className={classes.grow} />
                     <div className={classes.sectionDesktop}>
                         <IconButton

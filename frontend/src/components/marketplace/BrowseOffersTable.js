@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import MaterialTable from "material-table";
-import { withStyles, useTheme } from "@material-ui/core/styles";
+import { withStyles } from "@material-ui/core/styles";
 import { forwardRef } from "react";
 import { withRouter } from 'react-router-dom';
 import AddBox from "@material-ui/icons/AddBox";
@@ -18,10 +18,7 @@ import Remove from "@material-ui/icons/Remove";
 import SaveAlt from "@material-ui/icons/SaveAlt";
 import Search from "@material-ui/icons/Search";
 import ViewColumn from "@material-ui/icons/ViewColumn";
-import BookshelfService from "../../services/BookshelfService";
-import BookService from "../../services/BookService";
 import UserService from "../../services/UserService";
-import OfferService from "../../services/OfferService";
 
 const tableIcons = {
     Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -88,7 +85,7 @@ class BrowseOffersTable extends Component {
     }
 
     render() {
-        const { router, params, location, routes, classes } = this.props
+        const { classes } = this.props
         return (
             <div className={classes.table}>
                 <MaterialTable
@@ -99,6 +96,7 @@ class BrowseOffersTable extends Component {
                             field: 'thumbnail',
                             render: rowData => (
                               <img
+                                alt=""
                                 style={{ height: 100 }}
                                 src={rowData.thumbnail}
                               />

@@ -33,7 +33,6 @@ const useStyles = (theme) => ({
         flexDirection: "column",
         alignItems: "center",
         padding: theme.spacing(4),
-        marginTop: 0,
         width: "35%",
         marginLeft: "auto",
         marginRight: "auto",

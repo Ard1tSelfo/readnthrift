@@ -51,7 +51,6 @@ class TableView extends Component {
 
     render() {
         const { classes } = this.props;
-        const { router, params, location, routes } = this.props
         return (
             <div className={classes.tableView}>
                 {!!this.state.error && <div className={classes.error}> {this.state.error} </div>}

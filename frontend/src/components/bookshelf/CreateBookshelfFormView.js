@@ -1,18 +1,11 @@
 import React, { Component } from "react";
 import axios from "axios";
-import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
-import Link from "@material-ui/core/Link";
-import Grid from "@material-ui/core/Grid";
-import Box from "@material-ui/core/Box";
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
-import Container from "@material-ui/core/Container";
 import { Paper } from "@material-ui/core";
-import BackgroundImage from "../../assets/images/background.jpg";
 import UserService from "../../services/UserService";
 
 const useStyles = (theme) => ({
@@ -22,7 +15,6 @@ const useStyles = (theme) => ({
         flexDirection: "column",
         alignItems: "center",
         padding: theme.spacing(4),
-        marginTop: 0,
         width: "35%",
         marginLeft: "auto",
         marginRight: "auto",
@@ -63,13 +55,16 @@ class CreateBookshelfFormView extends Component {
         const userInput = {
             name: this.state.name,
             description: this.state.description,
-            user: this.state.userloggedin
+            user: this.state.userloggedin,
         };
 
         try {
-            const res = await axios.post("http://localhost:5000/users/me/bookshelves/new", userInput);
+            const res = await axios.post(
+                "http://localhost:5000/users/me/bookshelves/new",
+                userInput
+            );
             if (res.status === 201) {
-                alert(`${this.state.name} was added to your bookshelves!`)
+                alert(`${this.state.name} was added to your bookshelves!`);
                 this.props.history.push("/userprofile");
             } else {
                 const error = new Error(res.error);
@@ -102,7 +97,7 @@ class CreateBookshelfFormView extends Component {
     render() {
         const { classes } = this.props;
         return (
-            <div className={classes.background} style={{ minHeight: "100%", paddingTop: "5%" }}>
+            <div style={{ minHeight: "100%", paddingTop: "5%" }}>
                 <CssBaseline />
                 <Paper elevation={2} className={classes.paper}>
                     <Typography component="h1" variant="h5">
@@ -139,7 +134,6 @@ class CreateBookshelfFormView extends Component {
                             variant="contained"
                             color="primary"
                             className={classes.submit}
-                            type="submit"
                         >
                             Create the new bookshelf
                         </Button>
