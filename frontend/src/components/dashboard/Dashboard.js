@@ -3,8 +3,6 @@ import { createMuiTheme, useTheme } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
-import UserService from "../../services/UserService";
-import BackgroundImage from "../../assets/images/background.jpg";
 
 const useStyles = makeStyles((theme) => ({
     root: {

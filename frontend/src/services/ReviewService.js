@@ -1,5 +1,4 @@
 import axios from "axios";
-import UserService from "./UserService";
 
 // TODO: make axios global to set this for each request - even in other services
 axios.interceptors.request.use((config) => {

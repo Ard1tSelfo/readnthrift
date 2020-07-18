@@ -10,7 +10,7 @@ import Box from "@material-ui/core/Box";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
-import { Container, Paper, useTheme, InputLabel, Select, MenuItem, FormControl } from "@material-ui/core";
+import { Paper, InputLabel, Select, MenuItem, FormControl } from "@material-ui/core";
 import BackgroundImage from "../../assets/images/background.jpg";
 
 function Copyright() {

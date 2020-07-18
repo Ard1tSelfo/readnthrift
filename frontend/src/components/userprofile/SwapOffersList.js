@@ -10,7 +10,6 @@ import ListItemText from "@material-ui/core/ListItemText";
 import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 import Divider from '@material-ui/core/Divider';
 import AddBoxOutlinedIcon from '@material-ui/icons/AddBoxOutlined';
-import Typography from "@material-ui/core/Typography";
 
 const useStyles = (theme) => ({
     root: {
