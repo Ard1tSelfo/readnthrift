@@ -7,7 +7,6 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 import Divider from '@material-ui/core/Divider';
 import AddBoxOutlinedIcon from '@material-ui/icons/AddBoxOutlined';
 
@@ -27,6 +26,9 @@ const useStyles = (theme) => ({
         borderRadius: "25px",
         spacing: 1
     },
+    priceTag: {
+        fontWeight: 600
+    }
 });
 
 class SwapOffersList extends Component {
@@ -47,7 +49,7 @@ class SwapOffersList extends Component {
         this.props.history.push(`/offers/${swapofferid}`);
     };
 
-    handleCreateNewSwapOffer= (event) => {
+    handleCreateNewSwapOffer = (event) => {
         this.props.history.push('/choosebook')
     };
 
@@ -68,30 +70,33 @@ class SwapOffersList extends Component {
     }
 
     render() {
-        const {classes} = this.props
+        const { classes } = this.props
         return (
             <div className={classes.root}>
-            <List component="nav" aria-label="main mailbox folders">
-                {!!this.state.swapoffers &&
-                    this.state.swapoffers.map((offer, i) => (
-                        <ListItem button key={i}                       >
-                            <ListItemIcon onClick={(event) => this.handleListItemClick(event, offer._id)}>
-                            <LocalOfferIcon color="secondary" onClick={(event) => this.handleListItemClick(event, offer._id)}/>
-                            </ListItemIcon>
-                            <ListItemText primary={offer.title} secondary={offer.condition} onClick={(event) => this.handleListItemClick(event, offer._id)}>
-                            
-                            </ListItemText>
-                        </ListItem>
-                    ))}
-                <Divider style={{marginTop: "10px", marginBottom: "10px"}} variant="middle" />
-                <ListItem button onClick={(event) => this.handleCreateNewSwapOffer(event)}>
-                    <ListItemIcon>
-                        <AddBoxOutlinedIcon color="primary"/>
-                    </ListItemIcon>
-                    <ListItemText primary="Create new Offer" />
-                </ListItem>
-            </List>
-        </div>
+                <List component="nav" aria-label="main mailbox folders">
+                    {!!this.state.swapoffers &&
+                        this.state.swapoffers.map((offer, i) => (
+                            <ListItem button key={i}                       >
+                                <img
+                                    style={{ height: 80, marginRight: 15 }}
+                                    src={offer.thumbnail}
+                                    onClick={(event) => this.handleListItemClick(event, offer._id)}
+                                />
+                                <ListItemText primary={offer.title} secondary={offer.condition} onClick={(event) => this.handleListItemClick(event, offer._id)}>
+                                </ListItemText>
+                                <span className={classes.priceTag}> ${offer.price} </span>
+
+                            </ListItem>
+                        ))}
+                    <Divider style={{ marginTop: "10px", marginBottom: "10px" }} variant="middle" />
+                    <ListItem button onClick={(event) => this.handleCreateNewSwapOffer(event)}>
+                        <ListItemIcon>
+                            <AddBoxOutlinedIcon color="primary" />
+                        </ListItemIcon>
+                        <ListItemText primary="Create new Offer" />
+                    </ListItem>
+                </List>
+            </div>
         );
     }
 }

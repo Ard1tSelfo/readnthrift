@@ -9,14 +9,14 @@ axios.interceptors.request.use(config => {
 });
 
 export default class UserService {
-    
+
     static async getCurrentUser() {
         try {
             const res = await axios.get("http://localhost:5000/users/me");
             return res.data
         } catch (error) {
             console.log(error);
-        } 
+        }
     }
 
     static async getUserById(userid) {
@@ -25,14 +25,14 @@ export default class UserService {
             return res.data
         } catch (error) {
             console.log(error);
-        } 
+        }
     }
 
     static async logout() {
         try {
             const res = await axios.post("http://localhost:5000/users/me/logout");
-            localStorage.destroyItem("token")
-            return res.data
+            localStorage.removeItem("token");
+            return res.data;
         } catch (error) {
             console.log(error)
         }

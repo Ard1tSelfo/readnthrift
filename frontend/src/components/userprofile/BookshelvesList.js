@@ -84,6 +84,8 @@ class BookshelvesList extends Component {
             const user = await UserService.getCurrentUser();
             const bookshelves = await BookshelfService.getBookshelvesByUser(user._id);
 
+            console.log(bookshelves);
+
             this.setState({
                 user: user,
                 bookshelves: [...bookshelves],
@@ -96,29 +98,29 @@ class BookshelvesList extends Component {
     }
 
     render() {
-        const {classes} = this.props
+        const { classes } = this.props
         return (
             <div className={classes.root}>
-            <List component="nav" aria-label="main mailbox folders">
-                {!!this.state.bookshelves &&
-                    this.state.bookshelves.map((booksh, i) => (
-                        <ListItem button key={i}                       >
-                            <ListItemIcon onClick={(event) => this.handleListItemClick(event, booksh._id)}>
-                            <MenuBookIcon color="secondary" onClick={(event) => this.handleListItemClick(event, booksh._id)}/>
-                            </ListItemIcon>
-                            <ListItemText primary={booksh.name} onClick={(event) => this.handleListItemClick(event, booksh._id)}/>
-                            <DeleteIcon color="secondary" onClick={(event) => this.handleOpenDeleteBookshelfModal(event, booksh._id)}/>
-                        </ListItem>
-                    ))}
-                <Divider style={{marginTop: "10px", marginBottom: "10px"}} variant="middle" />
-                <ListItem button onClick={(event) => this.handleAddNewBookshelf(event)}>
-                    <ListItemIcon>
-                        <AddBoxOutlinedIcon color="primary"/>
-                    </ListItemIcon>
-                    <ListItemText primary="Add new bookshelf" />
-                </ListItem>
-            </List>
-            <Modal open={this.state.deleteBookshelfModalOpen} onClose={this.handleCloseDeleteBookshelfModal}>
+                <List component="nav" aria-label="main mailbox folders">
+                    {!!this.state.bookshelves &&
+                        this.state.bookshelves.map((booksh, i) => (
+                            <ListItem button key={i}                       >
+                                <ListItemIcon onClick={(event) => this.handleListItemClick(event, booksh._id)}>
+                                    <MenuBookIcon color="secondary" onClick={(event) => this.handleListItemClick(event, booksh._id)} />
+                                </ListItemIcon>
+                                <ListItemText primary={booksh.name} onClick={(event) => this.handleListItemClick(event, booksh._id)} />
+                                <DeleteIcon color="secondary" onClick={(event) => this.handleOpenDeleteBookshelfModal(event, booksh._id)} />
+                            </ListItem>
+                        ))}
+                    <Divider style={{ marginTop: "10px", marginBottom: "10px" }} variant="middle" />
+                    <ListItem button onClick={(event) => this.handleAddNewBookshelf(event)}>
+                        <ListItemIcon>
+                            <AddBoxOutlinedIcon color="primary" />
+                        </ListItemIcon>
+                        <ListItemText primary="Add new bookshelf" />
+                    </ListItem>
+                </List>
+                <Modal open={this.state.deleteBookshelfModalOpen} onClose={this.handleCloseDeleteBookshelfModal}>
                     <div className={classes.deleteBookshelfModal}>
                         <Paper className={classes.deleteBookshelfModalPaper}>
                             <Typography id="confirmdeletebookshelftext">
@@ -147,7 +149,7 @@ class BookshelvesList extends Component {
                         </Paper>
                     </div>
                 </Modal>
-        </div>
+            </div>
         );
     }
 }
