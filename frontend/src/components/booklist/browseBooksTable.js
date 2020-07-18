@@ -20,7 +20,6 @@ import Search from "@material-ui/icons/Search";
 import ViewColumn from "@material-ui/icons/ViewColumn";
 import Modal from "@material-ui/core/Modal";
 import UserService from "../../services/UserService";
-import BookService from "../../services/BookService";
 import BookshelfService from "../../services/BookshelfService";
 import { Paper, Select, MenuItem } from "@material-ui/core";
 import Button from "@material-ui/core/Button";

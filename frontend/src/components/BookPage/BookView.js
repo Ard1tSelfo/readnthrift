@@ -15,7 +15,7 @@ import Rating from "@material-ui/lab/Rating";
 import Box from "@material-ui/core/Box";
 import SendIcon from "@material-ui/icons/Send";
 import TextField from "@material-ui/core/TextField";
-import { InputLabel, Select, MenuItem, FormControl } from "@material-ui/core";
+import { Select, MenuItem } from "@material-ui/core";
 import ReviewList from "./ReviewList";
 
 const useStyles = (theme) => ({

@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import axios from "axios";
-import PropTypes from 'prop-types';
 //import { withStyles } from '@material-ui/core/styles';
 import Rating from '@material-ui/lab/Rating';
 //import StarBorderIcon from '@material-ui/icons/StarBorder';
