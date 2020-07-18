@@ -12,6 +12,8 @@ import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 import { Paper } from "@material-ui/core";
 import BackgroundImage from "../../assets/images/background.jpg";
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
 
 const useStyles = (theme) => ({
     paper: {
@@ -49,18 +51,37 @@ const useStyles = (theme) => ({
     },
 });
 
+function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
 class Login extends Component {
     constructor(props) {
         super(props);
 
         this.onSubmit = this.onSubmit.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleAlertClick = this.handleAlertClick.bind(this);
+        this.handleAlertClose = this.handleAlertClose.bind(this);
 
         this.state = {
             email: "",
             password: "",
+            alertOpen: false
         };
     }
+
+    handleAlertClick = () => {
+        this.setState({
+            alertOpen: true
+        })
+    };
+
+    handleAlertClose = (event) => {
+        this.setState({
+            alertOpen: false
+        })
+    };
 
     handleInputChange = (event) => {
         const { value, name } = event.target;
@@ -80,13 +101,9 @@ class Login extends Component {
         try {
             const res = await axios.post("http://localhost:5000/users/login", userInput);
             localStorage.setItem("token", res.data.token);
-            if (res.status === 200) {
-                this.props.history.push("/dashboard");
-            } else {
-                const error = new Error(res.error);
-                throw error;
-            }
+            this.props.history.push("/dashboard");
         } catch (error) {
+            this.handleAlertClick()
             console.log(error);
         }
     };
@@ -159,6 +176,15 @@ class Login extends Component {
                         <Copyright />
                     </Box>
                 </Paper>
+                <Snackbar open={this.state.alertOpen} autoHideDuration={3000} onClose={this.handleAlertClose}>
+                    <Alert onClose={this.handleAlertClose} onClick={this.handleAlertClose} severity="error">
+                        Oops! False credentials!
+                    </Alert>
+                </Snackbar>
+                {/*<Alert severity="error">This is an error message!</Alert>
+                <Alert severity="warning">This is a warning message!</Alert>
+                <Alert severity="info">This is an information message!</Alert>
+                <Alert severity="success">This is a success message!</Alert>*/}
             </div>
         );
     }

@@ -94,7 +94,7 @@ class Register extends Component {
         };
 
         try {
-            const response = await axios.post("http://localhost:5000/users", userInput);
+            await axios.post("http://localhost:5000/users", userInput);
             alert("User successfully registered. You can log in with your credentials.")
             this.props.history.push("/login");
         } catch (error) {

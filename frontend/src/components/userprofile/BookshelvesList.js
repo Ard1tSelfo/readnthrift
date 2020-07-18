@@ -30,8 +30,18 @@ const useStyles = (theme) => ({
         marginLeft: "auto",
         marginRight: "auto",
         borderRadius: "25px",
-        spacing: 1
+        spacing: 1,
+        
     },
+    deleteBookshelfModalPaper: {
+        padding: theme.spacing(2),
+        alignItems: "center",
+        textAlign: "center"
+    },
+    button: {
+        marginBottom: theme.spacing(2),
+        marginTop: theme.spacing(2)
+    }
 });
 
 class BookshelvesList extends Component {
@@ -76,7 +86,6 @@ class BookshelvesList extends Component {
         this.setState({
             deleteBookshelfModalOpen: false,
         });
-        // this.props.history.push('/userprofile')
     };
 
     async componentDidMount() {
@@ -123,13 +132,14 @@ class BookshelvesList extends Component {
                 <Modal open={this.state.deleteBookshelfModalOpen} onClose={this.handleCloseDeleteBookshelfModal}>
                     <div className={classes.deleteBookshelfModal}>
                         <Paper className={classes.deleteBookshelfModalPaper}>
-                            <Typography id="confirmdeletebookshelftext">
+                            <Typography variant="button" id="confirmdeletebookshelftext">
                                 Do your really want to delete this bookshelf?
                             </Typography>
                             <Button
                                 className={classes.button}
                                 variant="contained"
                                 color="primary"
+                                fullWidth
                                 disableElevation
                                 m={2}
                                 onClick={(event) => this.handleDeleteBookshelf(event)}
@@ -137,9 +147,9 @@ class BookshelvesList extends Component {
                                 Yes, please delete this bookshelf
                             </Button>
                             <Button
-                                className={classes.button}
                                 variant="contained"
                                 color="primary"
+                                fullWidth
                                 disableElevation
                                 m={2}
                                 onClick={this.handleCloseDeleteBookshelfModal}
