@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Switch, Redirect, withRouter } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 import Header from "./components/layout/Header";
-import Dashboard from "./components/dashboard/Dashboard";
 import Login from "./components/loginsystem/Login";
 import Register from "./components/loginsystem/Register";
 import TableView from "./components/booklist/TableView";
@@ -68,8 +67,6 @@ class App extends Component {
                         </Switch>
                         <div className="Content" style={contentStyle}>
                             <Switch>
-                                <ProtectedRoute path="/dashboard" component={Dashboard} />
-                            
                                 <ProtectedRoute
                                     theme={theme}
                                     path="/browsebooks"
@@ -77,10 +74,10 @@ class App extends Component {
                                 />
                                 <ProtectedRoute
                                     theme={theme}
-                                    path="/userprofile"
+                                    path="/dashboard"
                                     component={UserProfile}
                                 />
-                                <Route path="/review" component={Review} />
+                                <ProtectedRoute path="/review" component={Review} />
                                 <ProtectedRoute path="/createbookshelf/" component={CreateBookshelf} />
                                 <ProtectedRoute path="/books/:bookid" component={BookView} />
                                 <ProtectedRoute path="/me/bookshelves/:bookshelfid" component={BookshelfView}/>

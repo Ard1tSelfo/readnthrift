@@ -66,7 +66,7 @@ function BookItem(props) {
 
   return (
     <Button component={Link} to={`/books/${props.id}`} className={classes.imageWrapper} >
-      <img className={classes.imageContainer} src={props.image} />
+      <img alt="" className={classes.imageContainer} src={props.image} />
     </Button>
   )
 }

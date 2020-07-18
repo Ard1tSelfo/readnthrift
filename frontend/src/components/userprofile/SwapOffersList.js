@@ -78,6 +78,7 @@ class SwapOffersList extends Component {
                         this.state.swapoffers.map((offer, i) => (
                             <ListItem button key={i}                       >
                                 <img
+                                    alt=""
                                     style={{ height: 80, marginRight: 15 }}
                                     src={offer.thumbnail}
                                     onClick={(event) => this.handleListItemClick(event, offer._id)}

@@ -22,11 +22,12 @@ const useStyles = makeStyles((theme) => ({
         textAlign: "center",
         color: theme.palette.text.primary,
         //margin: theme.spacing(1),
-        //marginBottom: theme.spacing(1)
+
         height: "100%",
     },
     grid: {
         padding: theme.spacing(0),
+        marginBottom: theme.spacing(6),
     },
     basicinformation: {
         textAlign: "left",
@@ -66,14 +67,14 @@ function CenteredGrid(props) {
                 direction="row"
                 style={{ margin: 0, width: "100%", marginTop: theme.spacing(2) }}
             >
-                <Grid item xs={5} style={{ padding: "0", paddingRight: theme.spacing(1) }}>
+                <Grid className={classes.grid} item xs={5} style={{ padding: "0", paddingRight: theme.spacing(1) }}>
                     <Paper className={classes.paper} elevation={2}>
                         <LocalOfferIcon style={{ marginRight: 10, marginBottom: -5 }} color="primary" />
                         <Typography variant="button">My swap offers</Typography>
                         <SwapOffersList />
                     </Paper>
                 </Grid>
-                <Grid item xs={7} style={{ padding: "0", paddingLeft: theme.spacing(1) }}>
+                <Grid className={classes.grid} item xs={7} style={{ padding: "0", paddingLeft: theme.spacing(1) }}>
                     <Paper className={classes.paper} elevation={2}>
                         <MenuBookIcon color="primary" style={{ marginRight: 10, marginBottom: -5 }} />
                         <Typography variant="button">My bookshelves </Typography>
