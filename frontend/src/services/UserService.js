@@ -28,6 +28,16 @@ export default class UserService {
         } 
     }
 
+    static async logout() {
+        try {
+            const res = await axios.post("http://localhost:5000/users/me/logout");
+            localStorage.destroyItem("token")
+            return res.data
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     static isAuthenticated() {
         return !!window.localStorage['token'];
     }
