@@ -17,10 +17,7 @@ function Copyright() {
     return (
         <Typography variant="body2" color="textSecondary" align="center">
             {"Copyright © "}
-            <Link color="inherit">
-                Read 'n' Thrift
-            </Link>{" "}
-            {new Date().getFullYear()}
+            <Link color="inherit">Read 'n' Thrift</Link> {new Date().getFullYear()}
             {"."}
         </Typography>
     );
@@ -93,18 +90,13 @@ class Register extends Component {
             lastname: this.state.lastname,
             email: this.state.email,
             password: this.state.password,
-            role: this.state.role
+            role: this.state.role,
         };
 
         try {
             const response = await axios.post("http://localhost:5000/users", userInput);
-            //localStorage.setItem("token", response.data.token); // TODO: DESTORY TOKEN AT LOGOUT localStorage.destroyItem("token")
-            if (response.status === 200) {
-                this.props.history.push("/login");
-            } else {
-                const error = new Error(response.error);
-                throw error;
-            }
+            alert("User successfully registered. You can log in with your credentials.")
+            this.props.history.push("/login");
         } catch (error) {
             console.log(error);
         }
@@ -179,7 +171,7 @@ class Register extends Component {
                                 />
                             </Grid>
                             <Grid item xs={12}>
-                                <FormControl variant="outlined" style={{width:"100%"}} required>
+                                <FormControl variant="outlined" style={{ width: "100%" }} required>
                                     <InputLabel id="select-role" required>
                                         Role
                                     </InputLabel>
