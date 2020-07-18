@@ -80,7 +80,7 @@ class BrowseBooksTableBookshelf extends Component {
         this.state = {
             loading: false,
             deleteBookFromBookshelfModalOpen: false,
-            book: null,
+            selectedBook: null,
             bookshelves: null
         };
     }
@@ -113,7 +113,7 @@ class BrowseBooksTableBookshelf extends Component {
     handleOpenDeleteBookFromBookshelfModal = (bookid) => {
         this.setState({
             deleteBookFromBookshelfModalOpen: true,
-            book: bookid
+            selectedBook: bookid
         });
     };
  
@@ -126,11 +126,12 @@ class BrowseBooksTableBookshelf extends Component {
     handleDeleteBookFromBookshelf = async (event) => {
         event.preventDefault();
         const requestBody = {
-            books: this.state.book
+            books: this.state.selectedBook
         };
         try {
-            await BookshelfService.removeBookFromBookshelf(this.props.bookshelf, this.state.book);
+            await BookshelfService.removeBookFromBookshelf(this.props.bookshelf, requestBody);
             this.handleCloseDeleteBookFromBookshelfModal();
+            window.location.reload(false);
         } catch (error) {
             this.setState({
                 error: error,

@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import BookService from "../../services/BookService";
 import { withStyles } from "@material-ui/core/styles";
-import Filters from "./Filters";
 import BrowseBooksTable from "./browseBooksTable";
 import UserService from "../../services/UserService";
 
@@ -55,7 +54,6 @@ class TableView extends Component {
         const { router, params, location, routes } = this.props
         return (
             <div className={classes.tableView}>
-                <Filters />
                 {!!this.state.error && <div className={classes.error}> {this.state.error} </div>}
                 <BrowseBooksTable data={this.state.data} loading={this.state.loading}/>
             </div>

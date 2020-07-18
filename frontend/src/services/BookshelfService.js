@@ -28,6 +28,16 @@ export default class BookshelfService {
         }
     }
 
+    static async removeBookFromBookshelf(bookshelfId, book) {
+        try {
+            console.log(book)
+            const res = await axios.put(`http://localhost:5000/users/me/bookshelf/deletebook/${bookshelfId}`, book);
+            return res.data
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     static async getBookshelfById(bookshelfId) {
         try {
             const res = await axios.get(`http://localhost:5000/users/me/bookshelf/${bookshelfId}`);
@@ -58,15 +68,6 @@ export default class BookshelfService {
     static async deleteBookshelf(bookshelfId) {
         try {
             const res = await axios.delete(`http://localhost:5000/users/me/bookshelf/${bookshelfId}`);
-            return res.data
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
-    static async removeBookFromBookshelf(bookshelfId, bookId) {
-        try {
-            const res = await axios.delete(`http://localhost:5000/users/me/bookshelf/${bookshelfId}/${bookId}`);
             return res.data
         } catch (error) {
             console.log(error);

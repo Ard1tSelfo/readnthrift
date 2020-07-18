@@ -53,9 +53,7 @@ const updatebookshelf = async (req, res) => {
             error: "Bad Request",
             message: "The request body is empty",
         });
-    try {
-        // TODO check if book is there, provide feedback
-        
+    try {        
         const bookshelf = await BookshelfModel.findByIdAndUpdate(
             req.params.id,
             { $push: req.body },
@@ -102,14 +100,27 @@ const removebookshelf = async (req, res) => {
   };
 
   const removebookfrombookshelf = async (req, res) => {
-    try {   
-      await BookshelfModel.update( {_id: req.params.bookshelfid}, { "$pull": { "books": { "_id": req.params.bookid } }} ), { safe: true };
-      return res.status(200).json({message: `The book was deleted from bookshelf ${req.params.bookshelfid}`});
-    } catch(err) {
-      return res.status(500).json({
-        error: 'Internal server error',
-        message: err.message
-      });
+    if (Object.keys(req.body).length === 0)
+        return res.status(400).json({
+            error: "Bad Request",
+            message: "The request body is empty",
+        });
+    try {        
+        const bookshelf = await BookshelfModel.findByIdAndUpdate(
+            req.params.id,
+            { $pull: req.body },
+            {
+                safe: true,
+                new: true,
+            }
+        ).exec();
+        console.log(req.body)
+        return res.status(201).json(bookshelf);
+    } catch (err) {
+        return res.status(500).json({
+            error: "Internal server error",
+            message: err.message,
+        });
     }
   };
 
