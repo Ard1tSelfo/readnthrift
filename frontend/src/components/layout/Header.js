@@ -11,6 +11,7 @@ import Button from "@material-ui/core/Button";
 import SearchIcon from "@material-ui/icons/Search";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import MoreIcon from "@material-ui/icons/MoreVert";
+import UserService from "../../services/UserService";
  
 const useStyles = makeStyles((theme) => ({
     grow: {
@@ -108,6 +109,10 @@ export default function PrimarySearchAppBar() {
         setMobileMoreAnchorEl(event.currentTarget);
     };
 
+    const handleLogout = async (event) => {
+        UserService.logout();
+    };
+
     const menuId = "primary-search-account-menu";
     const renderMenu = (
         <Menu
@@ -120,7 +125,7 @@ export default function PrimarySearchAppBar() {
             onClose={handleMenuClose}
         >
             <MenuItem onClick={handleMenuClose} component={Link} to="/userprofile">Profile</MenuItem>
-            <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+            <MenuItem onClick={handleLogout} component={Link} to="/login">Logout</MenuItem>
         </Menu>
     );
 
@@ -165,7 +170,7 @@ export default function PrimarySearchAppBar() {
                     <Button className={classes.menuButton} component={Link} to="/browsebooks">
                         Search books
                     </Button>
-                    <Button className={classes.menuButton} component={Link} to="/marketplace">
+                    <Button className={classes.menuButton} onClick={handleLogout} component={Link} to="/marketplace">
                         Marketplace
                     </Button>
                     <div className={classes.search}>
