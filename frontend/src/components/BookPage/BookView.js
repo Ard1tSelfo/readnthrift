@@ -17,6 +17,8 @@ import SendIcon from "@material-ui/icons/Send";
 import TextField from "@material-ui/core/TextField";
 import { Select, MenuItem } from "@material-ui/core";
 import ReviewList from "./ReviewList";
+import Snackbar from '@material-ui/core/Snackbar';
+import Alert from '@material-ui/lab/Alert';
 
 const useStyles = (theme) => ({
     paper: {
@@ -119,7 +121,10 @@ class BookView extends Component {
             reviewModalOpen: false,
             currentrating: false,
             reviews: [],
-            reviewAuthor: null
+            reviewAuthor: null,
+            booksnackbaropen: false,
+            reviewsnackbaropen: false,
+            reviewerrorsnackbaropen: false
         };
     }
 
@@ -198,6 +203,36 @@ class BookView extends Component {
         });
     };
 
+    handleCloseBookSnackbar = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+    
+        this.setState({
+            booksnackbaropen: false
+        });
+      };
+
+      handleCloseReviewSnackbar = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+    
+        this.setState({
+            reviewsnackbaropen: false
+        });
+      };
+
+      handleCloseReviewErrorSnackbar = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+    
+        this.setState({
+            reviewerrorsnackbaropen: false
+        });
+      };
+
     handleAddBookSubmit = async (event) => {
         event.preventDefault();
 
@@ -207,7 +242,9 @@ class BookView extends Component {
         try {
             await BookshelfService.addBookToBookshelf(this.state.selectedBookshelf.id, requestBody);
             this.handleCloseBookshelfModal();
-            alert(`"${this.state.book.title}" has been added to your selected bookshelf !`);
+            this.setState({
+                booksnackbaropen: true
+            });
         } catch (error) {
             this.setState({
                 error: error,
@@ -230,12 +267,16 @@ class BookView extends Component {
 
         if (messages.length > 0) {
             event.preventDefault();
-            alert(messages.join(", "));
+            this.setState({
+                reviewerrorsnackbaropen: true
+            });
         } else {
             try {
                 await ReviewService.addReview(reviewBody);
                 this.handleCloseReviewModal();
-                alert(`Your review has been added!`);
+                this.setState({
+                    reviewsnackbaropen: true
+                });
             } catch (error) {
                 this.setState({
                     error: error,
@@ -427,6 +468,21 @@ class BookView extends Component {
                         </Paper>
                     </div>
                 </Modal>
+                <Snackbar open={this.state.booksnackbaropen} autoHideDuration={6000} onClose={this.handleCloseBookSnackbar}>
+                    <Alert onClose={this.handleCloseBookSnackbar} severity="success">
+                        <Typography>The book has been added to your selected bookshelf!</Typography>
+                    </Alert>
+                </Snackbar>
+                <Snackbar open={this.state.reviewsnackbaropen} autoHideDuration={6000} onClose={this.handleCloseReviewSnackbar}>
+                    <Alert onClose={this.handleCloseReviewSnackbar} severity="success">
+                        <Typography>Your review has been added!</Typography>
+                    </Alert>
+                </Snackbar>
+                <Snackbar open={this.state.reviewerrorsnackbaropen} autoHideDuration={6000} onClose={this.handleCloseReviewErrorSnackbar}>
+                    <Alert onClose={this.handleCloseReviewErrorSnackbar} severity="info">
+                        <Typography>Please enter both rating and review before submitting the review.</Typography>
+                    </Alert>
+                </Snackbar>
             </div>
         );
     }

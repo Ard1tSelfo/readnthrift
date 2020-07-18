@@ -64,8 +64,7 @@ class CreateBookshelfFormView extends Component {
                 userInput
             );
             if (res.status === 201) {
-                alert(`${this.state.name} was added to your bookshelves!`);
-                this.props.history.push("/userprofile");
+                this.props.history.push("/dashboard");
             } else {
                 const error = new Error(res.error);
                 throw error;

@@ -10,6 +10,8 @@ import { Paper } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import Divider from '@material-ui/core/Divider';
 import axios from 'axios';
+import Snackbar from '@material-ui/core/Snackbar';
+import Alert from '@material-ui/lab/Alert';
 
 const useStyles = (theme) => ({
     paper: {
@@ -57,6 +59,7 @@ class OfferView extends Component {
             offer: null,
             book: null,
             isOwner: false,
+            snackbaropen: false
         };
     }
 
@@ -64,10 +67,19 @@ class OfferView extends Component {
         axios.delete(`http://localhost:5000/marketplace/${this.state.offer._id}`)
         .then((res) => {
             console.log(res.data);
-            alert("Your offer has been deleted");
             this.props.history.push('/marketplace')
         })
-    }
+    };
+
+    handleCloseSnackbar = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+    
+        this.setState({
+            snackbaropen: false
+        });
+      };    
 
     buyBook = async (e) => {
         const offer = {
@@ -83,12 +95,13 @@ class OfferView extends Component {
             author: this.state.offer.book.author
         };
 
-
         // Update offer: change `open` property to false
         axios.put(`http://localhost:5000/marketplace/${this.state.offer._id}`, offer)
         .then((res) => {
             console.log(res.data);
-            alert("You will be redirected to PayPal");
+            this.setState({
+                snackbaropen: true
+            });
         })
         
         // Delete the offer from DB after the purchase
@@ -215,6 +228,11 @@ class OfferView extends Component {
                     {button}
                 </Paper>
                 <br />
+                <Snackbar open={this.state.snackbaropen} autoHideDuration={6000} onClose={this.handleCloseSnackbar}>
+                    <Alert onClose={this.handleCloseSnackbar} severity="info">
+                        <Typography>You will be redirected to PayPal.</Typography>
+                    </Alert>
+                </Snackbar>
                 
       
             </div>

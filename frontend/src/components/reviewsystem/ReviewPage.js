@@ -6,7 +6,8 @@ import Box from '@material-ui/core/Box';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import SendIcon from '@material-ui/icons/Send';
-
+import Snackbar from '@material-ui/core/Snackbar';
+import Alert from '@material-ui/lab/Alert';
 
 class ReviewPage extends Component {
     constructor(props) {
@@ -17,9 +18,20 @@ class ReviewPage extends Component {
         this.state = {
             accepted: false,
             notice: "",
-            rating: 0
+            rating: 0,
+            snackbaropen: false
         };
     }
+
+    handleCloseSnackbar = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+    
+        this.setState({
+            snackbaropen: false
+        });
+      };    
 
     onSubmit = (e) => {
         e.preventDefault();
@@ -35,9 +47,8 @@ class ReviewPage extends Component {
                 console.log(res.data)
             });
 
-        alert("Your review has been submitted for the further proceedings")
-
         this.setState({
+            snackbaropen: true,
             accepted: false,
             notice: "",
             rating: 0
@@ -79,6 +90,11 @@ class ReviewPage extends Component {
                     Submit
                 </Button>
                 </form>
+                <Snackbar open={this.state.snackbaropen} autoHideDuration={6000} onClose={this.handleCloseSnackbar}>
+                    <Alert onClose={this.handleCloseSnackbar} severity="success">
+                        <Typography>Your review has been submitted!</Typography>
+                    </Alert>
+                </Snackbar>
             </div>
     );
     }

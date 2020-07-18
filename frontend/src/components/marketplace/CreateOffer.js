@@ -91,7 +91,6 @@ class CreateOffer extends Component {
 
         axios.post("http://localhost:5000/marketplace", offer).then((res) => {
             console.log(res.data);
-            alert("Your offer has been created");
             this.props.history.push("/marketplace");
         });
     };

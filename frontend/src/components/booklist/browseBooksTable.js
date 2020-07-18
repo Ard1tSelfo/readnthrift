@@ -24,6 +24,8 @@ import BookshelfService from "../../services/BookshelfService";
 import { Paper, Select, MenuItem } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
+import Snackbar from '@material-ui/core/Snackbar';
+import Alert from '@material-ui/lab/Alert';
  
 const tableIcons = {
     Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -85,7 +87,8 @@ class BrowseBooksTable extends Component {
             selectedBookshelf: {
                 id: null,
                 name: null
-            }
+            },
+            snackbaropen: false
         };
     }
  
@@ -136,6 +139,16 @@ class BrowseBooksTable extends Component {
         });
     };
 
+    handleCloseSnackbar = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+    
+        this.setState({
+            snackbaropen: false
+        });
+      };
+
     handleAddBookSubmit = async (event) => {
         event.preventDefault();
 
@@ -145,7 +158,9 @@ class BrowseBooksTable extends Component {
         try {
             await BookshelfService.addBookToBookshelf(this.state.selectedBookshelf.id, requestBody);
             this.handleCloseModal();
-            alert(`"${this.state.book.title}" has been added to your selected bookshelf !`  )
+            this.setState({
+                snackbaropen: true
+            });
         } catch (error) {
             this.setState({
                 error: error,
@@ -189,8 +204,6 @@ class BrowseBooksTable extends Component {
                             title: "",
                             icon: tableIcons.Add,
                             tooltip: "Add to bookshelf",
-                            //onClick: (event, rowData) =>
-                                //alert("TODO: Add book to bookshelf " + rowData.title),
                             onClick: (event, rowData) =>
                                 this.handleOpenModal(rowData._id)
                         },
@@ -228,6 +241,11 @@ class BrowseBooksTable extends Component {
                         </Paper>
                     </div>
                 </Modal>
+                <Snackbar open={this.state.snackbaropen} autoHideDuration={6000} onClose={this.handleCloseSnackbar}>
+                    <Alert onClose={this.handleCloseSnackbar} severity="success">
+                        <Typography>The book has been added to your selected bookshelf!</Typography>
+                    </Alert>
+                </Snackbar>
             </div>
         );
     }
