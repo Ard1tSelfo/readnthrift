@@ -149,7 +149,7 @@ class OfferView extends Component {
                         disableElevation
                         fullWidth
                         onClick={e => this.delete(e)}
-                        style={{backgroundColor:"red"}}
+                        style={{backgroundColor:"#f57c00"}}
                     >
                         Delete
                     </Button>
