@@ -86,6 +86,7 @@ class BookshelvesList extends Component {
         this.setState({
             deleteBookshelfModalOpen: false,
         });
+        window.location.reload(false);
     };
 
     async componentDidMount() {
