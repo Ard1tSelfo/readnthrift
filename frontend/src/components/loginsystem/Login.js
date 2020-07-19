@@ -55,6 +55,9 @@ function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
+// eslint-disable-next-line
+const emailPattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,})+$/;
+
 class Login extends Component {
     constructor(props) {
         super(props);
@@ -67,6 +70,7 @@ class Login extends Component {
         this.state = {
             email: "",
             password: "",
+            lastTouchedElement: null,
             alertOpen: false
         };
     }
@@ -87,8 +91,20 @@ class Login extends Component {
         const { value, name } = event.target;
         this.setState({
             [name]: value,
+            lastTouchedElement: name
         });
     };
+
+    validateForm = (value, name) => {
+
+        if (value === "" && this.state.lastTouchedElement === name) {
+            return "This field is required";
+        }
+
+        if (name === 'email' && !emailPattern.test(value) && this.state.lastTouchedElement === name) {
+            return "Not a valid E-Mail address"
+        }
+    }
 
     onSubmit = async (event) => {
         event.preventDefault();
@@ -108,8 +124,6 @@ class Login extends Component {
         }
     };
 
-    componentDidMount() {}
-
     render() {
         const { classes } = this.props;
         return (
@@ -124,6 +138,8 @@ class Login extends Component {
                     </Typography>
                     <form className={classes.form} onSubmit={this.onSubmit}>
                         <TextField
+                            error={!!this.validateForm(this.state.email, "email")}
+                            helperText={this.validateForm(this.state.email, "email")}
                             variant="outlined"
                             margin="normal"
                             required
@@ -135,8 +151,11 @@ class Login extends Component {
                             autoFocus
                             value={this.state.email}
                             onChange={this.handleInputChange}
+                            type="email"
                         />
                         <TextField
+                            error={!!this.validateForm(this.state.password, "password")}
+                            helperText={this.validateForm(this.state.password, "password")}
                             variant="outlined"
                             margin="normal"
                             required
@@ -155,6 +174,7 @@ class Login extends Component {
                             variant="contained"
                             color="primary"
                             className={classes.submit}
+                            disabled={this.state.email === "" || this.state.password === ""}
                         >
                             Sign In
                         </Button>

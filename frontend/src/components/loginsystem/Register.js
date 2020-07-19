@@ -59,6 +59,9 @@ const useStyles = (theme) => ({
     },
 });
 
+// eslint-disable-next-line
+const emailPattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,})+$/;
+
 class Register extends Component {
     constructor(props) {
         super(props);
@@ -72,13 +75,29 @@ class Register extends Component {
             email: "",
             password: "",
             role: "",
+            lastTouchedElement: null
         };
+    }
+
+    validateForm = (value, name) => {
+        if (value === "" && this.state.lastTouchedElement === name) {
+            return "This field is required";
+        }
+
+        if (name === 'password' && value.length < 6 && this.state.lastTouchedElement === name) {
+            return "Password should be at least 6 characters long";
+        }
+
+        if (name === 'email' && !emailPattern.test(value) && this.state.lastTouchedElement === name) {
+            return "Not a valid E-Mail address"
+        }
     }
 
     handleInputChange = (event) => {
         const { value, name } = event.target;
         this.setState({
             [name]: value,
+            lastTouchedElement: name
         });
     };
 
@@ -102,7 +121,7 @@ class Register extends Component {
         }
     };
 
-    componentDidMount() {}
+    componentDidMount() { }
 
     render() {
         const { classes } = this.props;
@@ -120,6 +139,8 @@ class Register extends Component {
                         <Grid container spacing={2}>
                             <Grid item xs={12} sm={6}>
                                 <TextField
+                                    error={!!this.validateForm(this.state.firstname, "firstname")}
+                                    helperText={this.validateForm(this.state.firstname, "firstname")}
                                     name="firstname"
                                     variant="outlined"
                                     required
@@ -133,6 +154,8 @@ class Register extends Component {
                             </Grid>
                             <Grid item xs={12} sm={6}>
                                 <TextField
+                                    error={!!this.validateForm(this.state.lastname, "lastname")}
+                                    helperText={this.validateForm(this.state.lastname, "lastname")}
                                     variant="outlined"
                                     required
                                     fullWidth
@@ -145,6 +168,8 @@ class Register extends Component {
                             </Grid>
                             <Grid item xs={12}>
                                 <TextField
+                                    error={!!this.validateForm(this.state.email, "email")}
+                                    helperText={this.validateForm(this.state.email, "email")}
                                     variant="outlined"
                                     required
                                     fullWidth
@@ -158,6 +183,8 @@ class Register extends Component {
                             </Grid>
                             <Grid item xs={12}>
                                 <TextField
+                                    error={!!this.validateForm(this.state.password, "password")}
+                                    helperText={this.validateForm(this.state.password, "password")}
                                     variant="outlined"
                                     required
                                     fullWidth
@@ -199,6 +226,13 @@ class Register extends Component {
                             variant="contained"
                             color="primary"
                             className={classes.submit}
+                            disabled={
+                                this.state.firstname === "" ||
+                                this.state.lastname === "" ||
+                                this.state.password === "" ||
+                                this.state.role === "" ||
+                                this.state.email === ""
+                            }
                         >
                             Register
                         </Button>
