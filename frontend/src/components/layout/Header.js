@@ -167,6 +167,9 @@ export default function PrimarySearchAppBar() {
                     <Button className={classes.menuButton} component={Link} to="/marketplace">
                         Marketplace
                     </Button>
+                    <Button className={classes.menuButton} component={Link} to="/localbookstores">
+                        Local bookstores
+                    </Button>
                     <div className={classes.grow} />
                     <div className={classes.sectionDesktop}>
                         <IconButton

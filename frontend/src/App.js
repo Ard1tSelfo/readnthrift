@@ -15,6 +15,7 @@ import CreateBookshelf from "./components/bookshelf/CreateBookshelfFormView";
 import ChooseBook from "./components/marketplace/ChooseBook";
 import CreateOffer from "./components/marketplace/CreateOffer";
 import OfferView from "./components/marketplace/OfferView";
+import ExploreLocalBookstores from "./components/localbookstores/ExploreLocalBookstores";
 
 const ProtectedRoute = ({ component: Component, ...rest }) => (
     <Route
@@ -85,6 +86,7 @@ class App extends Component {
                                 <ProtectedRoute path="/choosebook" component={ChooseBook}/>
                                 <ProtectedRoute path="/createoffer/:bookid" component={CreateOffer}/>
                                 <ProtectedRoute path="/offers/:offerid" component={OfferView}/>
+                                <ProtectedRoute path="/localbookstores" component={ExploreLocalBookstores}/>
                             </Switch>
                         </div>
                     </div>
