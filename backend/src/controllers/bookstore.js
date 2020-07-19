@@ -1,19 +1,5 @@
 const BookstoreModel = require("../models/Bookstore");
 const BookModel = require("../models/Book");
-//const UserModel = require("../models/User");
-
-/*const mybookstore = async (req, res) => {
-    try{
-        let bookstore = await (await BookstoreModel.findOne({ "user": req.params.userid })).exec();
-        return res.status(200).json(bookstore);
-    }
-    catch (err) {
-        return res.status(500).json({
-            error: "Internal server error",
-            message: err.message,
-        })
-    }
-}*/
 
 const getbookstore = async (req, res) => {
     try {
@@ -36,8 +22,6 @@ const createbookstore = async (req, res) => {
 
     try {
         const bookstore = await BookstoreModel.create(req.body);
-        //user.bookstore =  bookstore;
-        //user.save();
         return res.status(201).json(bookstore);
     } catch (err) {
         return res.status(500).json({
@@ -112,7 +96,6 @@ const removebookfrombookstore = async (req, res) => {
 };
 
 module.exports = {
-    //mybookstore,
     getbookstore,
     createbookstore,
     updatebookstore,

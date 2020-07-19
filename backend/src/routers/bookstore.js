@@ -1,7 +1,6 @@
 const express  = require('express');
 const router   = express.Router();
 const BookstoreController = require('../controllers/bookstore');
-//const auth = require('../middleware/auth');
 
 router.post('/bookstores/new', BookstoreController.createbookstore); // Create a new bookstore
 router.get('/bookstores/:bookstoreid', BookstoreController.getbookstore); // Get the bookstore by id
