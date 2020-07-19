@@ -17,18 +17,6 @@ export class MapContainer extends Component {
             activeMarker: {},
             showingInfoWindow: false,
             selectedPlace: {},
-            fakebookstores: [
-                {
-                    address: "Roggenweg 16, 84174",
-                    id: "1234",
-                    latlng: { lat: 48.160032, lng: 11.585512 },
-                },
-                {
-                    address: "Biedersteinerstraße 30",
-                    id: "4321",
-                    latlng: { lat: 48.360032, lng: 11.785512 },
-                },
-            ],
             bookstores: [],
         };
 
