@@ -1,7 +1,6 @@
 "use strict";
 
 const OfferModel = require('../models/Offer');
-const Offer = require('../models/Offer');
 
 const create = async (req, res) => {
     if (Object.keys(req.body).length === 0) return res.status(400).json({
@@ -37,7 +36,7 @@ const getOfferById = async (req, res) => {
 
 const offersList = async (req, res) => {
     try {
-        let offers = await OfferModel.find({"user" : req.params.userid}).exec();
+        let offers = await OfferModel.find({"user" : req.params.userid, "open": true}).exec();
         return res.status(200).json(offers);
     } catch (err) {
         return res.status(500).json({
@@ -57,7 +56,19 @@ const openOffersList = async (_, res) => {
       message: err.message,
     })
   }
-}
+};
+
+const openOffersByUser = async (req, res) => {
+  try {
+    let offers = await OfferModel.find({"user": req.params.userid, "open": true}).exec();
+    return res.status(200).json(offers);
+  } catch (err) {
+    return res.status(500).json({
+      error: 'Internal server error',
+      message: err.message
+    });
+  }
+};
 
 const read = async (req, res) => {
   try {
@@ -84,7 +95,6 @@ const update = async (req, res) => {
             message: 'The request body is empty'
         });
     }
-
     try {
       let offer = await OfferModel.findByIdAndUpdate(req.params.id, req.body, {
         new: true,
@@ -104,7 +114,7 @@ const remove = async (req, res) => {
   try {
     await OfferModel.findByIdAndRemove(req.params.id).exec();
 
-    return res.status(200).json({message: 'Offer with id${req.params.id} was deleted'});
+    return res.status(200).json({message: `Offer with id ${req.params.id} was deleted`});
   } catch(err) {
     return res.status(500).json({
       error: 'Internal server error',
@@ -116,7 +126,6 @@ const remove = async (req, res) => {
 const list  = async (req, res) => {
   try {
     let offers = await OfferModel.find({}).exec();
-
     return res.status(200).json(offers);
   } catch(err) {
     return res.status(500).json({
@@ -135,5 +144,6 @@ module.exports = {
     update,
     remove,
     list,
-    openOffersList
+    openOffersList,
+    openOffersByUser
 };

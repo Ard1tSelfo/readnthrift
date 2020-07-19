@@ -49,4 +49,14 @@ export default class OfferService {
             console.log(error);
         }
     }
+
+    static async getOpenOffersByUser(userid) {
+        try {
+            const res = await axios.get(`http://localhost:5000/marketplace/myoffers/open/${userid}`);
+            console.log(res);
+            return res.data;
+        } catch (error) {
+            console.log(error)
+        }
+    }
 }

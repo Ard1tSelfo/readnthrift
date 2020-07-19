@@ -105,11 +105,11 @@ class OfferView extends Component {
         })
         
         // Delete the offer from DB after the purchase
-        axios.delete(`http://localhost:5000/marketplace/${this.state.offer._id}`)
+        /*axios.delete(`http://localhost:5000/marketplace/${this.state.offer._id}`)
         .then((res) => {
             console.log(res.data);
             this.props.history.push('/marketplace')
-        })
+        })*/
     }
 
     async componentDidMount() {
