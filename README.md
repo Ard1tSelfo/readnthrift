@@ -30,3 +30,13 @@ To finally start the app, run the following command both in the frontend and bac
 ```
 npm start
 ```
+
+## Main Features
+
+Read n Thrift currently covers following use cases:
+  1. Creating a profile with a role of either a reader or a bookstore 
+  2. Creating, editing & deleting personal bookshelves
+  3. Searching for a book with integrated filters
+  4. Writing a review and giving a rating for a book
+  5. Viewing personalized book recommendations
+  6. Browsing current book offers in the Marketplace as well as creating own book offer
