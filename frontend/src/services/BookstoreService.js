@@ -1,14 +1,5 @@
 import axios from "axios";
 
-// TODO: make axios global to set this for each request - even in other services
-/*axios.interceptors.request.use((config) => {
-    const token = localStorage.getItem("token");
-    if (token) {
-        config.headers.Authorization = `Bearer ${token}`;
-    }
-    return config;
-});*/
-
 export default class BookstoreService {
     static async getBookstore(userid) {
         try {

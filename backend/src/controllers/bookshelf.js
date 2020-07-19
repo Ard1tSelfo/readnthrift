@@ -124,8 +124,6 @@ const removebookfrombookshelf = async (req, res) => {
     }
 };
 
-
-
 module.exports = {
     bookshelflist,
     createbookshelf,

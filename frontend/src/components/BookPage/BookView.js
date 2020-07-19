@@ -480,7 +480,7 @@ class BookView extends Component {
                 </Snackbar>
                 <Snackbar open={this.state.reviewerrorsnackbaropen} autoHideDuration={6000} onClose={this.handleCloseReviewErrorSnackbar}>
                     <Alert onClose={this.handleCloseReviewErrorSnackbar} severity="info">
-                        <Typography>Please enter both rating and review before submitting the review.</Typography>
+                        <Typography>Please rate the book before submitting the review.</Typography>
                     </Alert>
                 </Snackbar>
             </div>

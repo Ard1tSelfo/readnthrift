@@ -20,7 +20,7 @@ const useStyles = (theme) => ({
         marginRight: "auto",
     },
     form: {
-        width: "100%", // Fix IE 11 issue.
+        width: "100%",
         marginTop: theme.spacing(1),
     },
     submit: {
@@ -86,7 +86,6 @@ class CreateBookshelfFormView extends Component {
                 loading: false,
             });
         } catch (error) {
-            //error.message
             this.setState({
                 error: error,
             });

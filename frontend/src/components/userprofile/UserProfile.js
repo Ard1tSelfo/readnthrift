@@ -21,8 +21,6 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(1),
         textAlign: "center",
         color: theme.palette.text.primary,
-        //margin: theme.spacing(1),
-
         height: "100%",
     },
     grid: {
@@ -103,7 +101,6 @@ export class UserProfile extends Component {
                 books: [...books].slice(books.length - 15, books.length),
             });
         } catch (error) {
-            //error.message
             this.setState({
                 error: error,
             });

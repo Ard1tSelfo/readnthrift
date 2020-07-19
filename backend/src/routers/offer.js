@@ -14,3 +14,4 @@ router.delete('/marketplace/:id', OfferController.remove); // Delete an offer by
 router.get('/markeplace/open', OfferController.openOffersList); // Get list of all open offers
 
 module.exports = router;
+

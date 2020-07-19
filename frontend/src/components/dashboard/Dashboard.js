@@ -12,8 +12,6 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(1),
         textAlign: "center",
         color: theme.palette.text.primary
-        //margin: theme.spacing(1),
-        //marginBottom: theme.spacing(1)
     },
     grid: {
         padding: theme.spacing(0),

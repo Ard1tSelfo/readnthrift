@@ -7,10 +7,8 @@ const create = async (req, res) => {
         error: 'Bad Request',
         message: 'The request body is empty'
     });
-
     try {
       let offer = await OfferModel.create(req.body);
-
       return res.status(201).json(offer)
     } catch(err) {
       return res.status(500).json({
@@ -32,7 +30,6 @@ const getOfferById = async (req, res) => {
         });
     }
 };
-
 
 const offersList = async (req, res) => {
     try {
@@ -57,7 +54,6 @@ const openOffersList = async (_, res) => {
     })
   }
 };
-
 
 const read = async (req, res) => {
   try {
@@ -123,7 +119,6 @@ const list  = async (req, res) => {
     });
   }
 };
-
 
 module.exports = {
     create,

@@ -90,7 +90,6 @@ class Marketplace extends Component {
             const offers = await OfferService.getAllOpenOffers();
             const user = await UserService.getCurrentUser();
             const myoffers = await OfferService.getOffersByUser(user._id);
-            //const myoffers = await OfferService.getOpenOffersByUser(user._id);
             this.setState({
                 user: user,
                 offers: [...offers],
@@ -98,7 +97,6 @@ class Marketplace extends Component {
                 loading: false,
             });
         } catch (error) {
-            // TODO error.message
             this.setState({
                 error: error,
             });

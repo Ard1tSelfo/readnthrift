@@ -110,7 +110,6 @@ class BrowseBooksTable extends Component {
                 bookshelves: bookshelves
             });
         } catch (error) {
-            //error.message
             this.setState({
                 error: error,
             });

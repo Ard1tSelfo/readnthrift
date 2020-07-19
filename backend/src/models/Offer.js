@@ -47,6 +47,4 @@ const offerSchema = mongoose.Schema ({
     }
 })
 
-const Offer = mongoose.model('Offer', offerSchema)
-
-module.exports = Offer
+module.exports = mongoose.model('Offer', offerSchema);

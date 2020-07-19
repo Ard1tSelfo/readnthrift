@@ -13,4 +13,3 @@ router.put('/reviews/:id', ReviewController.update); // Update a review by Id
 router.delete('/reviews/:id', ReviewController.remove); // Delete a review by Id
 
 module.exports = router;
-

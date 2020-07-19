@@ -12,7 +12,6 @@ const useStyles = (theme) => ({
         color: "red",
     },
     paper: {
-        //marginTop: theme.spacing(2),
         marginBottom: theme.spacing(2),
     },
 });
@@ -42,7 +41,6 @@ class TableView extends Component {
                 loading: false,
             });
         } catch (error) {
-            //error.message
             this.setState({
                 error: error,
             });
