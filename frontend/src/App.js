@@ -24,8 +24,8 @@ const ProtectedRoute = ({ component: Component, ...rest }) => (
             !!localStorage.getItem("token") ? (
                 <Component {...props} />
             ) : (
-                <Redirect to={{ pathname: "/login" }} />
-            )
+                    <Redirect to={{ pathname: "/login" }} />
+                )
         }
     />
 );
@@ -47,6 +47,7 @@ const theme = createMuiTheme({
     },
 });
 
+
 class App extends Component {
     constructor() {
         super();
@@ -62,6 +63,17 @@ class App extends Component {
                 <ThemeProvider theme={theme}>
                     <div className="App" style={appStyle.background}>
                         <Switch>
+                            <Route
+                                exact
+                                path="/"
+                                render={() => {
+                                    return (
+                                        !!localStorage.getItem("token") ?
+                                            <Redirect to="/dashboard" /> :
+                                            <Redirect to="/login" />
+                                    )
+                                }}
+                            />
                             <Route path="/login" component={Login} />
                             <Route path="/register" component={Register} />
                             <Header />
@@ -81,12 +93,12 @@ class App extends Component {
                                 <ProtectedRoute path="/review" component={Review} />
                                 <ProtectedRoute path="/createbookshelf/" component={CreateBookshelf} />
                                 <ProtectedRoute path="/books/:bookid" component={BookView} />
-                                <ProtectedRoute path="/me/bookshelves/:bookshelfid" component={BookshelfView}/>
-                                <ProtectedRoute path="/marketplace" component={Marketplace}/>
-                                <ProtectedRoute path="/choosebook" component={ChooseBook}/>
-                                <ProtectedRoute path="/createoffer/:bookid" component={CreateOffer}/>
-                                <ProtectedRoute path="/offers/:offerid" component={OfferView}/>
-                                <ProtectedRoute path="/localbookstores" component={ExploreLocalBookstores}/>
+                                <ProtectedRoute path="/me/bookshelves/:bookshelfid" component={BookshelfView} />
+                                <ProtectedRoute path="/marketplace" component={Marketplace} />
+                                <ProtectedRoute path="/choosebook" component={ChooseBook} />
+                                <ProtectedRoute path="/createoffer/:bookid" component={CreateOffer} />
+                                <ProtectedRoute path="/offers/:offerid" component={OfferView} />
+                                <ProtectedRoute path="/localbookstores" component={ExploreLocalBookstores} />
                             </Switch>
                         </div>
                     </div>
