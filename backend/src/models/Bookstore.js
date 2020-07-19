@@ -15,11 +15,6 @@ const bookstoreSchema = new mongoose.Schema({
         type: String,
         trim: true
     },
-    /*user: {
-        type: mongoose.Schema.Types.ObjectId],
-        ref: 'User',
-        required: true
-    }*/
 })
 
 module.exports = mongoose.model('Bookstore', bookstoreSchema);

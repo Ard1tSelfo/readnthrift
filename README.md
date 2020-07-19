@@ -30,3 +30,18 @@ To finally start the app, run the following command both in the frontend and bac
 ```
 npm start
 ```
+
+## Main Features
+
+Read n' Thrift currently covers following use cases:
+  1. Creating a profile with a role of either a reader or a bookstore 
+  2. Creating, editing & deleting personal bookshelves
+  3. Searching for a book with integrated filters
+  4. Writing a review and giving a rating for a book
+  5. Viewing personalized book recommendations
+  6. Browsing current book offers in the Marketplace as well as creating own book offer
+
+
+## Data Model
+The Read n' Thrift used the following data model. Every user (Book reader) can create multiple bookshelves with books and write reviews for the books. Every user is receiving personalized recommendations based on their preferences. Furthermore, every user can participate at marketplace either as a seller or as a buyer to have a more sustainable lifestyle. The current data model is more complex and distinguishes two different types of users: book readers and local bookstores who don't have own online shop and want to expand the boundaries of their target audience. 
+  4. Writing a review and giving a rating for a book
