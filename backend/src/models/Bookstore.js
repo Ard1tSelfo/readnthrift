@@ -15,6 +15,10 @@ const bookstoreSchema = new mongoose.Schema({
         type: String,
         trim: true
     },
+    position: {
+        lat: Number,
+        lng: Number
+    }
 })
 
 module.exports = mongoose.model('Bookstore', bookstoreSchema);
