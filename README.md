@@ -51,6 +51,6 @@ The Read n' Thrift is using the following data model. Every user (Book reader) c
  
  ## Planned Features
  We want to integrate following features in the coming future:
-  1. Bookstore role for the Users - in order to support local bookstores which don't have a website / online shop and let them expand the boundaries of their target audience
-  2. A "pro" version for the book writes who would like to communicate with their readers and promote their books
+  * Bookstore role for the Users - in order to support local bookstores which don't have a website / online shop and let them expand the boundaries of their target audience
+  * A "pro" version for the book writes who would like to communicate with their readers and promote their books
 
