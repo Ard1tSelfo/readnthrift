@@ -43,10 +43,14 @@ Read n' Thrift currently covers following use cases:
 
 
 ## Data Model
-The Read n' Thrift used the following data model. Every user (Book reader) can create multiple bookshelves with books and write reviews for the books. Every user is receiving personalized recommendations based on their preferences. Furthermore, every user can participate at marketplace either as a seller or as a buyer to have a more sustainable lifestyle. The current data model is more complex and distinguishes two different types of users: book readers and local bookstores who don't have own online shop and want to expand the boundaries of their target audience. 
+The Read n' Thrift is using the following data model. Every user (Book reader) can create multiple bookshelves with books and write reviews for the books. Every user is receiving personalized recommendations based on their preferences. Furthermore, every user can participate at marketplace either as a seller or as a buyer to have a more sustainable lifestyle. 
 ![](https://github.com/Ard1tSelfo/readnthrift/blob/master/doc/DataModel.png)
  
  ## Example of user's dashboard in Read n' Thrift
  ![](https://github.com/Ard1tSelfo/readnthrift/blob/master/doc/dashboard.png)
  
  ## Planned Features
+ We want to integrate following features in the coming future:
+  1. Bookstore role for the Users - in order to support local bookstores which don't have a website / online shop and let them expand the boundaries of their target audience
+  2. A "pro" version for the book writes who would like to communicate with their readers and promote their books
+
