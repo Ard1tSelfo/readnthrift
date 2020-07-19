@@ -58,17 +58,6 @@ const openOffersList = async (_, res) => {
   }
 };
 
-const openOffersByUser = async (req, res) => {
-  try {
-    let offers = await OfferModel.find({"user": req.params.userid, "open": true}).exec();
-    return res.status(200).json(offers);
-  } catch (err) {
-    return res.status(500).json({
-      error: 'Internal server error',
-      message: err.message
-    });
-  }
-};
 
 const read = async (req, res) => {
   try {
@@ -145,5 +134,4 @@ module.exports = {
     remove,
     list,
     openOffersList,
-    openOffersByUser
 };
