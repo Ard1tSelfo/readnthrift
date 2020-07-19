@@ -81,7 +81,7 @@ class CreateOffer extends Component {
             book: this.state.book,
             cover: this.state.cover,
             condition: this.state.condition,
-            price: this.state.price,
+            price: Math.abs(this.state.price),
             description: this.state.description,
             open: true,
             thumbnail: this.state.book.thumbnail,
