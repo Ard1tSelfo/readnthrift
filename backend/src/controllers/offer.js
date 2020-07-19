@@ -49,7 +49,7 @@ const offersList = async (req, res) => {
 
 const openOffersList = async (_, res) => {
   try {
-    let offers = await OfferModel.find({open: true}).exec();
+    let offers = await OfferModel.find({"open": true}).exec();
     return res.status(200).json(offers);
   } catch (err) {
     return res.status(500).json({
