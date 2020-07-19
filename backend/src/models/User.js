@@ -2,6 +2,7 @@ const mongoose = require('mongoose')
 const validator = require('validator')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
+const { use } = require('../routers/book')
 
 const userSchema = mongoose.Schema({
     firstname: {
@@ -86,4 +87,5 @@ userSchema.statics.findByCredentials = async (email, password) => {
     return user
 }
 
-module.exports = mongoose.model('User', userSchema);
+const User = mongoose.model('User', userSchema)
+module.exports = User
