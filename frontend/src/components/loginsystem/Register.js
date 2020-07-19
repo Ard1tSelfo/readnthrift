@@ -12,6 +12,7 @@ import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 import { Paper, InputLabel, Select, MenuItem, FormControl } from "@material-ui/core";
 import BackgroundImage from "../../assets/images/background.jpg";
+import { Link as LinkDom } from 'react-router-dom';
 
 function Copyright() {
     return (
@@ -238,7 +239,7 @@ class Register extends Component {
                         </Button>
                         <Grid container justify="flex-end">
                             <Grid item>
-                                <Link href="../login" variant="body2">
+                                <Link component={LinkDom} to="/login" variant="body2">
                                     Already have an account? Sign in
                                 </Link>
                             </Grid>

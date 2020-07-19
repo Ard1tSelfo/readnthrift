@@ -5,6 +5,7 @@ import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
 import Link from "@material-ui/core/Link";
+import { Link as LinkDom } from 'react-router-dom';
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
@@ -119,8 +120,8 @@ class Login extends Component {
             localStorage.setItem("token", res.data.token);
             this.props.history.push("/dashboard");
         } catch (error) {
-            this.handleAlertClick()
             console.log(error);
+            this.handleAlertClick()
         }
     };
 
@@ -182,7 +183,7 @@ class Login extends Component {
                             <Grid item xs>
                             </Grid>
                             <Grid item>
-                                <Link href="../register" variant="body2">
+                                <Link component={LinkDom} to="/register" variant="body2">
                                     {"Don't have an account? Sign Up"}
                                 </Link>
                             </Grid>

@@ -21,7 +21,7 @@ const userSchema = mongoose.Schema({
         lowercase: true,
         validate: value => {
             if (!validator.isEmail(value)) {
-                throw new Error({error: 'Invalid Email address'})
+                throw new Error({ error: 'Invalid Email address' })
             }
         }
     },
@@ -64,18 +64,18 @@ userSchema.pre('save', async function (next) {
     next()
 })
 
-userSchema.methods.generateAuthToken = async function() {
+userSchema.methods.generateAuthToken = async function () {
     // Generate an auth token for the user
     const user = this
-    const token = jwt.sign({_id: user._id}, process.env.JWT_KEY)
-    user.tokens = user.tokens.concat({token})
+    const token = jwt.sign({ _id: user._id }, process.env.JWT_KEY)
+    user.tokens = user.tokens.concat({ token })
     await user.save()
     return token
 }
 
 userSchema.statics.findByCredentials = async (email, password) => {
     // Search for a user by email and password.
-    const user = await User.findOne({ email} )
+    const user = await User.findOne({ email })
     if (!user) {
         throw new Error({ error: 'Invalid login credentials' })
     }
