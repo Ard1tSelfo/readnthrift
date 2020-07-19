@@ -3,19 +3,6 @@ const Review = require('../models/Review')
 
 const router = express.Router()
 
-
-/*router.post('/reviews', async (req, res) => {
-    // Create a new Review
-    try {
-        const review = new Review(req.body)
-        await review.save()
-        res.status(201).send(review)
-    } catch (error) {
-        res.status(400).send(error)
-    }
-})
-*/
-
 const ReviewController = require('../controllers/review');
 
 router.post('/reviews', ReviewController.create); // Create a new review

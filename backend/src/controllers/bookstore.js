@@ -13,6 +13,18 @@ const getbookstore = async (req, res) => {
     }
 };
 
+const getAllBookstores  = async (req, res) => {
+    try {
+      let bookstores = await BookstoreModel.find({}).exec();
+      return res.status(200).json(bookstores);
+    } catch(err) {
+      return res.status(500).json({
+        error: 'Internal server error',
+        message: err.message
+      });
+    }
+  };
+
 const createbookstore = async (req, res) => {
     if (Object.keys(req.body).length === 0)
         return res.status(400).json({
@@ -97,6 +109,7 @@ const removebookfrombookstore = async (req, res) => {
 
 module.exports = {
     getbookstore,
+    getAllBookstores,
     createbookstore,
     updatebookstore,
     removebookfrombookstore,
