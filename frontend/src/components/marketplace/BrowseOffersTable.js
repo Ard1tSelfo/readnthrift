@@ -53,7 +53,6 @@ class BrowseOffersTable extends Component {
             user: null,
             loading: false,
             offer: null,
-            //book: null
         };
     }
 
@@ -68,16 +67,12 @@ class BrowseOffersTable extends Component {
  
         try {
             const user = await UserService.getCurrentUser();
-          //  const offer = await OfferService.getOfferById(rowData._id);
-            //const book = await BookService.getBookById(offer.book);
             this.setState({
                 user: user,
-                //book: book,
-                //offer: offer,
                 loading: false,
             });
         } catch (error) {
-            //error.message
+            //TODO: error.message
             this.setState({
                 error: error,
             });

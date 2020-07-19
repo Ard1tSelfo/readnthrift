@@ -1,6 +1,7 @@
 "use strict";
 
 const OfferModel = require('../models/Offer');
+const Offer = require('../models/Offer');
 
 const create = async (req, res) => {
     if (Object.keys(req.body).length === 0) return res.status(400).json({
@@ -33,20 +34,6 @@ const getOfferById = async (req, res) => {
     }
 };
 
-/*const getOfferByUserID = async (req, res) => {
-    let userId = req.params.userId
-    try {
-        let offer = await OfferModel.findOne({ userId: userId}).exec();
-        return res.status(200).json(offer);
-    } catch (err) {
-        return res.status(500).json({
-            error: "Internal server error",
-            message: err.message,
-        });
-    }
-};*/
-
-
 
 const offersList = async (req, res) => {
     try {
@@ -59,6 +46,18 @@ const offersList = async (req, res) => {
         });
     }
 };
+
+const openOffersList = async (_, res) => {
+  try {
+    let offers = await OfferModel.find({open: true}).exec();
+    return res.status(200).json(offers);
+  } catch (err) {
+    return res.status(500).json({
+      error: 'Internal server error',
+      message: err.message,
+    })
+  }
+}
 
 const read = async (req, res) => {
   try {
@@ -135,5 +134,6 @@ module.exports = {
     read,
     update,
     remove,
-    list
+    list,
+    openOffersList
 };

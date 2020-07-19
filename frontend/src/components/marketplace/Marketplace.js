@@ -17,8 +17,6 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(1),
         textAlign: "center",
         color: theme.palette.text.primary,
-        //margin: theme.spacing(1),
-        //marginBottom: theme.spacing(1)
     },
     grid: {
         padding: theme.spacing(0),
@@ -31,11 +29,10 @@ function CenteredGrid({ e, f, g }) {
 
     return (
         <div className={classes.root}>
-            <br />
+            <br/>
             <Grid container style={{ margin: 0, width: "100%" }}>
                 <Grid
                     item
-                    
                     xs={7}
                     style={{
                         padding: "0",
@@ -65,7 +62,6 @@ function CenteredGrid({ e, f, g }) {
                             Create an offer
                         </Button>
                     </Paper>
-
                     <BrowseOffersTable data={f} tableTitle="Your offers" />
                 </Grid>
             </Grid>
@@ -91,10 +87,9 @@ class Marketplace extends Component {
         });
 
         try {
-            const offers = await OfferService.getAllOffers();
+            const offers = await OfferService.getAllOpenOffers();
             const user = await UserService.getCurrentUser();
             const myoffers = await OfferService.getOffersByUser(user._id);
-            //const myoffers = await OfferService.;
             this.setState({
                 user: user,
                 offers: [...offers],
@@ -102,7 +97,7 @@ class Marketplace extends Component {
                 loading: false,
             });
         } catch (error) {
-            //error.message
+            // TODO error.message
             this.setState({
                 error: error,
             });

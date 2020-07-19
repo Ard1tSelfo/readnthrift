@@ -65,7 +65,6 @@ class ChooseBook extends Component {
  
     handleRowClick = (event, rowData) => {
         this.props.history.push(`/createoffer/${rowData._id}`);
-        //this.props.history.push(`/books/${rowData._id}`);
     }
 
     async componentDidMount(){
