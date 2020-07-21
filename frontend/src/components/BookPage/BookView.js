@@ -277,6 +277,7 @@ class BookView extends Component {
                 this.setState({
                     reviewsnackbaropen: true
                 });
+                window.location.reload(false);
             } catch (error) {
                 this.setState({
                     error: error,
