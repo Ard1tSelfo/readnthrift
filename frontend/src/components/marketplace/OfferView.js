@@ -211,6 +211,14 @@ class OfferView extends Component {
                     <Divider style={{marginTop: "15px", marginBottom: "15px"}} variant="middle" />
                     <Grid>
                         <Typography variant="body2" gutterBottom>
+                            Cover:{" "}
+                            {!!this.state.offer && <text>{this.state.offer.cover}</text>}
+                        </Typography>
+                        <Typography variant="body2" gutterBottom>
+                            Condition:{" "}
+                            {!!this.state.offer && <text>{this.state.offer.condition}</text>}
+                        </Typography>
+                        <Typography variant="body2" gutterBottom>
                             Price:{" $"}
                             {!!this.state.offer && <text>{this.state.offer.price}</text>}
                         </Typography>
